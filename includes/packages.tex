@@ -1,0 +1,165 @@
+% AMS packages
+\usepackage{amsmath, amssymb, amstext}
+
+
+
+% Tensor package
+% Full documentation: http://ftp.uni-erlangen.de/mirrors/CTAN/macros/latex/contrib/tensor/tensor.pdf
+% Usage:
+% Indices only: \indices{^a_{bc}}
+% Tensor: \tensor[indices before]{tensor name}{indices after}
+\usepackage{tensor}
+
+
+
+% smashoperator
+\usepackage{mathtools}
+
+
+
+% Provides better support for underlined (etc) text. Use [normalem] to not alter \emph to underlining.
+\usepackage[normalem]{ulem}
+
+
+
+% Cancel package (strike-through formulas)
+% Usage: \cancel{} \bcancel{} \xcancel{} \cancelto{}{}
+\usepackage{cancel}
+
+
+
+% Extended graphics support
+\usepackage{graphicx}
+
+
+
+% Colorizing things
+% Usage: {\color{grey}lorem ipsum}
+\usepackage{xcolor}
+\definecolor{gray}{rgb}{0.6,0.6,0.6}
+\definecolor{red}{rgb}{0.8,0,0}
+\definecolor{green}{rgb}{0.04,0.62,0.14}
+% Mathematica's first four ColorData[1] colors:
+\definecolor{mathematica1}{rgb}{0.2472, 0.24, 0.6}
+\definecolor{mathematica2}{rgb}{0.6, 0.24, 0.442893}
+\definecolor{mathematica3}{rgb}{0.6, 0.547014, 0.24}
+\definecolor{mathematica4}{rgb}{0.24, 0.6, 0.33692}
+
+
+
+% Double strike font \mathds{}
+\usepackage{dsfont}
+
+
+
+% Script font \mathscr{}
+\usepackage{mathrsfs}
+
+
+
+% Hyperlinks, internal and external.
+\usepackage{hyperref}
+\hypersetup{
+	% Color links
+	colorlinks=true,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
+
+
+% Create index.
+% Create entry via \index{name[subname[subsubname]] (depth optional)
+% Print using \printindex
+\usepackage{makeidx} \makeindex
+
+
+
+% Generate warnings when using deprecated commands
+\usepackage[l2tabu, orthodox]{nag}
+
+
+
+% Multicolumn sections.
+% Example: Two-column layout: \begin{multicols}{2} lorem ipsum \end{multicols}
+\usepackage{multicol}
+
+% Enables lipsum text using \lipsum. \lipsum[i-j] prints paragraphs i to j. Maximum is 150.
+\usepackage{lipsum}
+\setlipsumdefault{1} % Print first paragraph by default
+
+
+
+% Better date/time support
+\usepackage{datetime}
+\renewcommand{\dateseparator}{-}
+\renewcommand{\timeseparator}{:}
+\newcommand\Date{\the\year \dateseparator \twodigit\month \dateseparator \twodigit\day}
+\newcommand\Time{\currenttime}
+
+
+% Theorems
+% amsmath = compatibility
+% thmref = references to theorems
+% hyperref = compatibility
+% noconfig = don't load default theorem styles
+% thmmarks = theorem end marks
+\usepackage[amsmath, thref, hyperref, noconfig, thmmarks]{ntheorem} % (Way better than amsthm)
+\theorembodyfont{\normalfont}
+% Theorems
+	\theoremstyle{break}
+	\theoremheaderfont{\scshape}
+	\newtheorem{theorem}{Theorem}%[section]
+	\newtheorem{corollary}[theorem]{Corollary}
+	\newtheorem{definition}[theorem]{Definition}
+	\newtheorem{proposition}[theorem]{Proposition}
+% Proof
+	\theoremstyle{nonumberplain}
+	\theoremheaderfont{\slshape}
+	\theoremseparator{.}
+	\theoremsymbol{\ensuremath{\square}}
+	\newtheorem{proof}{Proof}
+% Examples, remarks
+	\theoremstyle{plain}
+	\theoremheaderfont{\slshape}
+	\theoremsymbol{\ensuremath{\bigtriangleup}}
+	\theoremseparator{:}
+	\newtheorem{example}{Example}%[section]
+	\newtheorem{remark}[example]{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

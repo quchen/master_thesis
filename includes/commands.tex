@@ -1,0 +1,133 @@
+% Environments
+
+% Math
+\newcommand{\Equation}[1]{\begin{equation*}#1\end{equation*}}    % equation
+\newcommand{\NEquation}[1]{\begin{equation}#1\end{equation}}     % equation (numbered)
+\newcommand{\Align}[1]{\begin{align*}#1\end{align*}}             % block equation without numbering
+\newcommand{\NAlign}[1]{\begin{align}#1\end{align}}              % block equation with numbering. Use \notag to suppress numbering locally.
+%\newcommand{\Inline}[1]{\(#1\)}                                  % inline equation DEPRECATED.
+% Sub-math
+\newcommand{\Split}[1]{\begin{split}#1\end{split}}               % split (for use inside Align)
+\newcommand{\Cases}[1]{\begin{cases}#1\end{cases}}               % piecewise functions etc (for use in math mode)
+% Matrices
+\newcommand{\Matrix}[1]{\begin{matrix}#1\end{matrix}}            % matrix without parentheses
+\newcommand{\MatrixP}[1]{\begin{pmatrix}#1\end{pmatrix}}         % () matrix ("parentheses matrix")
+\newcommand{\MatrixB}[1]{\begin{bmatrix}#1\end{bmatrix}}         % [] matrix ("braces matrix")
+\newcommand{\MatrixC}[1]{\begin{Bmatrix}#1\end{Bmatrix}}         % {} matrix ("curly matrix")
+\newcommand{\MatrixD}[1]{\begin{vmatrix}#1\end{vmatrix}}         % || matrix ("det matrix")
+\newcommand{\MatrixN}[1]{\begin{Vmatrix}#1\end{Vmatrix}}         % || || matrix ("norm matrix")
+% Quotes
+\newcommand{\Qe}[1]{`#1'}                                        % quotes english
+\newcommand{\Dqe}[1]{``#1''}                                     % double quotes english
+\newcommand{\Qg}[1]{\glq{}#1\grq}                                % quotes german
+\newcommand{\Dqg}[1]{\glqq{}#1\grqq}                             % double quotes german
+
+
+
+% Abbreviations for common operations
+
+% General
+\renewcommand{\d}{\mathrm{d}}                                    % differential
+\renewcommand{\i}{\mathrm{i}}                                    % imaginary unit
+\renewcommand{\inf}{\infty}                                      % infinity
+\newcommand{\infint}{\int_{-\inf}^\inf}                          % integral from -inf to inf
+\newcommand{\inflint}{\int\limits_{-\inf}^\inf}                  % integral from -inf to inf with \limits
+% Differential quotients
+\newcommand{\tdq}[2]{\frac{\d #1}{\d #2}}                        % total differential quotient
+\newcommand{\pdq}[2]{\frac{\partial #1}{\partial #2}}            % partial differential quotient
+\newcommand{\vpdq}[1]{\frac{\vec\partial}{\vec\partial #1}}      % vector partial differential quotient
+\newcommand{\vdq}[2]{\frac{\delta #1}{\delta #2}}                % variational differential quotient
+% Frequent terms
+\renewcommand\exp{\operatorname{exp}}                            % exp
+\renewcommand\sin{\operatorname{sin}}                            % sin
+\renewcommand\cos{\operatorname{cos}}                            % cos
+\renewcommand\tan{\operatorname{tan}}                            % tan
+\renewcommand\cot{\operatorname{cot}}                            % cot
+\renewcommand\Re{\operatorname{Re}}                              % Re
+\renewcommand\Im{\operatorname{Im}}                              % Im
+\newcommand\Res{\operatorname*{Res}}                             % Res (* produces underset subscripts)
+\renewcommand\div{\operatorname{div}}                            % div
+\newcommand\grad{\operatorname{grad}}                            % grad
+\newcommand\curl{\operatorname{curl}}                            % curl
+\newcommand\rot{\operatorname{curl}}                             % rot = curl
+\newcommand\sign{\operatorname{sign}}                            % sign
+\renewcommand\deg{\operatorname{deg}}                            % degree
+\newcommand\supp{\operatorname{supp}}                            % support
+\newcommand\Tr{\operatorname{Tr}}                                % trace
+\renewcommand\det{\operatorname{det}}                            % determinant
+\newcommand\ind{\operatorname{ind}}                              % winding number
+\newcommand\vol{\operatorname{vol}}                              % volume form
+\newcommand\unity{\mathds{1}}                                    % identity matrix/operator
+\newcommand\id{\operatorname{Id}}                                % identity
+\newcommand\const{\mathrm{const.}}                               % Constants
+
+
+
+% Redefinitions, fixing ambiguities
+\newcommand\hodge{*}                                             % Hodge star
+\newcommand\cross{\times}                                        % cross product
+\renewcommand\vec[1]{\boldsymbol{#1}}                            % print vectors bold
+\newcommand\laplace{\Delta}                                      % Laplace operator
+
+
+
+% Special fonts
+\newcommand\Cal[1]{\mathcal{#1}}                                 % Calligraphic (upper/lower case)
+\newcommand\Frak[1]{\mathfrak{#1}}                               % Fraktur (upper/lower case)
+\newcommand\Script[1]{\mathscr{#1}}                              % Script (upper case only)
+\newcommand\Set[1]{\mathbb{#1}}                                  % Set/double stroke (upper case only)
+
+
+
+% Units (m/s^2)
+\newcommand{\Unit}[1]{\;\mathrm{#1}}
+
+
+
+% References to different objects
+\newcommand{\RefTheorem}[1]{\hyperref[#1]{\{\ref*{#1}\}}} % {123}
+\newcommand{\RefEqn}[1]{\hyperref[#1]{(\ref*{#1})}} % (123)
+\newcommand{\RefFigure}[1]{\hyperref[#1]{\ref*{#1}}} % 123
+\newcommand{\RefSection}[1]{\hyperref[#1]{\ref*{#1}}} % 123
+
+
+
+% Nicer square root
+\def\nicesqrt{\mathpalette\DHLhksqrt}
+\def\DHLhksqrt#1#2{%
+\setbox0=\hbox{$#1\oldsqrt{#2\,}$}\dimen0=\ht0%
+\advance\dimen0-0.2\ht0%
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+
+
+
+% Todo placeholder:
+\newcommand{\TODO}[1]{{\color{red}[TODO: #1]}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

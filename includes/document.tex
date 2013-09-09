@@ -1,0 +1,114 @@
+% Document class.
+%       Document types:
+%             scrartcl: articles
+%             scrreprt: longer articles
+%             scrbook: books; allows \chapter for sections
+%             scrlettr: letters
+%       Paper formats:
+%             default: US letter
+%             a4paper: A4
+%       Additional options
+%             titlepage|notitlepage: use dedicated page for the title
+%             onecolumn|twocolumn
+%             oneside|twoside: one/two sided printing
+%
+\documentclass[12pt, a4paper]{scrreprt}
+
+
+
+\usepackage[a4paper]{geometry}      % Paper format
+\usepackage[OT2, T1]{fontenc}       % Font encoding. Displays fonts badly, unless ...
+\usepackage{lmodern}                % ... this is enabled.
+\usepackage[latin9]{inputenc}       % Input encoding.latin9 = Latin9/ISO-8859-15
+\usepackage[english]{babel}         % english|ngerman (new german)
+
+
+
+% Serif headlines for scr document classes
+% Description: see page 61 (on \setkomafont) in the KOMA manual
+\setkomafont{sectioning}{\normalfont\bfseries}
+
+
+
+% Header and footer
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\usepackage{lastpage} % enables \pageref{LastPage}
+
+%\automark[subsection]{section} % Creates an automark corresponding to the current section/subsection.
+%\ihead{\headmark}
+%\chead{}
+%\ohead{\textnormal{\pagemark/\pageref*{LastPage}}}
+%\ifoot{}
+%\cfoot{---~\pagemark~---}
+%\ofoot{}
+%\setheadsepline{.2mm} % Thin line below head
+
+
+
+% Customize captions of figures etc.
+\usepackage{caption}
+\captionsetup{margin=1cm, indention=0cm}
+
+% Indentation for figure captions
+\setcapindent{0mm}
+
+% Names of figures, tables etc
+% Note that \renewcommand\figurename alone doesn't work because of babel
+\addto\captionsenglish{\renewcommand\figurename{Figure}}
+
+
+% Chapter numbering
+	% Section enumeration
+	%       -1: nothing
+	%       0-: Depth down to which is enumerated
+	\setcounter{secnumdepth}{6}
+	% Available numbered entities: \the... part, chapter, section, subsection, subsubsection, paragraph, subparagraph, page, equation, figure, table, footnote, mpfootnote, enumi, enumii, enumiii, enumiv
+	% Available numbers (\command{counter}):
+	%       \alph, \Alph: a-z, A-Z
+	%       \arabic: 0-9
+	%       \fnsymbol: Different special character for each counter
+	%       \roman, \Roman: i, I
+	\renewcommand{\thesection}{\arabic{section}}
+	\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+	%\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+
+
+% Table of contents depth, similar to secnumdepth above.
+% 0 = chapters
+% 1 = sections
+% ...
+\setcounter{tocdepth}{2}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
