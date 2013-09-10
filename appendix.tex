@@ -1,3 +1,36 @@
 \chapter{Appendix}
 
 \section{Calculation of Fokker-Planck propagator moments}
+
+The following describes how to calculate the \((i,j)\)-th \((\d q, \d p)\) moment of the Fokker-Planck (FP) propagator. For the system discussed in this thesis \TODO{ref to eqn of motion} \TODO{ref to paper}, it has the rather long form
+
+\begin{align*}
+	&G_a(q,p,\d q,\d p,\d t) = \\
+	& \frac1{2 \pi  \d t \varepsilon  \Gamma (a \d p +p)}
+	  ~\exp \Bigl(\frac1{2 \d t} \\
+	%
+	&\quad \Bigl(
+		-\frac{(\d q-\d t (a \d p +p))^2}{\varepsilon ^2} \\
+		&\qquad +\frac{\left(\d t (a \d p +p) \gamma (a \d p +p)+2 a \d t  \Gamma (a \d p +p) \Gamma '(a \d p +p)+\d p+\d t v'(a \d q+q)\right)^2}{\Gamma (a \d p +p)^2} \\
+		&\qquad +2 \d t^2 a  \left(-(a \d p +p) \gamma '(a \d p +p)-\gamma (a \d p +p)\right) \\
+		&\qquad -2 \d t^2 a ^2 \left(\Gamma (a \d p +p) \Gamma ''(a \d p +p)+\Gamma '(a \d p +p)^2\right)\Bigr)\Bigr)
+\end{align*}
+
+In the following, a modified version of the method of steepest descent will be derived, and then applied to the propagator to calculate the moments up to the needed order.
+
+
+\subsection{Generalized method of steepest descent}
+
+The moments of the FP propagator can be calculated similar to how the method of steepest descent is derived. However, there are a few details making it a little more difficult:
+
+\begin{enumerate}
+	\item The standard formula for steepest descent assumes that the exponential's prefactor is independent of the ``small'' quantity. This is not the case for the FP propagator, so a new formula has to be developed, albeit in the same spirit.
+	\item Terms quickly grow with increasing order. While it must be made sure that no significant terms are omitted, calculating ``too much'' and dropping unnecessary terms afterwards introduces a lot of work and potential oversights. For that reason one should very carefully keep track of the orders of the terms to be calculated; the criteria for this turn out to be quite different in each order.
+\end{enumerate}
+
+
+\subsection{i-th dq moment}
+
+Calculation of the \(i\)-th \(\d q\) moment is a straightforward application of the method of steepest descent
+
+\subsection{j-th dp moment}
