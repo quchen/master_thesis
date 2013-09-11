@@ -2,35 +2,223 @@
 
 \section{Calculation of Fokker-Planck propagator moments}
 
-The following describes how to calculate the \((i,j)\)-th \((\d q, \d p)\) moment of the Fokker-Planck (FP) propagator. For the system discussed in this thesis \TODO{ref to eqn of motion} \TODO{ref to paper}, it has the rather long form
-
-\begin{align*}
-	&G_a(q,p,\d q,\d p,\d t) = \\
-	& \frac1{2 \pi  \d t \varepsilon  \Gamma (a \d p +p)}
-	  ~\exp \Bigl(\frac1{2 \d t} \\
+The Fokker-Planck (FP) propagator has the moments
+\begin{align}
+	\label{eqn:fp-moment-integral}
+	M_{ij;c} =
+		\inflint\d (\d q)
+		\inflint\d (\d p)
+		G_c(q+\d q,p+\d p|q,p; \d t)\d q^i\d p^j ~.
+\end{align}
+%
+The following describes how to calculate these up to relevant orders. For the system discussed in this thesis \TODO{ref to eqn of motion} \TODO{ref to paper}, \(G_a\) takes the form
+%
+\begin{align}
+	\label{eqn:fp-propagator}
+	&G_c(q,p,\d q,\d p,\d t) = \\ \notag
+	& \frac1{2 \pi  \d t \varepsilon  \Gamma (c \d p +p)}
+	  ~\exp \Bigl(\frac1{2 \d t} \\ \notag
 	%
-	&\quad \Bigl(
-		-\frac{(\d q-\d t (a \d p +p))^2}{\varepsilon ^2} \\
-		&\qquad +\frac{\left(\d t (a \d p +p) \gamma (a \d p +p)+2 a \d t  \Gamma (a \d p +p) \Gamma '(a \d p +p)+\d p+\d t v'(a \d q+q)\right)^2}{\Gamma (a \d p +p)^2} \\
-		&\qquad +2 \d t^2 a  \left(-(a \d p +p) \gamma '(a \d p +p)-\gamma (a \d p +p)\right) \\
-		&\qquad -2 \d t^2 a ^2 \left(\Gamma (a \d p +p) \Gamma ''(a \d p +p)+\Gamma '(a \d p +p)^2\right)\Bigr)\Bigr)
-\end{align*}
-
-In the following, a modified version of the method of steepest descent will be derived, and then applied to the propagator to calculate the moments up to the needed order.
-
-
-\subsection{Generalized method of steepest descent}
-
-The moments of the FP propagator can be calculated similar to how the method of steepest descent is derived. However, there are a few details making it a little more difficult:
-
-\begin{enumerate}
-	\item The standard formula for steepest descent assumes that the exponential's prefactor is independent of the ``small'' quantity. This is not the case for the FP propagator, so a new formula has to be developed, albeit in the same spirit.
-	\item Terms quickly grow with increasing order. While it must be made sure that no significant terms are omitted, calculating ``too much'' and dropping unnecessary terms afterwards introduces a lot of work and potential oversights. For that reason one should very carefully keep track of the orders of the terms to be calculated; the criteria for this turn out to be quite different in each order.
-\end{enumerate}
+	&\quad \times \Bigl(
+		-\frac{(\d q-\d t (c \d p +p))^2}{\varepsilon ^2} \\ \notag
+		&\qquad +\frac{\left(\d t (c \d p +p) \gamma (c \d p +p)+2 c \d t  \Gamma (c \d p +p) \Gamma '(c \d p +p)+\d p+\d t v'(c \d q+q)\right)^2}{\Gamma (c \d p +p)^2} \\ \notag
+		&\qquad +2 \d t^2 c  \left(-(c \d p +p) \gamma '(c \d p +p)-\gamma (c \d p +p)\right) \\ \notag
+		&\qquad -2 \d t^2 c ^2 \left(\Gamma (c \d p +p) \Gamma ''(c \d p +p)+\Gamma '(c \d p +p)^2\right)\Bigr)\Bigr)
+\end{align}
 
 
 \subsection{i-th dq moment}
 
-Calculation of the \(i\)-th \(\d q\) moment is a straightforward application of the method of steepest descent
+Calculation of the \(i\)-th \(\d q\) moment is a straightforward application of the method of steepest descent \TODO{Ref}
+\begin{align}
+	\inflint\d q f(q)e^{\frac1\varepsilon g(q)}
+	= \lim_{\varepsilon\to0} f(q_{\text{max}}) e^{\varepsilon g(q_{\text{max}})}\sqrt{\frac{2\pi}{-\varepsilon g''(q_{\text{max}})}}
+\end{align}
+where \(q_{\text{max}}\) denotes the extremum of \(g(q)\).
+
+
+Here the ``small'' quantity is \(\varepsilon\), which appears only in the prefactor and the first summand in the exponential in \RefEqn{eqn:fp-propagator}; \(q_{\text{max}}\) can be seen to be \(\d t (c \d p+p)\) from the propagator's exponential term. Steepest descent then, using \(\tilde p_c = c \d p + p\) as a shorthand, yields
+\begin{align}
+	\label{eqn:dq-integration-finished}
+	& \frac{\d t^{i-\frac12} \tilde p_c^i}{\sqrt{2 \pi } \Gamma (\tilde p_c)} \exp \Bigl(
+		\\ &\qquad \notag
+		\phantom{+}\d t c  \left(\tilde p_c \gamma '(\tilde p_c)
+		+\gamma (\tilde p_c)\right)
+		+\d t c ^2 \left(\Gamma (\tilde p_c) \Gamma ''(\tilde p_c)
+		+\Gamma '(\tilde p_c)^2\right)
+		\\ &\qquad \notag
+		-\frac{\left(\d t \tilde p_c \gamma (\tilde p_c)
+		+2 \d t c  \Gamma (\tilde p_c) \Gamma '(\tilde p_c)
+		+\d t v'(c  \tilde p_c \d t +q)+\d p\right)^2}{2 \d t \Gamma (\tilde p_c)^2}
+	 \Bigr)
+\end{align}
+as the intermediate result for \RefEqn{eqn:fp-moment-integral} after the \(\d(\d q)\) integration. (The \(\varepsilon\) fall away naturally without even taking the limit \(\varepsilon\to0\).)
+
+
 
 \subsection{j-th dp moment}
+
+For the \(\d p\) moments the approach is similar, but a little more complicated:
+%
+\begin{enumerate}
+	\item The standard formula for steepest descent assumes that the exponential's prefactor is independent of the ``small'' quantity (\(\d t\) in this case). This is not the case for the previously obtained result after \(\d(\d q)\) integration.
+	\item Terms quickly grow with increasing order. While it must be made sure that no significant terms are omitted, calculating ``too much'' and dropping unnecessary terms afterwards introduces a lot of work and potential oversights. For that reason one should very carefully keep track of the orders of the terms to be calculated; the criteria for this turn out to be quite different in each order.
+\end{enumerate}
+%
+The expression of interest is
+\begin{align}
+	\label{eqn:dp-moments-integral}
+	I_k(\d t) = \inflint \d (\d p) \, \d p^k f_{\d t}(\d p) \, e^{\frac1{\d t}g(\d p)}
+\end{align}
+where the integrand ``\(fe^{g/\d t}\)'' is given by \RefEqn{eqn:dq-integration-finished}, which as you recall is the already integrated part of \RefEqn{eqn:fp-moment-integral}; note the potential \(\d t\) dependency of \(f\) denoted by an index. By substitution \(\d p\rightarrow \d p'\sqrt{\d t}\) and following that Taylor expansion of \(f\) and \(g\) around \(\d p'\sqrt{\d t} = \underline{\d p'}\sqrt{\d t}\), this can be transformed into
+\begin{align}
+	\label{eqn:I_k(dt)}
+	I_k(\d t) &=
+		\sqrt{\d t}^{k+1}
+		\exp\left(\frac1{\d t}g\left(\underline{\d p'}\sqrt{\d t}\right)\right)
+		\inflint \d (\d p') \d p'^k
+		\\ &\qquad \notag \times
+		\exp\left(\frac{\d p'^2}2 g''(\underline{\d p'}\sqrt{\d t})\right)
+		\exp\left(\frac{\d p'^3\sqrt{\d t}}2 g'''(\underline{\d p'}\sqrt{\d t})\right)
+		\left(1 + \Cal O(\d p'^4 \d t^1)\right)
+		\\ &\qquad \notag \times
+		\left(
+			f_{\d t}(\underline{\d p'}\sqrt{\d t})
+			+ f_{\d t}'(\underline{\d p'}\sqrt{\d t})\d p'\sqrt{\d t}
+			+ f_{\d t}''(\underline{\d p'}\sqrt{\d t})\frac{\d p^2\d t}2
+			+ \Cal O(\d p'^3\d t^{3/2})
+		\right)
+\end{align}
+This intermediate result resembles a corresponding expression in the method of steepest descent: suppose \(f\) does not have an implicit \(\d t\) dependence (in the present notation: does not depend on the index), then the integral would simply be Gaussian in the limit \(\d t\to0\), and we would recover the standard formula.
+
+The following integral will prove handy later (\(a < 0\)):
+\begin{align}
+	\label{eqn:gaussian_moments}
+	J_n = \inflint \d x \, x^n e^{\frac{a x^2}2}
+	=
+	\Cases{
+		\sqrt{\frac{2^{n-1}}{-a^{n+1}}} \Gamma\left(\frac{n+1}2\right)
+			& n \text{ even}
+		\\
+		0 & n \text{ odd}
+	}
+\end{align}
+(derivation: substitute the exponent by a linear expression, leading to the usual \(\Gamma\) integral representation.) The first couple of values are
+\begin{align}
+	J_0 = \sqrt{\frac{2\pi}{-a}}
+	\qquad
+	J_2 = \sqrt{\frac{2\pi}{-a^3}}
+	\qquad
+	J_4 = \sqrt{\frac{18\pi}{-a^5}} ~.
+\end{align}
+
+\TODO{Mention that $p_max = 0$ now}
+
+\subsubsection{Zeroth dp moment}
+
+The zeroth moment appears with an already given factor of \(\d t\) in \TODO{ref}, therefore the result here only has to be considered in \(\Cal O(\d t^0)\) to get an overall \(\Cal O(\d t^1)\) expression.
+%
+\begin{align*}
+	I_0(\d t)
+	&=
+	\sqrt{\d t}\exp\left(\frac1{\d t}g(0)\right)
+	\inflint\d(\d p')\exp\left(\frac{\d p'^2}2g''(0)\right)
+	\left(1+\Cal O(\d p'^3\d t^{1/2})\right)
+	\\&\qquad
+	\times\Bigl(
+	f(0)
+	+ \cancel{f'(0)\d p'\sqrt{\d t}}
+	+ f''(0)\frac{\d p'^2\d t}2
+	+ \Cal O(\d p'^3\d t^{3/2})
+	\Bigr)
+	\\
+	&= f(0)e^{\frac{g(0)}{\d t}}\sqrt{\frac{2\pi\d t}{-g''(0)}} + \Cal O(\d t^1)
+\end{align*}
+%
+Inserting the expressions for \(f\) and \(g\) (obtained by comparing \RefEqn{eqn:dp-moments-integral} with \RefEqn{eqn:dq-integration-finished}) and using \RefEqn{eqn:gaussian_moments} to calculate/cancel out the integrals, then gives
+%
+\begin{align}
+	M_{i0,c} = \d t^i p^i + \Cal O(\d t^{i+1})
+\end{align}
+
+\subsubsection{First dp moment}
+
+Unlike the zeroth order, the \(\d p^1\) moment does not have a \(\d t\) prefactor in the entropy formula; expansion therefore has to be up to \(\Cal O(\d t^1)\) here. The surprising property of this moment is that the Gaussian exponential is \emph{not} the only exponential contributing to the result up to the desired order: the term \(\exp(\propto\d p'^3)\) needs to be considered as well, otherwise the result additionally contains an incorrect \(c\)-dependent expression.
+%
+\begin{align*}
+	I_1(\d t)
+	&=
+	\d t\exp\left(\frac1{\d t}g(0)\right)
+	\inflint\d(\d p')\d p'
+	\\&\qquad\times
+		\exp\left(\frac{\d p'^2}2g''(0)\right)
+		\exp\left(\frac{\d p'^3\sqrt{\d t}}2g'''(0)\right)
+		\left(1+\Cal O(\d p'^4\d t^1)\right)
+	\\&\qquad
+	\times\Bigl(
+	  f(0)
+	+ f'(0)\d p'\sqrt{\d t}
+	+ \Cal O(\d p'^2\d t^1)
+	\Bigr)
+	\\
+	&= f'(0)e^{\frac{g(0)}{\d t}}\sqrt{\frac{2\pi\d t^3}{-g''(0)^3}}
+	   + \frac{f(0)g'''(0)}6e^{\frac{g(0)}{\d t}}\sqrt{\frac{3^22\pi\d t^3}{-g''(0)^5}}
+	   + \Cal O(\d t^2)
+\end{align*}
+%
+Note how in the second root the exponents of \(\d t\) and \(g''\) do not match. The reason for this is that there is an additional \(1/\d t\) hidden in \(f(0\) that appears only in the second summand, canceling the \(\d t^5\) in the root to \(\d t^3\); as a consequence, both summands contribute to the end result to the same order.
+
+Again, \RefEqn{eqn:gaussian_moments} allows us to calculate the integrals, leading to
+%
+\begin{align}
+	M_{i1,c} = -\d t^{i+1}\left(
+		p^{i+1}\gamma(p)
+		+ p^iV'(q)
+		- p^{i-1}ci\Gamma(p)^2\right)
+	+ \Cal O(\d t^2)
+\end{align}
+%
+For \(i = 0\), the only case relevant here because it contains a term of order \(\d t^1\), the odd-looking term involving \(ci\) vanishes.
+
+\subsubsection{Second dp moment}
+
+\begin{align*}
+	I_2(\d t)
+	&=
+	\d t^{3/2}\exp\left(\frac1{\d t}g(0)\right)
+	\inflint\d(\d p')\exp\left(\frac{\d p'^2}2g''(0)\right)
+	\left(1+\Cal O(\d p'^3\d t^{1/2})\right)
+	\\&\qquad
+	\times\Bigl(
+	  f(0)
+	+ \cancel{f'(0)\d p'\sqrt{\d t}}
+	+ f''(0)\frac{\d p'^2\d t}2
+	+ \Cal O(\d p'^3\d t^{3/2})
+	\Bigr)
+	\\
+	&=   f(0)e^{\frac{g(0)}{\d t}}\sqrt{\frac{2\pi\d t^3}{-g''(0)^3}}
+	   + \Cal O(\d t^2)
+\end{align*}
+%
+and one last time \RefEqn{eqn:gaussian_moments} is used for integration,
+%
+\begin{align}
+	M_{i2,c} = \d t^{i+1} p^i \Gamma(p)^2 + \Cal O(\d t^2)
+\end{align}
+
+\subsubsection{Higher-order dp moments}
+
+Since we're not interested in terms of order higher than \(\d t^1\), and keeping in mind that \(f_{\d t}\) involves a factor of \(\d t^{-1/2}\), we can see that for \(k>2\) \RefEqn{eqn:I_k(dt)} will always yield a result of negligible order. Therefore, the \(\d p\) moments of power greater than~\(2\) do not appear in our entropy and need not be considered.
+
+\subsubsection{Summary of the moments}
+
+Taking the previous sections together, we can see that the moments in the form relevant to us are:
+%
+\begin{align}
+	M_{00;c} &= 1 + \Cal O(\d t) \\
+	M_{01;c} &= (-p\gamma(p) - V'(q)) \d t + \Cal O(\d t^2) \\
+	M_{02;c} &= \Gamma(p)^2 \d t + \Cal O(\d t^2) \\
+	M_{ij;c} &= \Cal O(\d t^{i+1}) \quad (i,j > 0)
+\end{align}
+%
+Most notably none of the \(\d q\) moments matter, as described where the moments first appear in the main part of the thesis \TODO{ref}.
