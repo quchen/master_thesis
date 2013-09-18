@@ -1,0 +1,93 @@
+\begin{tikzpicture}
+	[>=stealth]
+
+	% coordinate system
+	\begin{scope}
+		% axes
+		\begin{scope}[->]
+			\newcommand\Excess{0.2}
+			\draw (-\Excess,0) -- (10.5,0); % x
+			\draw (0,-\Excess) -- (0,6);  % y
+		\end{scope}
+
+
+		\newcommand{\TickLength}{0.2}
+		\newcommand{\LabelOffset}{0.5}
+		
+		% y axis labels/ticks
+		\begin{scope}
+			\foreach \y in {1,...,5} {
+				\draw (-\TickLength/2, \y) -- (\TickLength/2, \y);
+ 				\node at (-\LabelOffset, \y) {\(\y\)};
+			}
+			\node at (0, 6 + \LabelOffset) {\(c\)};
+		\end{scope}
+
+		% x axis labels/ticks
+		\begin{scope}
+			\foreach \i/\x in {0/0, 1/2, 2/3, 3/6, 4/7.5, 5/8, 6/10} {
+				\draw (\x, -\TickLength/2) -- (\x, \TickLength/2);
+				\node at (\x, -\LabelOffset) {\(\tau_\i\)};
+			}
+			\node at (0, -2*\LabelOffset) {\(0\)};
+			\node at (10, -2*\LabelOffset) {\(T\)};
+
+			\node at (10.5 + \LabelOffset, 0) {\(t\)};
+		\end{scope}
+
+	\end{scope}
+
+	% Path taken
+	\begin{scope}
+		
+		% Actual path
+		\begin{scope} [thick]
+			\draw (0,1) -- (2,1)
+				(2,4) -- (3,4)
+				(3,3) -- (6,3)
+				(6,5) -- (7.5,5)
+				(7.5,1) -- (8,1)
+				(8,2) -- (10,2)
+				;
+			\newcommand{\Radius}{0.03}
+			\foreach \xy in {(0,1), (2,1), (2,4), (3,4), (3,3), (6,3), (6,5), (7.5,5), (7.5,1), (8,1), (8,2), (10,2)} {
+				\draw[fill=black] \xy circle (\Radius);
+			}
+		\end{scope}
+
+		% Connecting jump lines
+		\begin{scope} [dotted]
+			\draw (2,1)-- (2,4)
+			      (3,4) -- (3,3) 
+				(6,3) -- (6,5) 
+				(7.5,5) -- (7.5,1) 
+				(8,1) -- (8,2)
+				;
+		\end{scope}
+
+		% labels
+		\begin{scope}
+			\newcommand{\LabelOffset}{0.5}
+			\node at (0.5,       1 - 0.5*\LabelOffset) {\tiny \(c_0^+ \!\! = \! 1\)}; % tau 0
+			\node at (2,         1 - 0.5*\LabelOffset) {\tiny \(c_1^- \!\! = \! 1\)}; % tau 1
+			\node at (2,         4 + 0.5*\LabelOffset) {\tiny \(c_1^+ \!\! = \! 4\)};
+			\node at (3,         4 + 0.5*\LabelOffset) {\tiny \(c_2^- \!\! = \! 4\)}; % tau 2
+			\node at (3,         3 - 0.5*\LabelOffset) {\tiny \(c_2^+ \!\! = \! 3\)};
+			\node at (6,         3 - 0.5*\LabelOffset) {\tiny \(c_3^- \!\! = \! 3\)}; % tau 3
+			\node at (6,         5 + 0.5*\LabelOffset) {\tiny \(c_3^+ \!\! = \! 5\)};
+			\node at (7.5,       5 + 0.5*\LabelOffset) {\tiny \(c_4^- \!\! = \! 5\)}; % tau 4
+			\node at (7.5 - 0.2, 1 - 0.5*\LabelOffset) {\tiny \(c_4^+ \!\! = \! 1\)};
+			\node at (8 + 0.2,   1 - 0.5*\LabelOffset) {\tiny \(c_5^- \!\! = \! 1\)}; % tau 5
+			\node at (8,         2 + 0.5*\LabelOffset) {\tiny \(c_5^+ \!\! = \! 2\)};
+			\node at (10-0.5,    2 + 0.5*\LabelOffset) {\tiny \(c_6^- \!\! = \! 2\)}; % tau 6
+		\end{scope}
+
+		% final dashed line at t=T
+
+		\begin{scope}
+			\draw [dashed] (10,0) -- (10,6);
+		\end{scope}
+		
+	\end{scope}
+
+\end{tikzpicture}

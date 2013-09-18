@@ -1,0 +1,51 @@
+\chapter{Entropy production in continuous phase space systems}
+
+\section{From discrete to underdamped continuous systems}
+
+\section{Stochastic DEs}
+
+It\=o, Stratonovic etc
+
+
+\subsection{Separating Hamiltonian and non-Hamiltonian parts}
+
+To construct the conjugate propagator to the original forward process, the Hamiltonian part of the equations of motion needs to be known. This allows tracing the Hamiltonian flow back along the deterministic trajectory to reach the starting position of the reverse process, and similarly for the end position.
+
+The principle behind this separation is motivated by how certain geometric quantities, specifically the Riemann tensor \TODO{ref?}, are defined: the system is run in a process that should return to the origin in the end; if it does not, the discrepancy is characteristic for a certain property of the system. In case of the Riemann tensor that discrepancy is the curvature of space, in phase space system it accounts for the non-Hamiltonian parts of the dynamics.
+
+Formally, the most general equations of motion read, with \(x\) = \(q\) or \(p\):
+%
+\begin{align}
+	\dot x &= f_x(q,p) + \Gamma_x(q,p)\xi_x(t)
+\end{align}
+%
+This can be split up in Hamiltonian (\(\dot q_\Delta\)) and non-Hamiltonian \(\dot p_\Delta\) parts:
+%
+\begin{align}
+	\dot x &= \dot x_H + \dot x_\Delta
+\end{align}
+%
+To obtain the summands individually, the following algorithm is used:
+%
+\begin{enumerate}
+	\item Calculate \(x(t+\d t/2) \).
+	\item Reverse the system's dynamics by substituting \(p \to -p\).
+	\item Evolve the for another \(\d t/2\), starting at the previously reached end point, but with the reversed dynamics.
+	\item The end position is \(x(t+\d t)\), from which \(x_\Delta = x(t+\d t) - x(t)\) can be determined. (\(\dot x_\Delta\) is obtained in the limit \(\d t \to 0\).)
+\end{enumerate}
+%
+For example, this procedure applied to the underdamped particle discussed in the present work
+%
+\begin{align*}
+	\dot q &= p \\
+	\dot p &= -V'(q) - \mu(p)p + \Gamma(p)\xi(t)
+\end{align*}
+results in
+\begin{align*}
+	\dot q_H &= p  &  \dot q_\Delta &= 0 \\
+	\dot p_H &= -V'(q)  &  \dot p_\Delta &= - \mu(p)p + \Gamma(p)\xi(t) ~.
+\end{align*}
+This approach is quite general and can be applied to more complicated systems, in which the separation may not be as clear.
+
+It is important to realize that this is not the same as what Spinney/Ford do in their entropy definition. In the present work, the splitting is done \emph{a priori} with only the equations of motion in mind, in particular before entropy is even mentioned. On the other hand, in Spinney/Ford's case, reversal of dynamics is hard-wired into the entropy definition itself. In other words, the approach of \textbf{Flow entropy factors out the reversal of dynamics}.
+
