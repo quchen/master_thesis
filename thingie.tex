@@ -4,7 +4,7 @@ The contents of this chapter were published in Physical Review E, ``Strong fluct
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}
+\section{Preliminaries}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -28,9 +28,10 @@ However, looking at the microscopic properties of a system, it is indeed possibl
 	P(\Delta S) = e^{\Delta S}P(-\Delta S)
 \end{equation}
 %
-which states that the probability of spontaneous entropy increase by \(\Delta S\) is exponentially more likely than a decrease by the same amount. In a sense, this is the analogon to the Second~Law from the viewpoint of statistical physics, and indeed it can be shown that \RefEqn{eqn:2nd_law_classical} can be recovered from this formula: integrating both sides yields
+which states that the probability of spontaneous entropy increase by \(\Delta S\) is exponentially more likely than a decrease by the same amount; theorems of the above form will be referred to as \textbf{detailed} fluctuation theorems, as the expression yields symmetry information for each point of a distribution individually. In a sense, this is the analogon to the Second~Law from the viewpoint of statistical physics, and indeed it can be shown that \RefEqn{eqn:2nd_law_classical} can be recovered from this formula: integrating both sides yields
 %
 \begin{equation}
+	\label{eqn:average of exp}
 	1 = \inflint \d (\Delta S) P(\Delta S) = \inflint \d (\Delta S) e^{\Delta S}P(-\Delta S) = \left\langle e^{-\Delta S} \right\rangle
 \end{equation}
 %
@@ -39,11 +40,26 @@ which, using Jensen's inequality \(\langle e^x\rangle \geq e^{\langle x\rangle}\
 \begin{equation}
 	\langle\Delta S\rangle \geq 0 ~.
 \end{equation}
+%
+Averages of this form are known as an \textbf{integral} fluctuation theorem.
 
-This was but one example of a fluctuation theorem; there are many more, as can be seen e.g. in \cite{seifert-review}, and the result of this chapter will be yet another entire class of fluctuation theorems.
+It turns out that this derivation was overly general: in fact, a detailed fluctuation theorem implies arbitrarily many integral fluctuation theorems, since
+%
+\begin{align}
+	\notag
+	   \underbrace{\inflint\d x \, P(x) e^{-\frac x2}A(x)}_{\equiv B}
+	&= \int\limits_\infty^{-\infty}\d(-x) P(-x) e^{\frac x2}A(-x)
+	 = \underbrace{- \inflint\d x \, P(x) e^{-\frac x2}A(x)}_{= -B}
+	 = 0
+	\\
+	\label{eqn:antisymmetric exp average}
+	\Rightarrow
+	\langle e^{-\frac x2}A(x)\rangle = 0
+\end{align}
+%
+where \(A\) is an arbitrary antisymmetric function (the relation \RefEqn{eqn:average of exp} can be recovered by setting \(A(x) = \sinh(x/2) = \frac12(e^x-e^{-x}\)).
 
-
-
+This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities, as can be seen e.g. in \cite{seifert-review}, and the result of this chapter will be yet another entire class of fluctuation theorems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,6 +171,7 @@ The standard interpretation of this relationship is that \SSys{} is a quantity d
 On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes not the system's internal configuration into account, but characterizes how the current configuration has been reached. Each time the system changes its state, \SEnv{} increases by a certain amount,
 %
 \begin{align}
+	\label{eqn:SEnv single jump definition}
 	\Delta\SEnv^{c\to c'} = \ln\frac{w_{c\to c'}}{w_{c'\to c}} ~.
 \end{align}
 %
@@ -216,7 +233,7 @@ Using this formalism, the probability distribution of increasing environmental e
 	\end{split}
 \end{equation}
 
-For the purpose of the new theorem, the average \RefEqn{eqn:functional average} is modified by introducing a weight functional \(\chi_{c_0,c_T}\) that only depends on the very first and last configuration along the stochastic trajectory, and satisfies the symmetry relation
+For the purpose of the new theorem, the average \RefEqn{eqn:functional average} is modified by introducing a weight functional \(\chi_{c_0,c_T} > 0\) that only depends on the very first and last configuration along the stochastic trajectory, and satisfies the symmetry relation
 %
 \begin{align}
 	\label{eqn:chi symmetry}
@@ -234,6 +251,7 @@ where \(p_c^\init\) is the probability that the whole process is started (initia
 where \(\Cal N\) is a normalization constant to take the addition of \(\chi\) into account,
 %
 \begin{align}
+	\label{eqn:weighted normalized}
 	\Cal N = \int\Cal D\gamma W[\gamma] \chi_{c_0,c_T}
 \end{align}
 
@@ -253,8 +271,31 @@ This allows the main result of this chapter to be stated, namely that the quanti
 %
 \begin{equation}
 	\label{eqn:SEnv fluctuation theorem}
-	\tilde P(\Delta\SEnv = X) = e^X \tilde P(\Delta\SEnv = -X)
+	\boxed{
+		\tilde P(\Delta\SEnv = X) = e^X \tilde P(\Delta\SEnv = -X)
+	}
 \end{equation}
+%
+Note that \(\tilde P\) is still normalized (and therefore a probability distribution, since \(\chi > 0\)); explicitly:
+\begin{equation}
+	\begin{split}
+	   \inflint\d X \tilde P(\Delta\SEnv = X)
+	&= \inflint\d X \frac1{\Cal N} \int\Cal D\gamma W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
+	\\
+	&=  \frac1{\Cal N} \underbrace{\int\Cal D\gamma W[\gamma] \chi_{c_0,c_T}}_{=\; \Cal N ~ \text{\RefEqn{eqn:weighted normalized}}}
+	    \underbrace{\inflint\d X \delta(X-\Delta\SEnv[\gamma])}_{=1}  \\
+	&= 1
+	\end{split}
+\end{equation}
+%
+In particular, this allows reducing \RefEqn{eqn:SEnv fluctuation theorem} analogous to \RefEqn{eqn:antisymmetric exp average} to
+\begin{equation}
+	\label{eqn:SEnv asymmetric average}
+	\left\langle e^{-\frac12\Delta\SEnv} A(\Delta\SEnv)\right\rangle_\chi = 0
+\end{equation}
+%
+where again \(A\) is an arbitrary antisymmetric function.
+
 
 
 
@@ -356,10 +397,12 @@ as claimed in \RefEqn{eqn:SEnv path functional}. Specialized to time-independent
 \label{thm:thingie}
 Let \(F[\gamma] = -F[\gamma^\dagger]\) be an antisymmetric functional on a path \(\gamma\) (generated by a process with time-independent rates), and \(g\) be an arbitrary function acting on it. Then
 \begin{equation}
-	\label{eqn:thingie}
-	\langle g(F[\gamma])\rangle_\chi
-	=
-	\langle e^{-\Delta\SEnv[\gamma]}g(-F[\gamma])\rangle_\chi
+	\boxed{
+		\label{eqn:thingie}
+		\langle g(F[\gamma])\rangle_\chi
+		=
+		\langle e^{-\Delta\SEnv[\gamma]}g(-F[\gamma])\rangle_\chi
+	}
 \end{equation}
 } % end theorem
 
@@ -446,17 +489,88 @@ as claimed.
 \subsection{Applications}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-One of the challenges of general theorems is fixing the degrees of freedom it provides so that a practically viable result emerges. The Master Fluctuation Theorem \cite{seifert-review} does not have this issue as much, because it unifies lots of known fluctuation theorems; in the present case however, the general theorem is proven, but what it unifies or even describes is not so clear. This section will provide an example of one emergent result.
+One of the challenges of general theorems is fixing the degrees of freedom it provides so that a practically viable result emerges. The Master Fluctuation Theorem \cite{seifert-review} does not have this issue as much, because it unifies lots of known fluctuation theorems; in the present case however, the general theorem is proven, but what it unifies or even describes is not so clear. This section will provide an example of one emergent result: a fluctuation theorem for the energy set free after sudden cooling of an equilibrium system.
 
 Take a classical system that is initially in equlibrium with a heat bath of constant temperature \(T_1 = 1/(k_B\beta_1)\). Assuming each configuration \(c\in\Omega\) is associated to a specific energy \(E_c\), the distribution of states in this setting is Boltzmannian,
 %
 \begin{equation}
-	p_c^\init = \frac1{Z(\beta_1)}\exp(-\beta_1E_c)
+	p_c^\init = \frac1{Z(\beta_1)}e^{-\beta_1E_c}
 \end{equation}
 %
-with the partition sum \(Z(\beta) = \sum_ce^{-\beta_1E_c}\). At time \(t = 0\), the temperature of the bath is instantaneously changed (``quenched'') to \(\beta_2\), and the system converges to a new stationary equilibrium state. How much energy \(\Delta E = E_{c_0} - E_{c_T}\) does this process take out or feed into the system in a given amount of time \(T\)?
+with the partition sum \(Z(\beta) = \sum_ce^{-\beta E_c}\). Since the system is in equlibrium it also obeys detailed balance \TODO{ref}, and consequently the rates can be expressed as follows:
+%
+\begin{align}
+	p_c w_{c\to c'} &= p_{c'} w_{c'\to c}
+	\\
+	\Leftrightarrow
+		   \frac{w_{c\to c'}}{w_{c'\to c}}
+		&= \frac{p_{c'}}{p_c}
+		 = e^{-\beta_1(E_{c'}-E_c)}
+\end{align}
 
-Since the reservoir is not part of the system, changing the temperature leaves the energy associated to a certain state unchanged. What \emph{does} change, however, are the rates: \TODO{continue}
+At time \(t = 0\), the temperature of the bath is now instantaneously changed (``quenched'') to \(\beta_2\) \TODO{figure?}, and the system converges to a new stationary equilibrium state. How much energy \(\Delta E = E_{c_0} - E_{c_T}\) does this process take out or feed into the system in a given amount of time \(T\)?
+Since the reservoir is not part of the system, changing the temperature leaves the energy associated to a certain state unchanged. What \emph{does} change, however, are the rates, which again fulfill detailed balance, albeit at a different temperature \(T_2 = 1/(k_B\beta_2)\),
+%
+\begin{equation}
+	\frac{w_{c\to c'}}{w_{c'\to c}}
+	= e^{-\beta_2(E_{c'}-E_c)}
+\end{equation}
+%
+According to \RefEqn{eqn:SEnv single jump definition}, the logarithm of this expression is precisely the increase in environmental entropy such a transition produces, hence
+%
+\begin{equation}
+	\Delta\SEnv^{c\to c'} = -\beta_2(E_{c'}-E_c) ~.
+\end{equation}
+%
+Since after the quench \(\beta = \beta_2\) is constant, this expression is easily applied jump-wise to \RefEqn{eqn:SEnv rate jump functional}, resulting in the simple functional dependency
+%
+\begin{equation}
+	\label{eqn:Delta SEnv in terms of energies}
+	\Delta\SEnv[\gamma] = -\beta_2(E_{c_T}-E_{c_0}) ~.
+\end{equation}
+%
+\TODO{Why does this hold even if the system isn't in equilibrium again yet? That's what our paper says.}
+
+In order to connect this to the new class of fluctuation theorems obtained in the previous section, define the weights
+%
+\begin{equation}
+	\label{eqn:chi example value}
+	  \chi_{c_0,c_T}
+	= \sqrt{\frac{p_{c_T}^\init}{p_{c_0}^\init}}
+	= e^{-\frac12\beta_1(E_{c_T} - E_{c_0})}
+	\equiv e^{-\frac12\beta_1\Delta E}
+\end{equation}
+%
+(note how they fulfill the symmetry condition \RefEqn{eqn:chi symmetry}). Inserted into \RefEqn{eqn:SEnv asymmetric average}, writing \(\chi\) as an explicit factor instead of an index to the average, the result is
+%
+\begin{equation}
+	\left\langle e^{-\frac12\Delta\SEnv} A(\Delta\SEnv) \chi_{c_0,c_T} \right\rangle = 0 ~.
+\end{equation}
+%
+Using \RefEqn{eqn:Delta SEnv in terms of energies} this can be expressed in terms of \(\Delta E\):
+%
+\begin{equation}
+	\left\langle e^{+\frac12\beta_2\Delta E} A(-\beta_2\Delta E) \chi_{c_0,c_T} \right\rangle = 0
+\end{equation}
+%
+Upon inserting \(\chi\) \RefEqn{eqn:chi example value}, rescaling \(A\) linearly to \(\tilde A(\Delta E) = A(-\beta_2\Delta E)\) and \(\Delta\beta = \beta_2-\beta_1\), and absorbing \(\Cal N\) by the right hand side's zero, this can be written compactly as
+%
+\begin{equation}
+	\left\langle e^{+\frac12\Delta\beta\Delta E} \tilde A(\Delta E) \right\rangle = 0 ~.
+\end{equation}
+%
+With the special choice \(\tilde A(\Delta E) = \sinh(\frac12\Delta\beta\Delta E)\), a final simple integral fluctuation theorem is obtained:
+%
+\begin{equation}
+	\boxed{\left\langle e^{\Delta\beta \Delta E}\right\rangle = 1}
+\end{equation}
+
+\TODO{explain the formula}
+
+
+
+
+
 
 
 
@@ -464,6 +578,18 @@ Since the reservoir is not part of the system, changing the temperature leaves t
 \subsection{Numerical tests}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+This section describes two numerical simulations to test the theorems previously developed. The first example will pick up right where the previous section ended with a concrete model, while the second one makes relatively little assumptions about the dynamics of a system, providing a more general perspective.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Simple growth process}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Nonequilibrium model on a small state space}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
