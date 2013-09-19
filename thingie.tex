@@ -67,9 +67,14 @@ This was but one example of a fluctuation theorem for \(\Delta S\); there are ma
 \label{sec:markov process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A \emph{jumping process} is a system consisting of a discrete number of states that, governed by certain transition rates or probabilities, transitions from one state to another. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
+A \emph{jumping process} is a system consisting of a discrete number of states \(c_i\in\Omega\) that, governed by certain transition rates or probabilities, switches from one state to another repeatedly. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
 
-One very simple example for a jumping process, of which a more meaningful version will be discussed later in more detail, is the following: consider a single column of particles stacked straight ontop of one another. At a certain rate, a new particle is either desposited to or evaporated from the stack. In this scenario, the height of the stack is the state of the system, and adding or removing particles contitutes a state transition. \TODO{illustration} Now suppose two consecutive depositions would inhibit another one from occurring. This violates the Markov property, because the next state depends on not only the current state, but how the system got there in the first place. On the other hand, if the rates for both addition and subtraction of particles were constant, the system would satisfy the Markov property.
+An example for a jumping process is a gambler in a casino, the state being how much money he has. Each time he places a bet, he changes his state (loses or wins money).
+%
+\begin{enumerate}
+	\item A realistic gambler can be seen jumping process, and can make his bets dependent on e.g. whether he lost his last game (which requires to know about the current balance and the one before that), or if he is suspicious kind could alter the winning probabilities in his favour. Note that the concept of ``winning streaks'' also falls into this category, as ``having'' one requires knowledge of the previous games/balances.
+	\item A Markovian gambler would decide how much to bet based solely on how much money he currently has (and possibly how late it is). He would base none of his decisions on his knowledge about previous games.
+\end{enumerate}
 
 
 
@@ -80,7 +85,7 @@ One very simple example for a jumping process, of which a more meaningful versio
 \subsection{Terminology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Suppose we have a system of \(N\) states, enumerated by \(i\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_i\), the system transitions from an old state \(n_i^-\) into a new one. \(c_i^+\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space,
+Suppose we have a system of \(N\) states, enumerated by \(i\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_i\), the system transitions from an old state \(n_{i-1}\) into a new one. \(c_i\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space,
 %
 \begin{align}
 	\gamma &=~
@@ -106,7 +111,7 @@ An ``element'' \(c_{i,\tau_i}\) of \(\gamma\) can thus be interpreted as ``the s
 \begin{figure}[htb]
 	\centering
 	\include{figures/discrete_jumping_process}
-	\caption[]{Visualization of a discrete jumping process. The system, initially in state \(c_0^+\) at time \(t = \tau_0 = 0\), transitions into a new state \(c_1^+\) at time \(\tau_1\), and remains in this state until the next jump occurs. The process then repeats itself, and the resulting trajectory is a representation of the system's history.}
+	\caption[]{Visualization of a discrete jumping process with \(J = 5\) jumps. The system, initially in state \(c_0\) at time \(t = \tau_0 = 0\), transitions into a new state \(c_1\) at time \(\tau_1\), and remains in this state until the next jump occurs. The process then repeats itself, and the resulting trajectory is a representation of the system's history.}
 	\label{fig:discrete_jumping_process}
 \end{figure}
 
@@ -116,14 +121,18 @@ In a typical system, many such paths can be taken when starting from an initial 
 A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and such trajectories are what this chapter is about.
 
 
-Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps, can be expressed as a series of ``staying in the same state'' and ``change state'' contributions, \TODO{ref}
+Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering intermediate \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions, \TODO{ref}
 %
 \begin{equation}
+	\begin{split}
 	\label{eqn:discrete path probability}
 	p[\{c_{i,\tau_i}\} | c_0]
-	= \underbrace{\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0^+}(\tau)\right)}_{\text{stay in state } c_0}
-	  \prod_{j=1}^J\underbrace{w_{c_j^-c_j^+}(\tau_j)}_{\text{jump}}
-	  \underbrace{\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j^+}(\tau)\right)}_{\text{stay in state } c_j}
+	& = \exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0}(\tau)\right)
+	\\ &\qquad \times
+	\prod_{j=1}^J
+		w_{c_{j-1}\to c_j}(\tau_j)
+		\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
+	\end{split}
 \end{equation}
 %
 where \(r_c\) stands for the escape rate from state \(c\),
@@ -166,7 +175,7 @@ The \textbf{system entropy} \(\mathbf{\SSys{}}\) is the Shannon entropy of an en
 	\SSys(t) = \sum_i p_i(t)\ln p_i(t)
 \end{align}
 %
-The standard interpretation of this relationship is that \SSys{} is a quantity describing how ``concentrated'' the system is around certain states at a single point in time. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular configuration \(c_\text{bias}\), \SSys will be lower.
+The standard interpretation of this relationship is that \SSys{} is a quantity describing how ``concentrated'' the system is around certain states at a single point in time. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower.
 
 On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes not the system's internal configuration into account, but characterizes how the current configuration has been reached. Each time the system changes its state, \SEnv{} increases by a certain amount,
 %
@@ -196,7 +205,7 @@ where \(n\) is the total number of jumps on \(\gamma\), and \(c_i\) are the conf
 
 From now on, all rates will be assumed time-independent,
 \begin{equation}
-	\forall c, c':~ \dot w_{c\to c'} = 0 ~.
+	\forall c, c'.~ \dot w_{c\to c'} = 0 ~.
 \end{equation}
 
 
@@ -315,18 +324,11 @@ While \RefEqn{eqn:P(SEnv)} provides a statistical summary, an expression relatin
 \begin{equation}
 	\label{eqn:SEnv path functional}
 	\Delta\SEnv
-	= \ln\frac{p[\{c_{i,\tau_i}\}|c_0]}{p^\dagger[\{c^\dagger_{i,\tau_i}\}|c^\dagger_0]}
+	= \ln\frac{p[\{c_{i,\tau_i}\}|c_0]}{p^\dagger[\{c_{i,\tau_i}\}^\dagger|c^\dagger_0]}
 \end{equation}
 %
-Here, ``\(\dagger\)'' stands for walking a path in the reverse direction. With respect to \RefEqn{eqn:discrete path probability}, this means
-%
-\begin{enumerate}
-	\item Since the path is walked backwards, the boundaries of integration along all paths flip: \(\int_{\tau_i}^{\tau_j} \overset\dagger\longrightarrow \int_{\tau_j}^{\tau_i}\)
-	\item Time reverses its direction in general, therefore \(\d\tau \overset\dagger\longrightarrow \d(-\tau) = -\d\tau\), effectively reverting the exchange of integral boundaries mentioned above.
-	\item ``\(c_i^-\)'' stands for the state of the system at time \(\tau_i\) before, ``\(c_i^+\)'' for after the jump. Therefore, reversal of time means \(\pm\overset\dagger\longrightarrow\mp\), as states flip the other way round.
-\end{enumerate}
-
-With that in mind, for a path with a total of \(J\) jumps
+Here, ``\(\dagger\)'' stands for walking \emph{the same} path in the reverse direction. Therefore, for a path with a total of \(J\) jumps (hence containing \(J+1\) intermediate states),
+\TODO{Double-check this for correctness}
 %
 \begin{align*}
 	&\phantom{=}
@@ -334,57 +336,58 @@ With that in mind, for a path with a total of \(J\) jumps
 	\\
 	&=
 		\ln\frac{
-			\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0^+}(\tau)\right)
+			\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0}(\tau)\right)
 			\prod_{j=1}^J
-				w_{c_j^-c_j^+}(\tau_j)
-				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j^+}(\tau)\right)
+				w_{c_{j-1} \to c_j}(\tau_j)
+				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
 		}{
-			\exp\left(-\int_{\tau_{J+1}}^{\tau_J}\d(-\tau)r_{c_{J+1}^-}(\tau)\right)
+			\exp\left(-\int_{\tau_{J+1}}^{\tau_J}\d(-\tau)r_{c_J}(\tau)\right)
 			\prod_{j=J}^1
-				w_{c_j^+c_j^-}(\tau_j)
-				\exp\left(-\int_{\tau_j}^{\tau_{j-1}}\d(-\tau)r_{c_j^-}(\tau)\right)
+				w_{c_j\to c_{j-1}}(\tau_j)
+				\exp\left(-\int_{\tau_j}^{\tau_{j-1}}\d(-\tau)r_{c_{j-1}}(\tau)\right)
 		}
 	\\
 	&=
 		\ln\frac{
-			\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0^+}(\tau)\right)
+			\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0}(\tau)\right)
 			\prod_{j=1}^J
-				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j^+}(\tau)\right)
+				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
 		}{
-			\exp\left(-\int_{\tau_J}^{\tau_{J+1}}\d\tau\;r_{c_{J+1}^-}(\tau)\right)
+			\exp\left(-\int_{\tau_J}^{\tau_{J+1}}\d\tau\;r_{c_J}(\tau)\right)
 			\prod_{j=1}^J
-				\exp\left(-\int_{\tau_{j-1}}^{\tau_j}\d\tau\;r_{c_j^-}(\tau)\right)
-		} + \ln\prod_{j=1}^J\frac{w_{c_j^-c_j^+}(\tau_j)}{w_{c_j^+c_j^-}(\tau_j)}
+				\exp\left(-\int_{\tau_{j-1}}^{\tau_j}\d\tau\;r_{c_{j-1}}(\tau)\right)
+		}
+		+ \ln\prod_{j=1}^J\frac{w_{c_{j-1}\to c_j}(\tau_j)}{w_{c_j\to c_{j-1}}(\tau_j)}
 	\\
 	&=
 		\ln\frac{
 			\prod_{j=0}^J
-				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j^+}(\tau)\right)
+				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
 		}{
 			\prod_{j=1}^{J+1}
-				\exp\left(-\int_{\tau_j}^{\tau_{j-1}}\d\tau\;r_{c_j^-}(\tau)\right)
+				\exp\left(-\int_{\tau_{j-1}}^{\tau_j}\d\tau\;r_{c_{j-1}}(\tau)\right)
 		}
-		+ \underbrace{\sum_{j=1}^J\ln\frac{w_{c_j^-c_j^+}(\tau_j)}{w_{c_j^+c_j^-}(\tau_j)}}_{=\Delta s_m}
+		+ \sum_{j=1}^J\ln\frac{w_{c_{j-1}\to c_j}(\tau_j)}{w_{c_j\to c_{j-1}}(\tau_j)}
 	\\
 	&=
 		\ln\frac{
 			\prod_{j=0}^J
-				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j^+}(\tau)\right)
+				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
 		}{
 			\prod_{j=0}^J
-				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_{j+1}^-}(\tau)\right)
+				\exp\left(-\int_{\tau_j}^{\tau_{j+1}}\d\tau\;r_{c_j}(\tau)\right)
 		}
-		+ \Delta s_m
+		+ \Delta\SEnv
 	\\
 	&=
-		\Delta s_m
+		\Delta\SEnv
 \end{align*}
 %
 as claimed in \RefEqn{eqn:SEnv path functional}. Specialized to time-independent rates, this then reads
 \begin{align}
 	\label{eqn:SEnv path functional constant rates}
 	\Delta\SEnv
-	= \ln\frac{Q[\gamma]}{Q[\gamma^\dagger]}
+	= \ln\frac{Q[\gamma]}{Q[\gamma^\dagger]} ~.
 \end{align}
 
 
@@ -440,7 +443,7 @@ This purely mathematical step is now for the most part undone using \RefEqn{eqn:
 		g(-F[\gamma])\chi_{c_0,c_T} ~.
 \end{equation}
 %
-Compating this result with \RefEqn{eqn:gF average} allows the expression on the right hand side as an average as well, resulting the theorem's claim
+Comparing this result with \RefEqn{eqn:gF average} allows the expression on the right hand side as an average as well, resulting the theorem's claim
 %
 \begin{equation}
 	\langle g(F[\gamma])\rangle_\chi
@@ -541,7 +544,7 @@ In order to connect this to the new class of fluctuation theorems obtained in th
 	\equiv e^{-\frac12\beta_1\Delta E}
 \end{equation}
 %
-(note how they fulfill the symmetry condition \RefEqn{eqn:chi symmetry}). Inserted into \RefEqn{eqn:SEnv asymmetric average}, writing \(\chi\) as an explicit factor instead of an index to the average, the result is
+where \(p_c^\init\) is the probability to obtain the configuration \(c\) in the initial distribution of the system (note how they fulfill the symmetry condition \RefEqn{eqn:chi symmetry}). In particular, \(p_{c_T}^\init\) is the probability the system starts in the same configuration it eventually reaches in the end \TODO{is this claim correct?}. Inserted into \RefEqn{eqn:SEnv asymmetric average}, writing \(\chi\) as an explicit factor instead of an index to the average, the result is
 %
 \begin{equation}
 	\left\langle e^{-\frac12\Delta\SEnv} A(\Delta\SEnv) \chi_{c_0,c_T} \right\rangle = 0 ~.
@@ -559,13 +562,14 @@ Upon inserting \(\chi\) \RefEqn{eqn:chi example value}, rescaling \(A\) linearly
 	\left\langle e^{+\frac12\Delta\beta\Delta E} \tilde A(\Delta E) \right\rangle = 0 ~.
 \end{equation}
 %
-With the special choice \(\tilde A(\Delta E) = \sinh(\frac12\Delta\beta\Delta E)\), a final simple integral fluctuation theorem is obtained:
+With the special choice \(\tilde A(\Delta E) = \sinh(\frac12\Delta\beta\Delta E)\), a final and simple integral fluctuation theorem is obtained:
 %
 \begin{equation}
+	\label{eqn:tingie quench fluctuation}
 	\boxed{\left\langle e^{\Delta\beta \Delta E}\right\rangle = 1}
 \end{equation}
 
-\TODO{explain the formula}
+This formula provides an insight in the energy fluctuations of a system with constant rates when quenched out of equilibrium, on its way of reaching a new one. Most interestingly it holds for finite time, allowing to observe the relaxation process at an arbitrary point after the quench, and not just when the new equilibrium has been reached. (Note that applying Jensen's inequality to this formula merely yields that the energy in the system increases/decreases on average when the bath is heated/cooled -- \(\Delta\beta\langle\Delta E\rangle\leq0\) -- which does not provide any new insights.)
 
 
 
@@ -585,11 +589,65 @@ This section describes two numerical simulations to test the theorems previously
 \subsubsection{Simple growth process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\TODO{illustrations: 1.~redraw Hinrichsen's picture, 2.~example interface of a larger system}
+
+To demonstrate the result of the last section, consider the following growth model, which was originally investgated to explain certain wetting phenomena on an inert substrate. On an initially empty \(d\)-dimensional lattice with periodic boundary conditions, let \(h_i \in\Set N_0\) be the height of site \(i\). The dynamics now consist of repeatedly depositing particles to or evaporating them from the system at certain rates. However, the heights of adjacent sites are not independent, and subject to certain constraints.
+
+Now consider the simple case of a \(1\)-dimensional ring consisting of \(N\) sites (\(i+N \equiv i\)), subject to the constraint that adjacent sites' heights may only differ by a maximum of one,
+%
+\begin{equation}
+	\forall i.\; |h_i - h_{i+1}| \leq 1 ~.
+\end{equation}
+%
+Particles are deposited at rate \(q_1\) and evaporate at rate \(1\) (note that rescaling of the rates corresponds to rescaling of time, therefore evaporation can be set to \(1\) without loss of generality). For \(q_1 < 1\), it is known that the system behaves stationarily with an exponential probability distribution of the microstates,
+%
+\begin{equation}
+	P(\{h_i\}) \propto q_1^{\sum_jh_j} = e^{-\mu_1 H}
+\end{equation}
+%
+where \(\mu = -\ln q\) can be interpreted as a chemical potential and \(H = \sum_{i=1}^Nh_i\) is the total number of particles in the system. Comparing this with a Boltzmann distribution reveals that \(\mu\) plays the role of (inverse) temperature, and \(H\) is the energy contained in the system.
+
+Making the connection to the previous section, a temperature quench manifests itself here as a ``deposition rate quench'', e.g. by changing said rate to another value \(q_2 < 1\) at \(t = \tau_0\), upon which the system will relax into a new equilibrium state. This is precisely what was previously done, and carrying over the analogy just mentioned in the last paragraph, this system should obey the fluctuation theorem
+%
+\begin{equation}
+	\langle e^{\Delta\mu\Delta H}\rangle = 1
+\end{equation}
+%
+where \(\Delta\mu = -(\ln q_2-\ln q_1)\) is what previously was an inverse temperature difference.
+
+Figure~\RefFigure{fig:growth_process_plot} shows how the above average develops in simulations of small systems in a billion trials. Each experiment confirms the fluctuation theorem by clearly converging to \(1\).
+
+Surprisingly, the quench over the phase transition into a nonequilibrium state (\(q_2 > 1\)) shows converging behaviour, which is something the theorem does not suggest, due to the assumption of having an equilibrium on either (far) end of the quenches. This suggests that the theorem could be more powerful than expected, and could e.g. be useful to find out properties of the critical point \(q = 1\) of the phase transition. At this point this remains entirely speculative though, and would be a suitable subject for further investigations.
+
+
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=30em]{figures/growth_process}
+	\caption[]{Convergence of \(\langle e^{\Delta\mu\Delta H}\rangle\) to~1 in the growth model with system sizes of~2 and~4. The initially empty lattice is equilibriated using 50 time steps to reach the initial configuration, before the final state is obtained using three additional steps. Each run records one value \(e^{\Delta\mu\Delta H}\), which is then averaged over many individual runs. The blue and yellow graphs show the development of said average over time in an ordinary quench, and confirm the fluctuation theorem's claim. The red line corresponds to changing the rates so that the system is brought beyond the phase transition (\(q > 1\)); in this scenario, there is no relaxation into a new stationary state, as the interface grows arbitrarily high over time. Remarkably, the fluctuation theorem seems to hold even in this scenario.}
+	\label{fig:growth_process_plot}
+\end{figure}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Nonequilibrium model on a small state space}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+To test the more general formula \label{eqn:SEnv fluctuation theorem}, namely
+%
+\begin{equation*}
+	\tilde P(\Delta\SEnv = X) = e^X \tilde P(\Delta\SEnv = -X) ~,
+\end{equation*}
+%
+a more general setup is necessary. Here, we will only assume the most basic requirements for this theorem, namely having a Markov process with time-independent rates; more explicitly, there will be no assumptions of equilibirum or asymptotic behaviour.
 
+The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), and therefore a transition matrix \(w_{c\to c'}\) with \(8^2-8 = 56\) nonzero entries (\(\forall c.\;w_{c\to c} = 0\)). Its elements are randomly chosen (strictly) between \(0\) and \(1\) before the experiment (and left fixed throughout each run). In a similar fashion, the initial distribution \(p^\init\) is determined.
 
+A single run now consists of sampling an initial state from \(p^\init\), and letting it evolve in a Monte-Carlo simulation for some time \(T\) (here: \(1\)), corresponding to a certain amount of attempted state transitions (here: \(10^5\)). Each time the system's configuration changes, the generated \(\Delta\SEnv\) is recorded.
+
+A simulation now consists of a decent amount (\(10^7\)) individual runs, the result of which is then binned and put in a histogram. As can be seein in the figures for the direct histogram \RefFigure{fig:TODO}\TODO{Figure} and the logarithmic version (including deviations from the symmetry) \RefFigure{fig:TODO}\TODO{Figure}, the theorem is reproduced pretty accurately by the simulation.
+
+\TODO{mention master equation for consistency}
