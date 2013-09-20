@@ -67,7 +67,7 @@ This was but one example of a fluctuation theorem for \(\Delta S\); there are ma
 \label{sec:markov process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A \emph{jumping process} is a system consisting of a discrete number of states \(c_i\in\Omega\) that, governed by certain transition rates or probabilities, switches from one state to another repeatedly. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
+A \emph{jumping process} is a system consisting of a discrete number of states that, governed by certain transition rates or probabilities, switches from one state to another repeatedly. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
 
 An example for a jumping process is a gambler in a casino, the state being how much money he has. Each time he places a bet, he changes his state (loses or wins money).
 %
@@ -85,23 +85,25 @@ An example for a jumping process is a gambler in a casino, the state being how m
 \subsection{Terminology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Suppose we have a system of \(N\) states, enumerated by \(i\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_i\), the system transitions from an old state \(n_{i-1}\) into a new one. \(c_i\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space,
+Suppose we have a system of \(N\) states, enumerated by \(j\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_j\), the system transitions from an old state \(n_{j-1}\) into a new one. \(c_j\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space with \(J\) jumps,
 %
 \begin{align}
 	\gamma &=~
 	\newcommand\iarrow[1]{~\underset{\tau_{#1}}\longrightarrow~}
 	%
+	c_0
+	\iarrow{1}
+	c_1
+	\iarrow{2}
 	\cdots
-	\iarrow{i-1}
-	c_{i-1}
-	\iarrow{i}
-	c_{i}
-	\iarrow{i+1}
-	c_{i+1}
-	\iarrow{i+2}
-	c_{i+2}
-	\iarrow{i+3}
+	\iarrow{j}
+	c_{j}
+	\iarrow{j+1}
+	c_{j+1}
+	\iarrow{j+2}
 	\cdots
+	\iarrow{J}
+	c_{J}
 	\\
 	&= \{c_{i,\tau_i}\}
 \end{align}
@@ -118,8 +120,8 @@ An ``element'' \(c_{i,\tau_i}\) of \(\gamma\) can thus be interpreted as ``the s
 In a typical system, many such paths can be taken when starting from an initial configuration \(c_0\); depending on the dynamics of the system, the jumps can occur at different times or to different states. Due to the stochastic nature of the system, trajectories most likely occur with different probabilities; these probabilities will be denoted \(p[\{c_{i,\tau_i}\}|c_0]\) with an explicit mentioning of the starting point \(n_0\).
 
 
-A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and such trajectories are what this chapter is about.
 
+A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Since later calculations will require ratios of rates it is required that in case of a nonzero jumping rate, the reverse jump also has a nonzero entry. Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and such trajectories are what this chapter is about.
 
 Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering intermediate \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions, \TODO{ref}
 %
@@ -143,16 +145,67 @@ where \(r_c\) stands for the escape rate from state \(c\),
 %
 Assuming time-independent rates \(w\), \RefEqn{eqn:discrete path probability} reduces to
 \begin{equation}
-	p[\{c_{i,\tau_i}\} | c_0]
+	p[\{c_{i,\tau_i}\} | c_0]\Bigr|_{w\;\const}
 	\equiv
 	Q[\gamma]
 	=
-	e^{-\tau_0r_{c_0}} \left(
+	e^{-(\tau_1-\tau_0)r_{c_0}} \left(
 		\prod_{j = 1}^J
 		w_{c_{j-1}\to c_j}
-		e^{-(\tau_j-\tau_{j-1})r_j}
+		e^{-(\tau_{j+1}-\tau_j)r_j}
 		\right)
 \end{equation}
+
+It will also be necessary to calculate the probability of taking the steps of a path in reverse direction, denoted ``\(\dagger\)'', and the above definitions turn out as follows in this case:
+%
+\begin{align*}
+	\gamma &=~
+	\newcommand\iarrow[1]{~\underset{T-\tau_{#1}}\longrightarrow~}
+	%
+	c_{J}
+	\iarrow{J}
+	\cdots
+	\iarrow{j+2}
+	c_{j+1}
+	\iarrow{j+1}
+	c_{j}
+	\iarrow{j}
+	\cdots
+	\iarrow{2}
+	c_1
+	\iarrow{1}
+	c_0
+	\\
+	&= \{c_{i,\tau_i}\}^\dagger
+\end{align*}
+%
+\begin{equation}\begin{split}
+	p^\dagger[\{c_{i,\tau_i}\}^\dagger | c_0^\dagger]
+	&= \exp\left(-\int_{\tau_{J+1}}^{\tau_J}\d(-\tau)r_{c_J}(\tau)\right)
+		\\&\qquad\times
+		\prod_{j=J}^1
+			w_{c_j\to c_{j-1}}(\tau_j)
+			\exp\left(-\int_{\tau_j}^{\tau_{j-1}}\d(-\tau)r_{c_{j-1}}(\tau)\right)
+	\\
+	&= \exp\left(-\int_{\tau_J}^{\tau_{J+1}}\d\tau\;r_{c_J}(\tau)\right)
+		\\&\qquad\times
+		\prod_{j=1}^J
+			w_{c_j\to c_{j-1}}(\tau_j)
+			\exp\left(-\int_{\tau_{j-1}}^{\tau_j}\d\tau\;r_{c_{j-1}}(\tau)\right)
+\end{split}\end{equation}
+
+\begin{equation}
+	p^\dagger[\{c_{i,\tau_i}\}^\dagger | c_0^\dagger]\Bigr|_{w\;\const}
+	\equiv
+	Q[\gamma^\dagger]
+	=
+	e^{-(\tau_{J+1}-\tau_J)r_{c_J}} \left(
+		\prod_{j = 1}^J
+		w_{c_j\to c_{j-1}}
+		e^{-(\tau_j-\tau_{j-1})r_{j-1}}
+		\right)
+\end{equation}
+
 
 
 
@@ -226,7 +279,7 @@ In a given Markov process, each allowed path \(\gamma\) appears with a certain p
 The path integral ``\(\int \Cal D\gamma\)'' is shorthand notation for summation over all paths \(\gamma = \{c_0, c_1, \ldots, c_n\}\) with \(N\) possible configurations,
 %
 \begin{align}
-	\int \Cal D\gamma F[\gamma]
+	\int \Cal D\gamma \, F[\gamma]
 	\equiv
 	\sum_{c_0=1}^N\sum_{c_1=1}^N\cdots\sum_{c_n=1}^N F(c_0, c_1, \ldots c_n) ~.
 \end{align}
@@ -237,7 +290,7 @@ Using this formalism, the probability distribution of increasing environmental e
 	\begin{split}
 	P(\Delta\SEnv = X)
 	&= \langle \delta(X-\Delta\SEnv[\gamma])\rangle \\
-	&= \int\Cal D\gamma W[\gamma] \delta(X-\Delta\SEnv[\gamma])
+	&= \int\Cal D\gamma \, W[\gamma] \delta(X-\Delta\SEnv[\gamma])
 	~.
 	\end{split}
 \end{equation}
@@ -261,7 +314,7 @@ where \(\Cal N\) is a normalization constant to take the addition of \(\chi\) in
 %
 \begin{align}
 	\label{eqn:weighted normalized}
-	\Cal N = \int\Cal D\gamma W[\gamma] \chi_{c_0,c_T}
+	\Cal N = \int\Cal D\gamma \, W[\gamma] \chi_{c_0,c_T}
 \end{align}
 
 
@@ -272,7 +325,7 @@ Applied to the environmental entropy production \(\Delta\SEnv\), this weighted a
 	\label{eqn:P(SEnv)}
 	\tilde P(\Delta\SEnv = X)
 	&= \langle \delta(X-\Delta\SEnv[\gamma])\rangle_\chi \\
-	&= \frac1{\Cal N} \int\Cal D\gamma W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
+	&= \frac1{\Cal N} \int\Cal D\gamma \, W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
 	\end{split}
 \end{equation}
 
@@ -289,9 +342,9 @@ Note that \(\tilde P\) is still normalized (and therefore a probability distribu
 \begin{equation}
 	\begin{split}
 	   \inflint\d X \tilde P(\Delta\SEnv = X)
-	&= \inflint\d X \frac1{\Cal N} \int\Cal D\gamma W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
+	&= \inflint\d X \frac1{\Cal N} \int\Cal D\gamma \, W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
 	\\
-	&=  \frac1{\Cal N} \underbrace{\int\Cal D\gamma W[\gamma] \chi_{c_0,c_T}}_{=\; \Cal N ~ \text{\RefEqn{eqn:weighted normalized}}}
+	&=  \frac1{\Cal N} \underbrace{\int\Cal D\gamma \, W[\gamma] \chi_{c_0,c_T}}_{=\; \Cal N ~ \text{\RefEqn{eqn:weighted normalized}}}
 	    \underbrace{\inflint\d X \delta(X-\Delta\SEnv[\gamma])}_{=1}  \\
 	&= 1
 	\end{split}
@@ -327,12 +380,12 @@ While \RefEqn{eqn:P(SEnv)} provides a statistical summary, an expression relatin
 	= \ln\frac{p[\{c_{i,\tau_i}\}|c_0]}{p^\dagger[\{c_{i,\tau_i}\}^\dagger|c^\dagger_0]}
 \end{equation}
 %
-Here, ``\(\dagger\)'' stands for walking \emph{the same} path in the reverse direction. Therefore, for a path with a total of \(J\) jumps (hence containing \(J+1\) intermediate states),
+Therefore, for a path with a total of \(J\) jumps (hence containing \(J+1\) intermediate states),
 \TODO{Double-check this for correctness}
 %
 \begin{align*}
 	&\phantom{=}
-		\ln\frac{p[\{c_{i,\tau_i}\} | c_0]}{p^\dagger[\{c^\dagger_{i,\tau_i}\} | c_0^\dagger]}
+		\ln\frac{p[\{c_{i,\tau_i}\} | c_0]}{p^\dagger[\{c_{i,\tau_i}\}^\dagger | c_0^\dagger]}
 	\\
 	&=
 		\ln\frac{
@@ -544,7 +597,7 @@ In order to connect this to the new class of fluctuation theorems obtained in th
 	\equiv e^{-\frac12\beta_1\Delta E}
 \end{equation}
 %
-where \(p_c^\init\) is the probability to obtain the configuration \(c\) in the initial distribution of the system (note how they fulfill the symmetry condition \RefEqn{eqn:chi symmetry}). In particular, \(p_{c_T}^\init\) is the probability the system starts in the same configuration it eventually reaches in the end \TODO{is this claim correct?}. Inserted into \RefEqn{eqn:SEnv asymmetric average}, writing \(\chi\) as an explicit factor instead of an index to the average, the result is
+where \(p_c^\init\) is the probability to obtain the configuration \(c\) in the initial distribution of the system (note how they fulfill the symmetry condition \RefEqn{eqn:chi symmetry}). In particular, \(p_{c_T}^\init\) is the probability the system starts out in the final configuration. Inserted into \RefEqn{eqn:SEnv asymmetric average}, writing \(\chi\) as an explicit factor instead of an index to the average, the result is
 %
 \begin{equation}
 	\left\langle e^{-\frac12\Delta\SEnv} A(\Delta\SEnv) \chi_{c_0,c_T} \right\rangle = 0 ~.
@@ -646,8 +699,28 @@ a more general setup is necessary. Here, we will only assume the most basic requ
 
 The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), and therefore a transition matrix \(w_{c\to c'}\) with \(8^2-8 = 56\) nonzero entries (\(\forall c.\;w_{c\to c} = 0\)). Its elements are randomly chosen (strictly) between \(0\) and \(1\) before the experiment (and left fixed throughout each run). In a similar fashion, the initial distribution \(p^\init\) is determined.
 
-A single run now consists of sampling an initial state from \(p^\init\), and letting it evolve in a Monte-Carlo simulation for some time \(T\) (here: \(1\)), corresponding to a certain amount of attempted state transitions (here: \(10^5\)). Each time the system's configuration changes, the generated \(\Delta\SEnv\) is recorded.
+A single run now consists of sampling an initial state from \(p^\init\), and letting it evolve in a Monte-Carlo simulation for some time \(T\) (here: \(1\)), corresponding to a certain amount of attempted state transitions (here: \(10^5\)). Each time the system's configuration changes, the generated \(\Delta\SEnv\) is recorded. As an additional consistency check, the overall distriburion of final states was checked against a numerical solution of the Mater equation
+%
+\begin{equation}
+	\forall c.\;\dot p_c(t) = \underbrace{\sum_{c'}w_{c'\to c}p_{c'}(t)}_{\text{jump into } c} - \underbrace{\sum_{c'} w_{c\to c'}p_{c}(t)}_{\text{jump out of } c} ~,
+\end{equation}
+%
+which describes the distribution of states on a statistical level directly, whereas the main simulation is based on individual runs, which are then later used for statistics.
 
-A simulation now consists of a decent amount (\(10^7\)) individual runs, the result of which is then binned and put in a histogram. As can be seein in the figures for the direct histogram \RefFigure{fig:TODO}\TODO{Figure} and the logarithmic version (including deviations from the symmetry) \RefFigure{fig:TODO}\TODO{Figure}, the theorem is reproduced pretty accurately by the simulation.
 
-\TODO{mention master equation for consistency}
+A simulation now consists of a decent amount (\(10^7\)) individual runs, the result of which is then binned and put in a histogram. As can be seein in figures \RefFigure{fig:histogram_lin}~and~\RefFigure{histogram_log}, the theorem is reproducible in simulation.
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=30em]{figures/histogram_lin}
+	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{yellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the yellow graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
+	\label{fig:histogram_lin}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=30em]{figures/histogram_log}
+	\caption[]{Same histogram as figure \RefFigure{fig:histogram_lin}, but with logarithmic \(y\)-axis. In addition to the graphs for the histogram ({\color{blue}blue}), the symmetrized version ({\color{red}red}, again just barely visible) and the absolute deviation ({\color{yellow}yellow}), this also shows the relative deviation in {\color{cyan}cyan}.}
+	\label{fig:histogram_log}
+\end{figure}
