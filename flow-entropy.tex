@@ -1,17 +1,127 @@
 \chapter{Entropy production in continuous phase space systems}
+\label{chap:flow}
 
 \section{From discrete to underdamped continuous systems}
 
-\section{Stochastic DEs}
 
-It\=o, Stratonovic etc
+
+
+
+\section{Stochastic differential equations}
+
+There are multiple equivalent approaches to stochastic differential equations (SDEs), i.e. differential equations with a probabilistic or ``noise'' term. There are two important distinctions to make between the three commonly used ones.
+
+The goal of this section is not providing an introduction to SDEs, but to illustrate different formalisms briefly, and mention their key concepts. A more rigorous yet practical treatment of stochastic calculus can be found in e.g. \TODO{ref}.
+
+\subsection{Math vs. physics}
+
+The area usually associated with stochastic differential equations in mathematics is \textbf{\Ito{} calculus}, and its close relative named after \textbf{Stratonovich}. Both of these deal with equations of the form
+%
+\begin{equation}
+	\label{eqn:sde}
+	\d X_t = f(X_t,t) \d t + g(X_t,t) \d W_t
+\end{equation}
+%
+describing how a \emph{microscopic} quantity \(X\) evolves under the influence of a deterministic drive \(f\) and a stochastic contribution \(g(X_t)\d W_t\), where \(\d W_t\) is the Wiener measure accounting for the stochasticity, and can be interpreted as a ``small'' increase of the state of a random walk as time advances a little. The solution of such a SDE will be a probability distribution for the value of \(X\).
+Informally -- but maybe more intuitive -- the above equation is ``divided by \(\d t\)'' to yield
+%
+\begin{equation}
+	\dot X(t) = f(X(t),t) + g(X(t),t)\frac{\d W_t}{\d t}
+\end{equation}
+%
+and \(\d W_t(t)/\d t\) can be interpreted as Gaussian noise \(\xi(t)\),
+\begin{equation}
+	\dot X(t) = f(X(t),t) + g(X(t),t)\xi(t)~.
+\end{equation}
+%
+This is the form often used in physics. In this setting, the noise is usually defined by its statistical properties, most commonly
+\begin{align}
+	\langle\xi(t)\rangle &= 0 \\
+	\langle\xi(t)\xi(t')\rangle &\propto \delta(t-t')
+\end{align}
+%
+and can therefore be pictured as a quantity fluctuating around \(0\) so wildly that there are no correlations between any given different points in time.
+
+
+
+\subsection{\Ito{} vs. Stratonovich}
+
+There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
+%
+\begin{equation}
+	X(t+\d t) = f(X(t))\d t + g(X(t)) \Cal R ~.
+\end{equation}
+%
+However, this leaves one question open: why should the functions be evaluated at the starting point of the interval \([t,t+\d t]\), and not for example at \(t_\text{eval} = t+\d t/2\)? And indeed it turns out that the result depends on the choice of this evaluation point. In other words, there is an ambiguity in solving SDEs: all of the schemata
+%
+\begin{align}
+	X(t+\d t) &= f(X(t+a\,\d t))\d t + g(X(t+a\,\d t)) \Cal R \\
+	a &\in [0,1]
+\end{align}
+%
+are theoretically valid ways of defining the integration of \RefEqn{eqn:sde}. Which value of \(a\) to choose depends on a number of factors, a couple of which are:
+%
+\TODO{refs}
+\begin{itemize}
+	\item \emph{Modelling.} What is the nature of the noise? In finance, the randomness of the market is assumed to be a result of the current state and appears random due to the fact people are unpredictable. This is what the \Ito{} method models by setting \(a = 0\). On the other hand, for example in physics or biology, the noise often originates from a second, underlying and inaccessible process, such as temperature-related fluctuations, and setting \(a = 1/2\) (=~Stratonovich) accounts for this independence of noise and system by not preferring either side of the timestep over the other. Other values of \(a\) are not commonly used, although they do appear in special cases \TODO{ref: jaegon mentioned \(a=1\)}.
+	\item \emph{Pragmatism.} Some formulas are easier in certain formulations. A good example is the chain rule, which is called just that in the Stratonovich case, whereas its analogon has the telling name ``\Ito{}'s lemma''.
+\end{itemize}
+%
+In the context of these issues, it is important to mention that both approaches are equvalent and can be converted into each other via
+%
+\begin{equation}
+	\int_0^Tf(W_t,t)\circ\d W_t
+	=
+	\int_0^Tf(W_t,t)\d W_t
+	+
+	\frac12\int_0^T \partial_xf(W_t,t)\d t ~,
+\end{equation}
+%
+where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. As can be seen above, both approaches are equivalent if the integrand \(f\) is spatially constant
+
+
+\subsection{Micro vs. macro}
+
+SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
+
+However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the brownian motion of small particles in liquid \TODO{Sengupta-Ref}} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
+%
+\begin{equation}
+	\label{eqn:fp}
+	\begin{split}
+	\partial_tp(x,t)
+	&= - \partial_x (f(x,t)p(x,t)) + \partial_x^2 (D(x,t)p(x,t)) \\
+	&= -\partial_xj(x,t)
+	\end{split}
+\end{equation}
+%
+Like the Heat Equation, the FP equation describes a flow in terms of a current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
+%
+\begin{equation}
+	\d X_t = f(X_t,t)\d t + \sqrt{2 D(X_t,t)}\,\d W_t ~.
+\end{equation}
+%
+when integrated according to the \Ito{} calculus.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Separating Hamiltonian and non-Hamiltonian parts}
 
 To construct the conjugate propagator to the original forward process, the Hamiltonian part of the equations of motion needs to be known. This allows tracing the Hamiltonian flow back along the deterministic trajectory to reach the starting position of the reverse process, and similarly for the end position.
 
-The principle behind this separation is motivated by how certain geometric quantities, specifically the Riemann tensor \TODO{ref?}, are defined: the system is run in a process that should return to the origin in the end; if it does not, the discrepancy is characteristic for a certain property of the system. In case of the Riemann tensor that discrepancy is the curvature of space, in phase space system it accounts for the non-Hamiltonian parts of the dynamics.
+The principle behind this separation is inspired by how certain geometric symbols, specifically the Riemann tensor \TODO{ref?}, are defined: the system is run in a process that should return to the origin in the end; if it does not, the discrepancy is characteristic for a certain property of that system. In case of the Riemann tensor that discrepancy is the curvature of space, in phase space system it accounts for the non-Hamiltonian parts of the dynamics.
 
 Formally, the most general equations of motion read, with \(x\) = \(q\) or \(p\):
 %

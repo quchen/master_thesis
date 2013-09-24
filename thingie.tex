@@ -1,6 +1,7 @@
 \chapter{Strong fluctuation theorem for environmental entropy}
+\label{chap:thingie}
 
-The contents of this chapter were published in Physical Review E, ``Strong fluctuation theorem for nonstationary nonequilibrium systems'' \cite{bib:thingie-paper}. The following is a less condensed description of its contents.
+The contents of this chapter were published in Physical Review E, ``Strong fluctuation theorem for nonstationary nonequilibrium systems'' \cite{bib:thingie-paper}. The following is an elaborate description of its contents.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,9 +58,9 @@ It turns out that this derivation was overly general: in fact, a detailed fluctu
 	\langle e^{-\frac x2}A(x)\rangle = 0
 \end{align}
 %
-where \(A\) is an arbitrary antisymmetric function (the relation \RefEqn{eqn:average of exp} can be recovered by setting \(A(x) = \sinh(x/2) = \frac12(e^x-e^{-x}\)).
+where \(A\) is an arbitrary antisymmetric function; the relation \RefEqn{eqn:average of exp} can be recovered by setting \(A(x) = \sinh(x/2) = \frac12(e^x-e^{-x})\).
 
-This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities, as can be seen e.g. in \cite{seifert-review}, and the result of this chapter will be yet another entire class of fluctuation theorems.
+This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities, as can be seen e.g. in \cite{seifert-review}, and one of the main results of this chapter will be yet another entire class of fluctuation theorems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,7 +86,7 @@ An example for a jumping process is a gambler in a casino, the state being how m
 \subsection{Terminology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Suppose we have a system of \(N\) states, enumerated by \(j\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_j\), the system transitions from an old state \(n_{j-1}\) into a new one. \(c_j\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space with \(J\) jumps,
+Suppose we have a system \(\Omega\) of \(N\) states, enumerated by \(j\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_j\), the system transitions from an old state \(n_{j-1}\) into a new one. \(c_j\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space with \(J\) jumps,
 %
 \begin{align}
 	\gamma &=~
@@ -276,7 +277,7 @@ In a given Markov process, each allowed path \(\gamma\) appears with a certain p
 	\langle F\rangle = \int \Cal D \gamma\, W[\gamma] F[\gamma] ~.
 \end{align}
 %
-The path integral ``\(\int \Cal D\gamma\)'' is shorthand notation for summation over all paths \(\gamma = \{c_0, c_1, \ldots, c_n\}\) with \(N\) possible configurations,
+The path integral ``\(\int \Cal D\gamma\)'' is shorthand notation for summation over all paths \(\gamma = \{c_0, c_1, \ldots, c_n\}\) with \(N\) possible configurations per step,
 %
 \begin{align}
 	\int \Cal D\gamma \, F[\gamma]
@@ -307,6 +308,7 @@ where \(p_c^\init\) is the probability that the whole process is started (initia
 \begin{align}
 	\label{eqn:weighted functional average}
 	\langle F\rangle_\chi
+	\equiv \langle F \, \chi \rangle
 	= \frac1{\Cal N} \int \Cal D \gamma\, W[\gamma] F[\gamma] \chi_{c_0,c_T}
 \end{align}
 %
@@ -314,7 +316,7 @@ where \(\Cal N\) is a normalization constant to take the addition of \(\chi\) in
 %
 \begin{align}
 	\label{eqn:weighted normalized}
-	\Cal N = \int\Cal D\gamma \, W[\gamma] \chi_{c_0,c_T}
+	\Cal N = \int\Cal D\gamma \, W[\gamma] \chi_{c_0,c_T} ~.
 \end{align}
 
 
@@ -335,9 +337,10 @@ This allows the main result of this chapter to be stated, namely that the quanti
 	\label{eqn:SEnv fluctuation theorem}
 	\boxed{
 		\tilde P(\Delta\SEnv = X) = e^X \tilde P(\Delta\SEnv = -X)
-	}
+	}~,
 \end{equation}
 %
+a relationship that will be proven in the following sections.
 Note that \(\tilde P\) is still normalized (and therefore a probability distribution, since \(\chi > 0\)); explicitly:
 \begin{equation}
 	\begin{split}
@@ -350,7 +353,7 @@ Note that \(\tilde P\) is still normalized (and therefore a probability distribu
 	\end{split}
 \end{equation}
 %
-In particular, this allows reducing \RefEqn{eqn:SEnv fluctuation theorem} analogous to \RefEqn{eqn:antisymmetric exp average} to
+In particular, this allows reducing \RefEqn{eqn:SEnv fluctuation theorem} analogous to \RefEqn{eqn:antisymmetric exp average} to the integral fluctuation theorem
 \begin{equation}
 	\label{eqn:SEnv asymmetric average}
 	\left\langle e^{-\frac12\Delta\SEnv} A(\Delta\SEnv)\right\rangle_\chi = 0
@@ -470,6 +473,8 @@ Let
 	W[\gamma] &= p^\init_{c_0}Q[\gamma]
 \end{align}
 %
+(Recall again that \(p_c^\init\) is the probability the experiment is started with initial configuration \(c\).)
+
 The left hand side of \RefEqn{eqn:thingie} can, using \RefEqn{eqn:weighted functional average}, be written as
 %
 \begin{equation}
@@ -721,6 +726,6 @@ A simulation now consists of a decent amount (\(10^7\)) individual runs, the res
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=30em]{figures/histogram_log}
-	\caption[]{Same histogram as figure \RefFigure{fig:histogram_lin}, but with logarithmic \(y\)-axis. In addition to the graphs for the histogram ({\color{blue}blue}), the symmetrized version ({\color{red}red}, again just barely visible) and the absolute deviation ({\color{yellow}yellow}), this also shows the relative deviation in {\color{cyan}cyan}.}
+	\caption[]{Same histogram as figure \RefFigure{fig:histogram_lin}, but with logarithmic \(y\)-axis. In addition to the graphs for the histogram ({\color{blue}blue}), the symmetrized version ({\color{red}red}, again just barely visible) and the absolute deviation ({\color{yellow}yellow}), this also shows the relative deviation in {\color{cyan}cyan}. This demonstrates again that both graphs match fairly well, particularly in around \(\Delta\SEnv = 0\), where most events happen. Leaving the middle region the overlap becomes worse as \(|\Delta\SEnv|\) increases, which can be explained by the fact that these events are relatively rare, hence the statistics aren't as good (compare e.g. about \(100\) weighted counts at \(\Delta\SEnv = 7\) vs. \(10^4\) around \(\Delta\SEnv = 1\)).}
 	\label{fig:histogram_log}
 \end{figure}
