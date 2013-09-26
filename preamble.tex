@@ -1,9 +1,9 @@
 \chapter{Introduction}
 
+explain master equation in the thingie chapter
+
+
 \section{Historical overview}
-
-
-
 
 \section{Entropy}
 
@@ -15,10 +15,56 @@ explain detailed balance
 
 sprinkle \(c\in\Omega\)
 
-explain master equation in the thingie chapter
+
+``Taking away the averages''
 
 
 \section{Thesis overview}
 
-``Taking away the averages''
+This thesis is divided in two parts, the first one being about environmental entropy in a discrete, the second one in a continuous setting. Although both parts are independent research subjects, they do share certain ideas and definitions. For this reason some issues in chapter~\ref{chap:flow} are assumed to be known due to being introduced in chapter~\ref{chap:thingie}.
+
+
+\subsection{A new set of fluctuation theorems}
+
+Chapter~\ref{chap:thingie} is the result of modifying computer simulation, leading to a surprising outcome: when the resulting histogram was weighted using a seemingly arbitrary factor, it turns out to obey a certain symmetry called detailed fluctuation theorem. A detailed fluctuation theorem is an equation of the form
+%
+\begin{equation}
+	p(x) = e^{x}p(-x)
+\end{equation}
+%
+that is fulfilled by a distribution \(p\) for all values \(x\).
+
+This distribution will be the likelihood to obtain a certain value of one special form of entropy, for which no fluctuation theorems were previously known. Deeper investigation of the phenomenon lead to the discovery of an entire new class of fluctuation theorems, and as a possible application a model for how sudden temperature changes affect the energy flow from/to the environment of a simple system.
+
+
+
+
+
+\subsection{Entropy in continuous settings}
+
+The second topic is discussed in chapter~\ref{chap:flow}, which is concerned with how entropy can be defined in a meaningful way in a continuous setting. This is surprisingly difficult, as one could naively think the definitions just carry over. To give a motivating example, consider the before mentioned definition of entropy for a discrete distribution,
+%
+\begin{equation}
+	S_\text{discrete} = \sum_ip_i\ln p_i
+\end{equation}
+%
+and make it continuous by scaling down the intervals over which \(p\) changes its value. In the limit this will result in an integral of the form
+%
+\begin{equation}
+	S_\text{cont.} = \int_\Omega\d x\,p(x)\ln p(x) ~.
+\end{equation}
+%
+But there is a problem with this equation: it does not have a lower bound. Intuitively, the \(\delta\)~distribution should have no entropy, as it is the continuous version of a single-valued state. However, inserting it into the equation above results in \(S = -\infty\). Take \(\Omega = \Set R\) and a Gaussian with zero mean and standard deviation \(\sigma\), insert everything in the above equation, then the result will be
+%
+\begin{align}
+	p_\sigma(x) &= \frac1{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{x^2}{2\sigma^2}\right) \\
+	\Rightarrow S_\text{cont.} &= -\ln(\sigma) + \const
+\end{align}
+%
+which is logarithmically divergent for \(\sigma\to0\), the same limit that yields the \(\delta\)~distribution for a Gaussian. Another way of looking at it is that a \(\delta\) centered at a real value \(\mu\) carries infinite information (hence infinite entropy), namely all the decimals of \(\mu\); in a discrete setting, that would merely be an integer.
+
+This was but one motivating example. The actual work in chapter~\ref{chap:flow} will be concerned with how the concept of environmental entropy -- in many cases easier to picture as the heat exchange with the environment -- can be brought from its easy discrete definition into a setting where the degrees of freedom are continuous.
+
+
+
 

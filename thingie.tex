@@ -1,7 +1,7 @@
 \chapter{Strong fluctuation theorem for environmental entropy}
 \label{chap:thingie}
 
-The contents of this chapter were published in Physical Review E, ``Strong fluctuation theorem for nonstationary nonequilibrium systems'' \cite{bib:thingie-paper}. The following is an elaborate description of its contents.
+The contents of this chapter were published in Physical Review E, ``Strong fluctuation theorem for nonstationary nonequilibrium systems'' \cite{thingie-paper}. The following is an elaborate description of its contents.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -647,8 +647,6 @@ This section describes two numerical simulations to test the theorems previously
 \subsubsection{Simple growth process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\TODO{illustrations: 1.~redraw Hinrichsen's picture, 2.~example interface of a larger system}
-
 To demonstrate the result of the last section, consider the following growth model, which was originally investgated to explain certain wetting phenomena on an inert substrate. On an initially empty \(d\)-dimensional lattice with periodic boundary conditions, let \(h_i \in\Set N_0\) be the height of site \(i\). The dynamics now consist of repeatedly depositing particles to or evaporating them from the system at certain rates. However, the heights of adjacent sites are not independent, and subject to certain constraints.
 
 Now consider the simple case of a \(1\)-dimensional ring consisting of \(N\) sites (\(i+N \equiv i\)), subject to the constraint that adjacent sites' heights may only differ by a maximum of one,
@@ -657,7 +655,16 @@ Now consider the simple case of a \(1\)-dimensional ring consisting of \(N\) sit
 	\forall i.\; |h_i - h_{i+1}| \leq 1 ~.
 \end{equation}
 %
-Particles are deposited at rate \(q_1\) and evaporate at rate \(1\) (note that rescaling of the rates corresponds to rescaling of time, therefore evaporation can be set to \(1\) without loss of generality). For \(q_1 < 1\), it is known that the system behaves stationarily with an exponential probability distribution of the microstates,
+Particles are deposited at rate \(q_1\) and evaporate at rate \(1\) (note that rescaling of the rates corresponds to rescaling of time, therefore evaporation can be set to \(1\) without loss of generality), illustrated in fig.~\RefFigure{fig:growth process schema}.
+%
+\begin{figure}[htbp]
+	\centering
+	\include{figures/growth_process_schema}
+	\caption[]{Illustration of a simple growth process. Particles are {\color{blue}deposited} and {\color{red}evaporated} at rates~{\color{blue}\(q\)} and~{\color{red}\(1\)}, respectively. However, an event is only allowed if the invariant that adjacent sites can only differ by a maximum of height~1 is maintained; as a result, only the transitions indicated by arrows are permitted.}
+	\label{fig:growth process schema}
+\end{figure}
+%
+For \(q_1 < 1\), it is known that the system behaves stationarily with an exponential probability distribution of the microstates,
 %
 \begin{equation}
 	P(\{h_i\}) \propto q_1^{\sum_jh_j} = e^{-\mu_1 H}

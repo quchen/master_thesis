@@ -1,0 +1,53 @@
+\begin{tikzpicture}
+
+	% Coordinate system
+	\newcommand\ticklength{0.1}
+		% X
+			\draw[->] (0,0) -- (10.5,0);
+			\draw (10.75,0) node[anchor=west] {Site \(i\)};
+			\foreach \x in {0,1,...,10} {
+				\draw (\x, -\ticklength) -- (\x, 0);
+			}
+		% Y
+			\draw[->] (0,0) -- (0,3.5);
+			\draw (0,3.5) node[anchor=south] {Height \(h\)};
+			\foreach \y in {0,1,...,3} {
+				\draw (-\ticklength,\y) -- (0,\y);
+				\draw (-\ticklength,\y) node[anchor=east] {\y};
+			}
+
+	% Boxes
+		% Draws a box with the lower left corner at the specified coordinate
+		\newcommand\drawbox[1] {
+			\draw[fill=lgray] (#1) -- +(0,1) -- + (1,1) -- + (1,0) -- cycle;
+		}
+		\newcommand\evaporate[1] {
+			\draw[->,thick,red] (#1) ++(0.4,0.5) -- +(0, 0.75);
+			\draw[red] (#1) ++(0.45,0.75) node[anchor=east] {\(1\)};
+		}
+		\newcommand\deposit[1] {
+			\draw[->,thick,blue] (#1) ++(0.6,0.75) -- +(0, -0.75);
+			\draw[blue] (#1) ++(0.55,0.5) node[anchor=west] {\(q\)};
+		}
+		\drawbox{2,0}
+		\drawbox{3,0}
+		\drawbox{4,0}
+		\drawbox{4,0}
+		\drawbox{6,0}
+		\drawbox{7,0}
+		\drawbox{8,0}
+		\drawbox{8,1}
+		\drawbox{9,0}
+
+		\evaporate{2,0}
+		\evaporate{3,0}
+		\evaporate{4,0}
+		\evaporate{6,0}
+		\evaporate{8,1}
+
+		\deposit{0,0}
+		\deposit{1,0}
+		\deposit{3,1}
+		\deposit{5,0}
+		\deposit{7,1}
+\end{tikzpicture}

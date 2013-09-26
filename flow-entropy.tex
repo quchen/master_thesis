@@ -1,7 +1,42 @@
 \chapter{Entropy production in continuous phase space systems}
 \label{chap:flow}
 
-\section{From discrete to underdamped continuous systems}
+The contents of this chapter are again an in-depth description of a publication, this time in the Journal of Statistical Physics, under the same title \cite{flow-paper}.
+
+
+
+\section{From discrete to continuous systems}
+
+The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots, c_N\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
+
+Recall that a Markov process is fully described by an initial configuration \(p^\init\) and a set of transition rates \(w\), which provide a way of getting from one state to the next. Conceptually, this can be continualized to the case where the configuration is the location of a particle, leading to a system described by
+%
+\begin{equation}
+	\label{eqn:overdamped}
+	\dot q(t) = f(q,t) + g(q,t)\xi(t) ~,
+\end{equation}
+%
+which can be understood in two different ways. Coming from a Markov process, \(f\) corresponds to the bias of the transition rates to go towards a certain state, and \(g\) accounts for how the noise depends on location. On the other hand, seen from a neutral standpoint, \(f\) is of course a force term, and \(g\xi\) is the randomness of the system due to a heat bath, for example.
+
+Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly,
+%
+\begin{equation}
+	\Delta\SEnv = \ln\frac{p[\gamma]}{p^\dagger[\gamma^\dagger]}
+\end{equation}
+%
+where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), and \(p^\dagger[\gamma^\dagger]\) is the likelihood of walking that same path in reverse direction.
+
+
+Of course not all systems in nature are overdamped in the continuous case, just like not every discrete system has the Markov property. These non-overdamped -- \emph{underdamped} -- systems take the full Hamiltonian phase space into account, and the Hamiltonian equations of motion take the form
+%
+\begin{equation}\begin{split}
+	\dot q(t) &= f_q(q,p,t) + g_q(q,p,t)\xi_q(t) \\
+	\dot p(t) &= f_p(q,p,t) + g_p(q,p,t)\xi_p(t)
+\end{split}\end{equation}
+%
+As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward (yet correct) way, and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
+
+
 
 
 
@@ -11,18 +46,18 @@
 
 There are multiple equivalent approaches to stochastic differential equations (SDEs), i.e. differential equations with a probabilistic or ``noise'' term. There are two important distinctions to make between the three commonly used ones.
 
-The goal of this section is not providing an introduction to SDEs, but to illustrate different formalisms briefly, and mention their key concepts. A more rigorous yet practical treatment of stochastic calculus can be found in e.g. \TODO{ref}.
+The goal of this section is not providing an introduction to SDEs, but to illustrate different formalisms briefly, and mention their key concepts. A more rigorous yet practical treatment of stochastic calculus can be found in e.g. \cite{sde}, which also served as a main source for what follows.
 
 \subsection{Math vs. physics}
 
-The area usually associated with stochastic differential equations in mathematics is \textbf{\Ito{} calculus}, and its close relative named after \textbf{Stratonovich}. Both of these deal with equations of the form
+The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
 %
 \begin{equation}
 	\label{eqn:sde}
 	\d X_t = f(X_t,t) \d t + g(X_t,t) \d W_t
 \end{equation}
 %
-describing how a \emph{microscopic} quantity \(X\) evolves under the influence of a deterministic drive \(f\) and a stochastic contribution \(g(X_t)\d W_t\), where \(\d W_t\) is the Wiener measure accounting for the stochasticity, and can be interpreted as a ``small'' increase of the state of a random walk as time advances a little. The solution of such a SDE will be a probability distribution for the value of \(X\).
+describing how a \emph{microscopic} quantity \(X\) evolves under the influence of a deterministic drive \(f\) and a stochastic contribution \(g\,\d W_t\), where \(\d W_t\) is the Wiener measure accounting for the stochasticity. The Weiner process is the fundamental building block in SDEs; \(W_t\) can be interpreted as the position of a random walk at time \(t\), and \(\d W_t\) is a ``small'' increase of this random walk as time advances a little. The solution of such a SDE will be a probability distribution for the value of \(X\).
 Informally -- but maybe more intuitive -- the above equation is ``divided by \(\d t\)'' to yield
 %
 \begin{equation}
@@ -40,7 +75,7 @@ This is the form often used in physics. In this setting, the noise is usually de
 	\langle\xi(t)\xi(t')\rangle &\propto \delta(t-t')
 \end{align}
 %
-and can therefore be pictured as a quantity fluctuating around \(0\) so wildly that there are no correlations between any given different points in time.
+and can therefore be pictured as a quantity fluctuating around \(0\) so wildly that there are no correlations between any given different points in time. The advantage of this approach of course is that \(\xi\) can be treated as an ordinary function with certain special properties.
 
 
 
@@ -61,7 +96,6 @@ However, this leaves one question open: why should the functions be evaluated at
 %
 are theoretically valid ways of defining the integration of \RefEqn{eqn:sde}. Which value of \(a\) to choose depends on a number of factors, a couple of which are:
 %
-\TODO{refs}
 \begin{itemize}
 	\item \emph{Modelling.} What is the nature of the noise? In finance, the randomness of the market is assumed to be a result of the current state and appears random due to the fact people are unpredictable. This is what the \Ito{} method models by setting \(a = 0\). On the other hand, for example in physics or biology, the noise often originates from a second, underlying and inaccessible process, such as temperature-related fluctuations, and setting \(a = 1/2\) (=~Stratonovich) accounts for this independence of noise and system by not preferring either side of the timestep over the other. Other values of \(a\) are not commonly used, although they do appear in special cases \TODO{ref: jaegon mentioned \(a=1\)}.
 	\item \emph{Pragmatism.} Some formulas are easier in certain formulations. A good example is the chain rule, which is called just that in the Stratonovich case, whereas its analogon has the telling name ``\Ito{}'s lemma''.
@@ -77,14 +111,14 @@ In the context of these issues, it is important to mention that both approaches 
 	\frac12\int_0^T \partial_xf(W_t,t)\d t ~,
 \end{equation}
 %
-where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. As can be seen above, both approaches are equivalent if the integrand \(f\) is spatially constant
+where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. As can be seen above, both approaches are identical if the integrand \(f\) is spatially constant; otherwise, the nonvanishing integral will be referred to as a \emph{drift term}.
 
 
 \subsection{Micro vs. macro}
 
 SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
 
-However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the brownian motion of small particles in liquid \TODO{Sengupta-Ref}} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
+However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the brownian motion of small particles in liquid \cite{sengupta}.} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
 %
 \begin{equation}
 	\label{eqn:fp}
@@ -101,7 +135,7 @@ Like the Heat Equation, the FP equation describes a flow in terms of a current, 
 	\d X_t = f(X_t,t)\d t + \sqrt{2 D(X_t,t)}\,\d W_t ~.
 \end{equation}
 %
-when integrated according to the \Ito{} calculus.
+when integrated according to the \Ito{} calculus \cite{sde}.
 
 
 
@@ -117,7 +151,7 @@ when integrated according to the \Ito{} calculus.
 
 
 
-\subsection{Separating Hamiltonian and non-Hamiltonian parts}
+\section{Separating Hamiltonian and non-Hamiltonian parts}
 
 To construct the conjugate propagator to the original forward process, the Hamiltonian part of the equations of motion needs to be known. This allows tracing the Hamiltonian flow back along the deterministic trajectory to reach the starting position of the reverse process, and similarly for the end position.
 
@@ -129,7 +163,7 @@ Formally, the most general equations of motion read, with \(x\) = \(q\) or \(p\)
 	\dot x &= f_x(q,p) + \Gamma_x(q,p)\xi_x(t)
 \end{align}
 %
-This can be split up in Hamiltonian (\(\dot q_\Delta\)) and non-Hamiltonian \(\dot p_\Delta\) parts:
+This can be split up in Hamiltonian (\(\dot x_H\)) and non-Hamiltonian (\(\dot x_\Delta\)) parts:
 %
 \begin{align}
 	\dot x &= \dot x_H + \dot x_\Delta
@@ -140,8 +174,8 @@ To obtain the summands individually, the following algorithm is used:
 \begin{enumerate}
 	\item Calculate \(x(t+\d t/2) \).
 	\item Reverse the system's dynamics by substituting \(p \to -p\).
-	\item Evolve the for another \(\d t/2\), starting at the previously reached end point, but with the reversed dynamics.
-	\item The end position is \(x(t+\d t)\), from which \(x_\Delta = x(t+\d t) - x(t)\) can be determined. (\(\dot x_\Delta\) is obtained in the limit \(\d t \to 0\).)
+	\item Evolve the for another \(\d t/2\), starting at the previously reached end point.
+	\item The end position is \(x(t+\d t)\), from which \(x_\Delta = x(t+\d t) - x(t)\) can be determined.
 \end{enumerate}
 %
 For example, this procedure applied to the underdamped particle discussed in the present work
