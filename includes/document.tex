@@ -70,8 +70,9 @@
 	%       \arabic: 0-9
 	%       \fnsymbol: Different special character for each counter
 	%       \roman, \Roman: i, I
-	\renewcommand{\thesection}{\arabic{section}}
-	\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+	\renewcommand{\thechapter}{\arabic{chapter}}
+	\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+	\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
 	%\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
 

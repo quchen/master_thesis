@@ -7,7 +7,7 @@ The contents of this chapter are again an in-depth description of a publication,
 
 \section{From discrete to continuous systems}
 
-The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots, c_N\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
+The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
 
 Recall that a Markov process is fully described by an initial configuration \(p^\init\) and a set of transition rates \(w\), which provide a way of getting from one state to the next. Conceptually, this can be continualized to the case where the configuration is the location of a particle, leading to a system described by
 %
@@ -30,6 +30,7 @@ where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), an
 Of course not all systems in nature are overdamped in the continuous case, just like not every discrete system has the Markov property. These non-overdamped -- \emph{underdamped} -- systems take the full Hamiltonian phase space into account, and the Hamiltonian equations of motion take the form
 %
 \begin{equation}\begin{split}
+	\label{eqn:general hamiltonian equations}
 	\dot q(t) &= f_q(q,p,t) + g_q(q,p,t)\xi_q(t) \\
 	\dot p(t) &= f_p(q,p,t) + g_p(q,p,t)\xi_p(t)
 \end{split}\end{equation}
@@ -49,6 +50,7 @@ There are multiple equivalent approaches to stochastic differential equations (S
 The goal of this section is not providing an introduction to SDEs, but to illustrate different formalisms briefly, and mention their key concepts. A more rigorous yet practical treatment of stochastic calculus can be found in e.g. \cite{sde}, which also served as a main source for what follows.
 
 \subsection{Math vs. physics}
+\label{sec:math vs physics}
 
 The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
 %
@@ -61,10 +63,10 @@ describing how a \emph{microscopic} quantity \(X\) evolves under the influence o
 Informally -- but maybe more intuitive -- the above equation is ``divided by \(\d t\)'' to yield
 %
 \begin{equation}
-	\dot X(t) = f(X(t),t) + g(X(t),t)\frac{\d W_t}{\d t}
+	\dot X(t) = f(X(t),t) + g(X(t),t)\frac{\d W_t}{\d t} ~,
 \end{equation}
 %
-and \(\d W_t(t)/\d t\) can be interpreted as Gaussian noise \(\xi(t)\),
+called a Langevin equation, and \(\d W_t(t)/\d t\) can be interpreted as Gaussian noise \(\xi(t)\),
 \begin{equation}
 	\dot X(t) = f(X(t),t) + g(X(t),t)\xi(t)~.
 \end{equation}
@@ -106,15 +108,16 @@ In the context of these issues, it is important to mention that both approaches 
 \begin{equation}
 	\int_0^Tf(W_t,t)\circ\d W_t
 	=
-	\int_0^Tf(W_t,t)\d W_t
+	\int_0^Tf(W_t,t)\,\d W_t
 	+
-	\frac12\int_0^T \partial_xf(W_t,t)\d t ~,
+	\frac12\int_0^T \partial_xf(W_t,t)\,\d t ~,
 \end{equation}
 %
-where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. As can be seen above, both approaches are identical if the integrand \(f\) is spatially constant; otherwise, the nonvanishing integral will be referred to as a \emph{drift term}.
+where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. The spatial derivative \(\partial_x\) is to be read as with respect to \(f\)'s first argument (which appears with explicit mention of the Wiener process in the integrands). As can be seen above, both approaches are identical if the integrand \(f\) is spatially constant; otherwise, the nonvanishing integral will be referred to as a \emph{drift term}.
 
 
 \subsection{Micro vs. macro}
+\label{sec:fp introduction}
 
 SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
 
@@ -123,8 +126,8 @@ However, individual partcles are rarely\footnote{For a case where this \emph{is}
 \begin{equation}
 	\label{eqn:fp}
 	\begin{split}
-	\partial_tp(x,t)
-	&= - \partial_x (f(x,t)p(x,t)) + \partial_x^2 (D(x,t)p(x,t)) \\
+	\partial_tP(x,t)
+	&= - \partial_x (f(x,t)P(x,t)) + \partial_x^2 (D(x,t)P(x,t)) \\
 	&= -\partial_xj(x,t)
 	\end{split}
 \end{equation}
@@ -136,6 +139,69 @@ Like the Heat Equation, the FP equation describes a flow in terms of a current, 
 \end{equation}
 %
 when integrated according to the \Ito{} calculus \cite{sde}.
+
+
+
+
+\section{Hamiltonian equations of the studied model}
+
+The treatment of the most general case of Hamiltonian motion, as stated for a single particle in \RefEqn{eqn:general hamiltonian equations}, turns out to be very complicated. For this reason, the model used here is a special case of said equations. That is not to say it is impractical though; many of the basic systems of classical mechanics can be described by these equations:
+%
+\begin{equation}\boxed{\begin{split}
+	\label{eqn:model hamiltonian eqns of motion}
+	\dot q &= p \\
+	\dot p &= -V'(q) - \mu(p)p + \Gamma(p)\xi(t)
+\end{split}}\end{equation}
+%
+This models a single one-dimentional particle of unit mass in full phase space \((q,p)\) subject to a conservative force field \(-V'(q)\), momentum-dependent friction \(\mu(p)\) and multiplicative noise \(\Gamma(p)\xi(t)\), where \(\xi(t)\) is Gaussian noise, implicitly defined via
+%
+\begin{equation}\begin{split}
+	\langle\xi(t)\rangle &= 0 \\
+	\langle\xi(t)\xi(t')\rangle &= 2D\delta(t-t')
+\end{split}\end{equation}
+%
+and \(D\) is a diffusive coefficient. The noise term \(\xi\) is integrated according to the \Ito{} scheme throughout this paper (due to pragmatic reasons -- there will be plenty more ambiguities to discuss later).
+
+
+
+
+
+\subsection{Fokker-Planck equation of the model}
+
+A key quantity later will be the propagator of the Fokker-Planck equation. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into this form, which will be done following the notation of \TODO{ref: [8] in flow paper}, defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
+%
+\begin{equation}
+	\d x_i = A_i(\vec x,t)\d t + B_i(\vec x, t)\d W_i
+\end{equation}
+%
+where, as introduced in section~\ref{sec:math vs physics}, \(\d W_i\) can be interpreted as the random walk generated by the noise \(\xi(t)\).
+
+The FP equation introduced in \ref{sec:fp introduction} was just concerned with a single dimension. In the present two-dimensional space (with coordinates \(\vec x\)), that equation has to be modified to
+%
+\begin{align}
+	\partial_tP(\vec x,t)
+	&= - \sum_{i=q,p} \partial_{x_i} (f_i(\vec x,t)P(\vec x,t)) + \partial_{x_i}^2 (D_i(\vec x,t)P(\vec x,t)) \\
+	&= - \sum_{i=q,p} \partial_{x_i}j_i(\vec x,t)
+\end{align}
+%
+taking into account the individual fluctuations each component of \(\vec x\) may be subject to. The coefficients are related to the above Langevin equation via
+%
+\begin{align}
+	f_i(\vec x,t) &= A_i(\vec x,t) \\
+	D_i(\vec x,t) &= \frac12B_i(\vec x,t)^2
+\end{align}
+%
+and therefore the FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} is
+%
+\begin{equation}\begin{split}
+	\partial_t P(q,p,t)
+	&= \Bigl( \bigl(\mu(p)+p\mu'(p) + \Gamma(p)\Gamma''(p) + \Gamma'(p)^2 \bigr) \\
+	&\qquad +\bigl(p\mu(p) + 2\Gamma(p)\Gamma'(p) + V'(q)\bigr)\partial_p \\
+	&\qquad +\frac12\Gamma(p)^2\partial_p^2 - p\partial_q\Bigr) P(q,p,t)
+\end{split}\end{equation}
+%
+(note that the parenthesis is a large differential operator).
+
 
 
 
