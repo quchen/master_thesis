@@ -6,6 +6,7 @@ The contents of this chapter are again an in-depth description of a publication,
 
 
 \section{From discrete to continuous systems}
+\label{sec:discrete to continuous}
 
 The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
 
@@ -16,15 +17,25 @@ Recall that a Markov process is fully described by an initial configuration \(p^
 	\dot q(t) = f(q,t) + g(q,t)\xi(t) ~,
 \end{equation}
 %
-which can be understood in two different ways. Coming from a Markov process, \(f\) corresponds to the bias of the transition rates to go towards a certain state, and \(g\) accounts for how the noise depends on location. On the other hand, seen from a neutral standpoint, \(f\) is of course a force term, and \(g\xi\) is the randomness of the system due to a heat bath, for example.
+which can be understood in two different ways. Coming from a Markov process, \(f\) corresponds to the bias of the transition rates to go towards a certain state, and \(g\) accounts for how the noise depends on location. On the other hand, seen from a neutral standpoint, \(f\) is of course a force term, and \(g\xi\) is the randomness of the system due to a heat bath represented by Gaussian noise \(\xi(t)\), for example.
 
-Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly,
+Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly \TODO{ref [6] in flow paper},
 %
 \begin{equation}
-	\Delta\SEnv = \ln\frac{p[\gamma]}{p^\dagger[\gamma^\dagger]}
+	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^\dagger[\gamma^\dagger | q_0^\dagger]}
 \end{equation}
 %
-where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), and \(p^\dagger[\gamma^\dagger]\) is the likelihood of walking that same path in reverse direction.
+where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), and \(p^\dagger[\gamma^\dagger]\) is the likelihood of walking that same path in reverse direction. The \(\dagger\) or \emph{conjugation} operation encodes this reversal in the obvious way: for a process running from time \(t=0\) to \(T\),
+%
+\begin{equation}
+	\begin{split}
+		q^\dagger(t) &= q(T-t) \\
+		q_0^\dagger(t) &= q_T \\
+		t &\overset\dagger\rightarrow T-t
+	\end{split}
+\end{equation}
+%
+where the last line is important if the coefficients in \RefEqn{eqn:overdamped} have an explicit time dependency. Note that the \(\dagger\) operation is \emph{not} reversing time in this context -- when \(p[\gamma | q_0]\) is the probability for a process to run along \(\gamma\) forward in time, \(p^\dagger[\gamma^\dagger | q_0^\dagger]\) is the probability for that same process to follow a different path \(\gamma^\dagger\), also forward in time, albeit with a reversed explicit time-dependency of the SDE coefficients. \TODO{illustration}
 
 
 Of course not all systems in nature are overdamped in the continuous case, just like not every discrete system has the Markov property. These non-overdamped -- \emph{underdamped} -- systems take the full Hamiltonian phase space into account, and the Hamiltonian equations of motion take the form
@@ -35,7 +46,20 @@ Of course not all systems in nature are overdamped in the continuous case, just 
 	\dot p(t) &= f_p(q,p,t) + g_p(q,p,t)\xi_p(t)
 \end{split}\end{equation}
 %
-As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward (yet correct) way, and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
+As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward way (i.e. the ``\(\dagger\)'' operation is not easily defined), and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
+
+To explain this, consider simply carrying over the \(\dagger\)~operation from the above (overdamped) case. The stochastic trajectory, now through \((q,p)\) space, will be transformed \`a la
+%
+\begin{equation}\begin{split}
+	\gamma &= \Bigl\{\bigl(q(t),p(t)\bigr)\Bigr\}
+	\\ \overset\dagger\longrightarrow \quad
+	\gamma^{\dagger_\text{na\"ive}}
+		&= \Bigl\{\bigl(q^{\dagger_\text{na\"ive}}(t),p^{\dagger_\text{na\"ive}}(t)\bigr)\Bigr\}
+		= \Bigl\{\bigl(q(T-t),p(T-t)\bigr)\Bigr\}
+\end{split}\end{equation}
+%
+but it turns out that the velocity \(\dot q\) has a different sign as momentum \(p\) in this definition, leading to an unphysical path.
+
 
 
 
@@ -82,6 +106,7 @@ and can therefore be pictured as a quantity fluctuating around \(0\) so wildly t
 
 
 \subsection{\Ito{} vs. Stratonovich}
+\label{sec:ito-stratonovich dilemma}
 
 There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
 %
@@ -143,7 +168,8 @@ when integrated according to the \Ito{} calculus \cite{sde}.
 
 
 
-\section{Hamiltonian equations of the studied model}
+\section{Underdamped particle with additive noise}
+\label{sec:underdamped-model}
 
 The treatment of the most general case of Hamiltonian motion, as stated for a single particle in \RefEqn{eqn:general hamiltonian equations}, turns out to be very complicated. For this reason, the model used here is a special case of said equations. That is not to say it is impractical though; many of the basic systems of classical mechanics can be described by these equations:
 %
@@ -166,9 +192,9 @@ and \(D\) is a diffusive coefficient. The noise term \(\xi\) is integrated accor
 
 
 
-\subsection{Fokker-Planck equation of the model}
+\subsection{Fokker-Planck equation}
 
-A key quantity later will be the propagator of the Fokker-Planck equation. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into this form, which will be done following the notation of \TODO{ref: [8] in flow paper}, defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
+A key quantity later will be the propagator of the Fokker-Planck equation, which can be seen as the continuous analogon of the Master quation \RefEqn{eqn:master}. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into Fokker-Planck form. This will be done following the notation of \TODO{ref: [8] in flow paper} and defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
 %
 \begin{equation}
 	\d x_i = A_i(\vec x,t)\d t + B_i(\vec x, t)\d W_i
@@ -179,6 +205,7 @@ where, as introduced in section~\ref{sec:math vs physics}, \(\d W_i\) can be int
 The FP equation introduced in \ref{sec:fp introduction} was just concerned with a single dimension. In the present two-dimensional space (with coordinates \(\vec x\)), that equation has to be modified to
 %
 \begin{align}
+	\label{eqn:fp phase}
 	\partial_tP(\vec x,t)
 	&= - \sum_{i=q,p} \partial_{x_i} (f_i(\vec x,t)P(\vec x,t)) + \partial_{x_i}^2 (D_i(\vec x,t)P(\vec x,t)) \\
 	&= - \sum_{i=q,p} \partial_{x_i}j_i(\vec x,t)
@@ -194,68 +221,355 @@ taking into account the individual fluctuations each component of \(\vec x\) may
 and therefore the FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} is
 %
 \begin{equation}\begin{split}
-	\partial_t P(q,p,t)
-	&= \Bigl( \bigl(\mu(p)+p\mu'(p) + \Gamma(p)\Gamma''(p) + \Gamma'(p)^2 \bigr) \\
+	\partial_t P(q,p,t) &= \Cal L \, P(q,p,t) \\
+	\Cal L &= \mu(p)+p\mu'(p) + \Gamma(p)\Gamma''(p) + \Gamma'(p)^2 \\
 	&\qquad +\bigl(p\mu(p) + 2\Gamma(p)\Gamma'(p) + V'(q)\bigr)\partial_p \\
-	&\qquad +\frac12\Gamma(p)^2\partial_p^2 - p\partial_q\Bigr) P(q,p,t)
+	&\qquad +\frac12\Gamma(p)^2\partial_p^2 - p\partial_q ~.
+\end{split}\end{equation}
+
+
+
+
+
+
+\subsection{Detailed balance redux}
+
+The idea of detailed balance (section \RefSection{sec:detailed balance}) is also applicable to continuous system, where as mentioned the Fokker-Planck equation \RefEqn{eqn:fp} takes over for the Master equation \RefEqn{eqn:master}. Analogous, a stationary FP equation means all macroscopic state variables are constant; in the present context it is of particular interest that no heat or environmental entropy is exchanged with the bath.
+
+This can probably be better understood than in the discrete scenario even, where the explanation was quite abstract (``probability currents cancel out''). Eqns. \RefEqn{eqn:model hamiltonian eqns of motion} contains a friction term responsible for heating up the environment as the system moves, and also a noise term transferring energy (also in the form of heat) into the system. If these two contributions cancel out just right, then all that's left is a Hamiltonian system of a free particle in a potential, which is of course reversible and does not produce any heat.
+
+Being in detailed balance introduces a connection between the friction terms \(\mu(p)\) and the noise coefficient \(\Gamma(p)\) in \RefEqn{eqn:model hamiltonian eqns of motion}. This relation can be obtainex explicitly by inserting a Boltzmann distribution (which is the equilibrium distribution of a system in thermal equilibrium with a heat bath) into the FP equation \RefEqn{eqn:fp phase} and setting it equal zero, namely
+%
+\begin{equation}
+	P_\text{Boltz}(q,p)
+	= \frac1Ze^{-\beta E(q,p)}
+	= \frac1Z\exp\Bigl(-\beta \bigl(\tfrac{p^2}2+V(q)\bigr)\Bigr)
+\end{equation}
+%
+The result is a first-order differential equation for \(\mu(p\)),
+%
+\begin{equation}\begin{split}
+	0
+	&=
+	\frac12 \beta^2 p^2 \Gamma(p)^2
+	- \beta p^2 \mu(p)
+	- 2 \beta p \Gamma(p) \Gamma'(p)
+	- \frac12 \beta  \Gamma(p)^2
+	\\&\qquad
+	+\Gamma(p) \Gamma''(p)
+	+ \Gamma'(p)^2
+	+ p \mu'(p)
+	+ \mu(p)  ~.
 \end{split}\end{equation}
 %
-(note that the parenthesis is a large differential operator).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Separating Hamiltonian and non-Hamiltonian parts}
-
-To construct the conjugate propagator to the original forward process, the Hamiltonian part of the equations of motion needs to be known. This allows tracing the Hamiltonian flow back along the deterministic trajectory to reach the starting position of the reverse process, and similarly for the end position.
-
-The principle behind this separation is inspired by how certain geometric symbols, specifically the Riemann tensor \TODO{ref?}, are defined: the system is run in a process that should return to the origin in the end; if it does not, the discrepancy is characteristic for a certain property of that system. In case of the Riemann tensor that discrepancy is the curvature of space, in phase space system it accounts for the non-Hamiltonian parts of the dynamics.
-
-Formally, the most general equations of motion read, with \(x\) = \(q\) or \(p\):
+Thanks to computer algebra systems\footnote{Mathematica~9.0.0.0}, the solution of this daunting equation is obtained quite easily, it is
 %
-\begin{align}
-	\dot x &= f_x(q,p) + \Gamma_x(q,p)\xi_x(t)
-\end{align}
+\begin{equation}
+	\mu(p) = \frac12\beta\Gamma(p)^2 - \frac1p\Gamma(p)\Gamma'(p) + C\frac1pe^{\frac{\beta p^2}2}
+\end{equation}
 %
-This can be split up in Hamiltonian (\(\dot x_H\)) and non-Hamiltonian (\(\dot x_\Delta\)) parts:
+where \(C\) is an arbitrary integration constant. However, since the last term is exponentially divergent for \(p\to\infty\), it unphysical: the mean acceleration of a system in equilibrium would be infinite. Therefore \(C = 0\) is the only suitable choice, and what remains is
 %
-\begin{align}
-	\dot x &= \dot x_H + \dot x_\Delta
-\end{align}
+\begin{equation}
+	\mu(p) = \frac12\beta\Gamma(p)^2 - \frac1p\Gamma(p)\Gamma'(p) ~.
+\end{equation}
 %
-To obtain the summands individually, the following algorithm is used:
+This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\Gamma^2\) \TODO{ref} (also known as the Einstein relation) for momenum-independent (``additive'') noise and linear friction.
+
+
+
+\subsection{Short-time propagator}
+
+\subsubsection{General case}
+
+Like in the discrete case, a key ingredient to defining entropy production in a continuous setting is the notion of a path probability. This probability is given by the propagator or Green's function of the FP equation. It will be denoted \(G(\vec x'|\vec x;\,\Delta t)\), and can be read as the probability that a particle starting at phase space coordinates \(\vec x = (q,p)\) is found at a new point \(\vec x' = (q',p')\) at \(\Delta t\) time later. In the present work however, it will be sufficient to take the \emph{short-time} proagator into account, i.e. \(\Delta t\) is very small.
+
+The short-time propagator \(G(\vec x'|\vec x;\,\d t)\) solves the FP equation to leading order in \(\d t\), and is therefore not uniquely defined:
 %
 \begin{enumerate}
-	\item Calculate \(x(t+\d t/2) \).
-	\item Reverse the system's dynamics by substituting \(p \to -p\).
-	\item Evolve the for another \(\d t/2\), starting at the previously reached end point.
-	\item The end position is \(x(t+\d t)\), from which \(x_\Delta = x(t+\d t) - x(t)\) can be determined.
+	\item The short-time propagator need not be Gaussian, as long as the (``arbitrary-time'') macroscopic propagator is reproduced by it. According to the central limit theorem, any distribution with the correct first and second moments is sufficient. (Intuitively, this can be understood by the fact that many functions have identical first-order power series coefficients, but their actual global shape is influenced by the higher-order terms. In the present scenario, these terms are neglected, leading to said ambiguity.)
+	%
+	\item It is not clear where the fields contained in the FP equation \RefEqn{eqn:fp phase}, \(f_i(\vec x,t)\) and \(D_i(\vec x,t)\), have to be evaluated: at \(\vec x\), \(\vec x'\), between, somewhere in the neighbourhood? In general, an evaluation point at any \(\vec r = \varphi(\vec x,\vec x')\) will do \TODO{ref, check how general \(\varphi\) really is}. Conceptually, this is similar to the \Ito{}-Stratonovich dilemma introduced in the conext of stochastic differential equations in section~\RefSection{sec:ito-stratonovich dilemma}, but it is important to emphasize that this is a \emph{new, independent} ambiguity in addition to the previous one (which was resolved to integration according to \Ito{} scheme to obtain the FP equation from the SDE).
 \end{enumerate}
 %
-For example, this procedure applied to the underdamped particle discussed in the present work
+To get a hold of the infinitely many short-time propagators, assume the evaluation point is linearly between the two end points,
+%
+\begin{equation}
+	\vec r = (1-a)\vec x + a\vec x' \qquad a\in[0,1] ~,
+\end{equation}
+%
+as done in \TODO{ref [8] in flow paper}. This leads to the following expression for the propagator:
+%
+\begin{align}
+	\label{eqn:propagator general}
+	G_a(\vec x'|\vec x;\,\d t)
+	&= \prod_i \frac1{\sqrt{2\pi D_i\d t}}
+	\exp\left(
+		- \frac{(\d x_i-A_i\d t+2aD_i'\d t)^2}{4D_i\d t}
+		- a A_i'\d t
+		+ a^2 D_i''\d t
+		\right)
+\end{align}
+%
+with the short-hands
 %
 \begin{align*}
-	\dot q &= p \\
-	\dot p &= -V'(q) - \mu(p)p + \Gamma(p)\xi(t)
+	A_i &= A_i(\vec r,t)  &  A_i' &= \partial_{r_i}A_i(\vec r,t) \\
+	D_i &= D_i(\vec r,t)  &  D_i' &= \partial_{r_i}D_i(\vec r,t)  &  D_i'' &= \partial_{r_i}^2D_i(\vec r,t) ~.
 \end{align*}
-results in
-\begin{align*}
-	\dot q_H &= p  &  \dot q_\Delta &= 0 \\
-	\dot p_H &= -V'(q)  &  \dot p_\Delta &= - \mu(p)p + \Gamma(p)\xi(t) ~.
-\end{align*}
-This approach is quite general and can be applied to more complicated systems, in which the separation may not be as clear.
 
-It is important to realize that this is not the same as what Spinney/Ford do in their entropy definition. In the present work, the splitting is done \emph{a priori} with only the equations of motion in mind, in particular before entropy is even mentioned. On the other hand, in Spinney/Ford's case, reversal of dynamics is hard-wired into the entropy definition itself. In other words, the approach of \textbf{Flow entropy factors out the reversal of dynamics}.
+
+\subsubsection{Applied to the model}
+
+The system in question, \RefEqn{eqn:model hamiltonian eqns of motion}, consists of two coupled differential equations, but only one of them is stochastic, giving \(D_1\equiv0\). However, the propagator \RefEqn{eqn:propagator general} requires dividing by this quantity so it is not well-defined. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} is modified to add a ``very small'' (new, independent from \(\xi_p\)) noise term to the location, resulting in the system
+%
+\begin{equation}
+	\label{eqn:underdamped sde epsilon}
+	\begin{split}
+		\dot q(t) &= p + \varepsilon \xi_q(t) \\
+		\dot p(t) &= -V'(q) - \mu(p)p + \Gamma(p)\xi_p(t) ~;
+	\end{split}
+\end{equation}
+%
+the coefficient \(\varepsilon\) will later fall away on its own, justifying this rather ad-hoc addition.
+The resulting propagator for this model then reads \TODO{check for correctness}
+%
+\begin{equation}
+	\label{eqn:short time propagator}
+	\begin{split}
+		_\varepsilon G_a (q',p' | q,p;\,\d t)
+		&= \frac1{2\pi\varepsilon\Gamma(r)\d t}
+			\exp\Bigl(
+				a^2(\Gamma(r)\Gamma''(r) + \Gamma'(r)^2)\d t
+			\\&\quad
+			-\frac{\bigl(V'(q+a\,\d q)\d t + 2 a\Gamma(r)\Gamma'(r)\d t + \d p + r\mu(r)\d t\bigr)^2}{2\Gamma(r)^2\d t}
+			\\&\quad
+			+ a\bigl(r\mu'(r)+\mu(r)\bigr)\d t
+			- \frac{(\d q - r\d t)^2}{2\varepsilon^2\d t}
+			\Bigr)
+	\end{split}
+\end{equation}
+%
+with
+\begin{align*}
+	\d q &= q' - q  &  \d p &= p' - p  &  r &= (1-a)p + ap' ~.
+\end{align*}
+
+As a consistency check, consider the limit \(\varepsilon\to0\). According to the differential equations above, this system should be deterministic in the position coordinate. And indeed the terms involving \(\varepsilon\) in \RefEqn{eqn:short time propagator} are of Gaussian shape, just like in the usual derivation of the \(\delta\)~distribution from a narrow Gaussian. More explicitly, the limit reads
+%
+\begin{equation}
+	\label{eqn:delta-limit}
+	\begin{split}
+		G_a (q',p' | q,p;\,\d t) =
+		\frac{\delta(\d q-r\d t)}{\sqrt{2\pi\d t}\Gamma(r)}\exp(\cdots)
+	\end{split}
+\end{equation}
+%
+where the \(\delta\) accounts for the deterministic location.
+
+
+
+\section{Differential entropy production}
+
+The focus of the main part of this chapter is the definition of differential environmental entropy \(\d\SEnv\). The term \emph{differential} will be used in multiple similar but different contexts; it can always be understood as some form of Taylor expansion of the finite entropy increase \(\Delta\SEnv\) in \(\d t\), \(\d q\) and \(\d p\) to lowest order. Which meaning is appropriate will be specified explicitly in ambiguous places.
+
+The outline of what follows is this. First, an overview of Spinney and Ford's approach to defining \(\d\SEnv\) is given, which leads to the question what should be ``the state'' of an SDE. Inspired by this question, a new way of defining \(\d\SEnv\) will be proposed, and frequently compared to the other approach in the process of finding the corresponding formulas.
+
+
+
+\subsection{Spinney and Ford's entropy definition}
+
+
+In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. More explicitly, what they do is defining \(\dagger\) as \TODO{ref [9] is given here in the flow paper}
+%
+\begin{equation}\begin{split}
+	\gamma &= \Bigl\{\bigl(q(t),p(t)\bigr)\Bigr\}
+	\\ \overset\dagger\longrightarrow \quad
+	\gamma^{\dagger_\SF}
+		&= \Bigl\{\bigl(q^{\dagger_\SF}(t),p^{\dagger_\SF}(t)\bigr)\Bigr\}
+		= \Bigl\{\bigl(\varepsilon q(T-t),\varepsilon p(T-t)\bigr)\Bigr\}
+\end{split}\end{equation}
+%
+where \(\varepsilon\) is a parity operator, and equates to \(+1\) for even quantities such as \(q\) and \(-1\) for odd ones such as \(p\) under time reversal. Using this, they are able to use the entropy definition
+%
+\begin{equation}
+	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^{\dagger_\SF}[\gamma^{\dagger_\SF} | q_0^{\dagger_\SF}]}
+\end{equation}
+%
+to derive an expression for the differential environmental entropy production of arbitrary underdamped stochastic systems in full phase space, \TODO{ref [8] is given here in the flow paper} given by
+%
+\begin{equation}
+	\d\SEnv^\SF = \ln \frac{G_a(\vec x'|x;\,\d t)}{G_b(\vec x'^\dagger|\vec x^\dagger;\,\d t)} ~;
+\end{equation}
+%
+recall that the propagator \(G_a(\vec x'|x;\,\d t)\) acorresponds to the probability to go from \(\vec x = (q,p)\) to \(\vec x'\) in the short time \(\d t\), plus an ambiguity parameter \(a\). In the case of the underdamped particle \RefEqn{eqn:underdamped sde epsilon} this then reads
+%
+\begin{equation}
+	\label{eqn:DSEnv spinney main definition}
+	\d\SEnv^\SF =
+		\ln \frac
+			{_\varepsilon G_a(q',p'|q,p;\,\d t)}
+			{_\varepsilon G_b(q,-p|q',-p';\,\d t)} ~.
+\end{equation}
+%
+In order to make this equation well-behaved in the limit of the ad-hoc parameter \(\varepsilon\to0\), both parts of the fraction have to peak at the same location; taking a step away from mathematics, this can be understood as the \(\delta\)~distributions in \RefEqn{eqn:delta-limit} cancelling. This leads to the condition \TODO{verify equation}
+%
+\begin{equation}
+	(q'-q)-(p+a(p'-p))\d t = -\bigl((q-q') - (-p'+b(-p+p'))\d t\bigr)
+\end{equation}
+%
+which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment \TODO{ref}. Anyway, direct calculation of the entropy production results in the expression \TODO{verify}
+%
+\begin{equation}\begin{split}
+	\label{eqn:sf entropy production}
+	\d\SEnv^\SF
+	&=\frac1{\Gamma^2}\bigl(
+		- \mu\Gamma^2
+		- \Gamma^3\Gamma''
+		+ \Gamma^2\Gamma'^2
+		- \Gamma^2p\mu'
+	\\&\qquad\quad
+		+ 2\mu\Gamma p\Gamma'
+		- 2\mu pV'
+		- 2 \Gamma\Gamma'V'
+		\bigr) \d t
+	\\&\qquad
+		+\frac1{\Gamma^2}
+		(-2\Gamma\Gamma' - 2\mu p) \d p
+		+ \Cal O(\d t^2) +  \Cal O(\d p^3) ~;
+\end{split}\end{equation}
+%
+where for the sake of brevity the explicit arguments of \(\Gamma(p)\), \(\mu(p)\) and \(V(q)\) have been dropped.
+Note that the series expansion is to first order in \(\d t\) and \emph{second} order in \(\d p\).
+
+This expression however has some surprising properties. Most notably, in the case of a particle subject to linear friction (\(\mu(p) = \const\)) in detailed balance (\(\Gamma = \sqrt{2T\mu}\)) it reduces to
+%
+\begin{equation}
+	\d\SEnv^\SF = -\beta p \d p - \beta V'(q) \d q - \mu \d t
+\end{equation}
+%
+which has an additional term \(- \mu \d t\) compared to the textbook example \TODO{ref}, which indefinitely produces (negative) environmental entropy regardless of the state of the system (take for example a resting free particle, \(p=0,V=\const\)) when there should be no such production. This implausibility was in fact one of the motivations behind investigating the topic of continuous entropy further, although this specific issue was resolved upon further investigation.
+
+
+
+% SF's approach has some unsatisfactory properties though, first and foremost the \(\dagger\) operation is non-local in phase space: it maps \(p\to-p\), which may be in a completely different part of phase space where the Hamiltonian flow is not necessarily identical to the mirror image of the original flow. Furthermore, the start and end points of the normal trajectory are different from the ones for the conjugate process, which seems to be inconsistent with the idea behind the discrete environmental entropy production~\RefEqn{eqn:SEnv single jump definition}.
+
+
+
+\subsection{What is ``the state'' of a stochastic system?}
+
+The entropy definition, even in the continuous case, is based on the idea that environmental entropy is produced when the system changes from one state to another. SF's approach implicitly considers such a state to be the current location in phase space. As shown just above, this notion leads to strange results, illustrating an important difference between discrete and continuous settings: while randomness is the only source of dynamics in discrete models, continuous phase space systems consist of two parts: random \emph{and deterministic}.
+When a continuous system changes ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes, for example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
+
+This realization leads to the question whether ``the state'' of a stochastic system is maybe something different, and not just the current location in phase space, and as will be shown in the following, an alternative definition can be made that solves these issues.
+
+\subsection{Hamiltonian orbit based entropy definition}
+
+Reversible processes do not produce entropy, and any Hamiltonian process is reversible. A new definition of environmental entropy should satisfy this constraint, and therefore yield \(\Delta\SEnv = 0\) if a process follows a single Hamiltonian orbit; quite naturally, the idea that ``a state switch'' is a switch of such orbits, leading from one Hamiltonian process to another, lends itself as the basis for a new entropy definition, which will be developed in a moment. This approach will also have the side effect of eliminating the need to distinguish between odd and even variables, and yield a somewhat different expression for \(\Delta\SEnv\). However, it will turn out that the observables predicted by the new model lead to the \emph{same} expressions as SF's approach, indicating that there is a certain ambiguity in the way \(\Delta\SEnv\) cab be defined. The only necessary condition on the dynamics of the system for the following approach is that the equations of motion can be separated in Hamiltonian and non-Hamiltonian parts, so that the Hamiltonian orbits (i.e. the flow of the Hamiltonian part) can be identified.
+
+More detailed, the new definition of the forward and backward paths is based on two Hamiltonian orbits \(\sigma\) and \(\sigma'\). The forward path \(\gamma\) is given in the same way as in SF's model, but the construction of the conjugate path -- denoted as \(\tilde\gamma\) instead of \(\gamma^\dagger\) to distinguish it from SF's approach -- is different, as illustrated in figure~\RefFigure{fig:XXX}. The algorithm for the construction is as follows:
+%
+\begin{enumerate}
+	\item The start point of the process is a phase space coordinate \(\vec x\), located on a Hamiltonian orbit \(\sigma\).
+	\item The system evolves according to the full dynamics for a timespan \(\d t\), reaching a point \(\vec x'\) after following a trajectory \(\gamma\). \(\vec x'\) is located on some other Hamiltonian orbit \(\sigma'\).
+	\item The weight of this path \(\gamma\) is given by the propagator \(G_a(\vec x'|\vec x;\,t,\d t)\).
+	\item The starting point of the conjugate process \(\tilde{\vec x}'\) is reached by tracing back the Hamiltonian orbit through \(\vec x'\), \(\sigma'\), for a timespan \(\d t\).
+	\item Similarly, the end point of the conjugate process \(\tilde{\vec x}\) is where the system would have gone from \(\vec x\), had it only followed the Hamiltonian orbit \(\sigma\) for a time \(\d t\).
+	\item The weight of the conjugate process is \(G_b(\tilde{\vec x}|\tilde{\vec x}';\,t,\d t)\).
+\end{enumerate}
+%
+This can be interpreted as calculating the weight of a jump between the orbits \(\sigma\) and \(\sigma'\), and enables the new definition of entropy production in the familiar terms of \RefEqn{eqn:SEnv rate jump functional}:
+%
+\begin{equation}
+	\boxed{
+	\Delta\SEnv^\HF(\sigma'|\sigma)
+	= \ln\frac{P_{\sigma\to\sigma'}}{P_{\sigma'\to\sigma}}
+	}
+\end{equation}
+%
+\begin{equation}
+	\label{eqn:orbitentropy}
+	\boxed{
+	\d\SEnv^\HF(\vec x'|\vec x;\,\d t)
+	= \ln\frac{G_a(\vec x'|\vec x;\,t,\d t)}{G_b(\tilde{\vec x}|\tilde{\vec x}';\,t,\d t)}
+	}
+\end{equation}
+%
+where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for the previous model. Note that the propagator ambiguities \(a\) and \(b\) are independent at this point, and will be dealt with later when the entropy definition is applied to a concrete model. This definition will also frequently be referred to as ``Flow entropy''.
+
+Important consequences compared to SF's model are as follows:
+%
+\begin{itemize}
+	\item The entropy definition is local: nothing is mirrored into a different part of phase space, and the entire quotient is constrained to an arbitrarily small part of phase space for sufficiently small timespans.
+	\item No distinction between odd and even variables is necessary, again because of the absence of time or momentum reversal.
+	\item No entropy is produced for ``transitioning'' onto the same orbit again. This will be disucssed in more detail later.
+\end{itemize}
+
+%
+
+This new model can now be applied to the one-dimensional underdamped particle introduced before in section~\RefSection{sec:underdamped-model}. Here, the forward process starts at \(\vec x = (q,p)\) and ends at \(\vec x' = (q',p')\). The conjugate process starts at \(\tilde{\vec x}' = (q'-p'\d t, p'-f(q')\d t)\), which as described before is where tracing back the Hamiltonian orbit through \((q',p')\) for a timespan \(\d t\) reaches; similarly, \(\tilde{\vec x} = (q+p\d t, p+f(q)\d t)\). The entropy thus reads
+%
+\begin{equation}
+	\label{eqn:flow entropy quotient}
+	\d\SEnv^\HF(\vec x'|\vec x;\,\d t)
+	= \lim_{\varepsilon\to0}
+		\frac{
+			_\varepsilon G_a(q',p'|q,p;\,\d t)
+		}{
+			_\varepsilon G_b(q+p\d t, p+f(q)\d t)|q'-p'\d t, p'-f(q')\d t;\,\d t)
+		}
+\end{equation}
+%
+where the propagator has no explicit \(t\) dependence, which has therefore been dropped in the notation. The same argument that has been made in the SF case in \RefEqn{eqn:delta-limit} -- namely that in the limit \(\varepsilon\to0\) the location has to behave deterministically, giving a condition on the ambiguity parameters \(a\) and \(b\) -- can be used here to yield
+%
+\begin{equation}
+	\begin{split}
+	&(q'-q)-\bigl(p+a(p'-p)\bigr)\d t
+	\\=&
+	-\Bigl( (q-q')+(p+p')\d t \\
+	&\qquad - \bigl( p'-f(q')\d t + b(p-p'+(f(q)+f(q'))\d t)\bigr) \Bigr)
+	\end{split}
+\end{equation}
+%
+which holds iff \(a = b = \tfrac12\), as can be shown by expanding the force \(f(q')\) around \(q\) and neglecting terms of \(\Cal O(\d t^3)\). This makes a lot of sense, as it means that the fields are evaluated around the center of each trajectory, which to leading order in time is the same for both processes. This result is much stronger than what is obtained in SF's case, where \(a = b\) is imposed, without giving them a specific value.
+
+Like in the SF chapter before, the entropy production \RefEqn{eqn:flow entropy quotient} can be calculated in this case, yielding \TODO{verify}
+%
+\begin{equation}\begin{split}
+	\d\SEnv^\HF &=
+	\frac1{\Gamma^2}\bigl(-2p\mu V'-2\Gamma\Gamma'V'\bigr)\d t
+	+ \frac1{\Gamma^2}\bigl(-2p\mu-2\Gamma\Gamma'\bigr)\d p
+	\\&\qquad
+	+ \frac1{\Gamma^2}\bigl( -p\mu' + 2p\mu \tfrac{\Gamma'}\Gamma - \mu - \Gamma\Gamma'' + \Gamma'^2 \bigr) \d p^2
+	\\&\qquad
+	+ \Cal O(\d t^2) + \Cal O(\d p^3)
+\end{split}\end{equation}
+%
+where once again the explicit dependencies of the coefficients have been dropped for brevity. This result shows some important differences compared to SF's result \RefEqn{eqn:sf entropy production}:
+%
+\begin{itemize}
+	\item No entropy is produced to leading order in \(\d t\) along the deterministic trajectory \(\d p = -V'(q)\d t\). This is of course a direct result of the construction, which specifically addressed the issue that only switching orbits should yield an entropy contribution.
+	\item While the SF result does not include a term proportional to \(\d p^2\), the expression here does.
+	\item Applied to a particle in a system with linear friction and additive noise in detailed balance, the expression reduces to the expected textbook result \TODO{incorporate that}.
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\subsection{Local entropy production}
+
+
+
+
+
+
+
+
+
+\input{separating}
 

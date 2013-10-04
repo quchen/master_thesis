@@ -253,14 +253,59 @@ where \(n\) is the total number of jumps on \(\gamma\), and \(c_i\) are the conf
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Master equation}
+\label{sec:master equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+One way of exploring the properties of a Markov process is to collect statistics via running the same experiment many times. Another approach is starting with the statistics in the first place -- instead of starting with individual processes and measuring their distribution, take the distribution of states and ask how it will evolve. This is what the \emph{Master equation} describes:
+%
+\begin{align}
+	\label{eqn:master}
+	\dot p_c(t)
+		&= \underbrace{\sum_{c'} j_{c'\to c}}_{\text{gain}}
+		- \underbrace{\sum_{c'} j_{c\to c'}}_{\text{loss}} \\
+		&= \sum_{c'} p_{c'}(t)w_{c'\to c}
+		- \sum_{c'} p_c(t)w_{c\to c'}
+\end{align}
+%
+The first term describes the system jumping into a state (probability current \(j\) towards the state \(c\)), while the second one accounts for transitions out of it (current away from \(c\)). A stationary Master equation (\(\dot p \equiv 0\)) is characteristic for systems for which macroscopic quantities are constant, as described below.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Detailed balance}
+\label{sec:detailed balance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+When talking about a system obeying statistical dynamics, there is a certain hierarchy of names describing how ``equilibriated'' it is. In a general setting it cannot be assumed that a system obeys special statistical properties because it follows arbitrary dynamics, and is called being in total nonequilibrium. The other end of the spectrum is equilibrium, where all macroscopic properties of the system are constant. There are a few important intermediate notions though, and one of them is called \emph{detailed balance}.
+
+A system in detailed balance looks like it is in equilibrium from the outside, but on a microscopic level it is not. What happens instead is that each process is cancelled out by its reverse on an individual level. Mathematically, the current from one state to another is identical to the reverse one,
+%
+\begin{align}
+	j_{c\to c'} &= j_{c'\to c} \\
+	\Leftrightarrow p_cw_{c\to c'} &= p_{c'}w_{c'\to c} ~.
+\end{align}
+%
+This obviously leads to a stationary Master equation, which explains how the macroscopic properties of the system are constant. Another concequence of detailed balance is that no entropy (hence heat) is exchanged with the environment, \(\Delta\SEnv(t)=0\).
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fluctuation theorem for environmental entropy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 From now on, all rates will be assumed time-independent,
 \begin{equation}
-	\forall c, c'.~ \dot w_{c\to c'} = 0 ~.
+	\tdq{}tw_{c\to c'} = 0 ~,
 \end{equation}
+%
+for all configurations \(c, c'\in\Omega\).
 
 
 
@@ -707,7 +752,7 @@ To test the more general formula \RefEqn{eqn:SEnv fluctuation theorem}, namely
 	\tilde P(\Delta\SEnv = X) = e^X \tilde P(\Delta\SEnv = -X) ~,
 \end{equation*}
 %
-a more general setup is necessary. Here, we will only assume the most basic requirements for this theorem, namely having a Markov process with time-independent rates; more explicitly, there will be no assumptions of equilibirum or asymptotic behaviour.
+a less specialized setup is necessary. Here, we will only assume the most basic requirements for this theorem, namely having a Markov process with time-independent rates; more explicitly, there will be no assumptions of equilibirum or asymptotic behaviour.
 
 The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), and therefore a transition matrix \(w_{c\to c'}\) with \(8^2-8 = 56\) nonzero entries (\(\forall c.\;w_{c\to c} = 0\)). Its elements are randomly chosen (strictly) between \(0\) and \(1\) before the experiment (and left fixed throughout each run). In a similar fashion, the initial distribution \(p^\init\) is determined.
 
