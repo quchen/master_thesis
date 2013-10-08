@@ -281,6 +281,7 @@ This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\G
 \subsection{Short-time propagator}
 
 \subsubsection{General case}
+\label{sec:general propagator case}
 
 Like in the discrete case, a key ingredient to defining entropy production in a continuous setting is the notion of a path probability. This probability is given by the propagator or Green's function of the FP equation. It will be denoted \(G(\vec x'|\vec x;\,\Delta t)\), and can be read as the probability that a particle starting at phase space coordinates \(\vec x = (q,p)\) is found at a new point \(\vec x' = (q',p')\) at \(\Delta t\) time later. In the present work however, it will be sufficient to take the \emph{short-time} proagator into account, i.e. \(\Delta t\) is very small.
 
@@ -562,6 +563,82 @@ where once again the explicit dependencies of the coefficients have been dropped
 
 
 \subsection{Local entropy production}
+\newcommand\SEnvLoc{\ensuremath{S_\text{env,\,loc}}}
+
+The previously defined quantity \(\d\SEnv(\vec x'|\vec x;\,\d t)\) is a two-point function, yielding the expected entropy production for the transition \(\vec x\to\vec x'\). However, this quantity is not easily accessible by experiment or simulation: while the starting point \(\vec x\) can be set, \(\vec x'\) is much less accessible due to it being statistically distributed over arbitrary phase space regions. For this reason, a new quantity is introduced, which is based on averaging over all finishing positions: the \emph{local entropy production rate}
+%
+\begin{equation}
+	\d\SEnvLoc(\vec x;\,\d t) = \int_\Omega\d\vec x' G_c(\vec x'|\vec x;\,\d t) \d\SEnv(\vec x'|\vec x;\,\d t) + \Cal O(\d t^2)
+\end{equation}
+%
+which encodes the expected change in environmental entropy in a short timespan \(\d t\), given an initial location \(\vec x\) in phase space \(\Omega\). Note that the propagator to encode the transition likelihood contains yet another ambiguity parameter in addition to \(a\) and \(b\) implicitly contained in \(\d\SEnv\). Translated to the present model of a particle in two-dimensional phase space, this equation reads
+%
+\begin{equation}\begin{split}
+	\label{eqn:local entropy 1d}
+	\d\SEnvLoc(q,p;\,\d t) &= \inflint\d q'\inflint\d p'\; G_c(q',p'|q,p;\,\d t) \d\SEnv(q',p'|q,p;\,\d t)
+	\\&\quad + \Cal O(\d t^2) ~.
+\end{split}\end{equation}
+
+To calculate its value, first expand the ordinary differential entropy production in terms of differences of its arguments,
+%
+\begin{equation}
+	\d\SEnv(q',p'|q,p;\,\d t)
+	= \sum_{i,j=0}^\infty
+	\sigma_{ij}(q,p,\d t)
+	(q'-q)^i
+	(p'-p)^j
+	+ \Cal O(\d t^2)
+\end{equation}
+%
+so that \(\sigma_{ij}\) are the Taylor coefficients of \(\d\SEnv\) in terms of \(q\) and \(p\). Inserting this expansion in \RefEqn{eqn:local entropy 1d} yields
+%
+\begin{equation}\begin{split}
+	\d\SEnvLoc(q,p;\,\d t) &=
+	\sum_{i,j=0}^\infty
+	\sigma_{ij}(q,p,\d t)
+	\\&\qquad
+	\times\inflint\d q'
+	\inflint\d p'
+	\; G_c(q',p'|q,p;\,\d t)
+	(q'-q)^i
+	(p'-p)^j
+	\\&\qquad + \Cal O(\d t^2)
+\end{split}\end{equation}
+%
+which allows the second line to be identified as the \((i,j)\)-th \((q,p)\) propagator moment respectively,
+%
+\begin{equation}
+	M_{ij,c}(q,p,\d t) = 
+	\inflint\d q'
+	\inflint\d p'
+	\; G_c(q',p'|q,p;\,\d t)
+	(q'-q)^i
+	(p'-p)^j
+\end{equation}
+%
+Now, the local entropy production is split up in two parts that easily combine into the local entropy production. \(\sigma_{ij}\) is obtained via the expansions of the propagator quotients from the previous section, and the not yet known propagator moments.
+
+
+
+In the case of the present model of the underdamped particle \RefEqn{eqn:underdamped sde epsilon}, the propagator moments can be calculated. Due to the length of the intermediate results, this calculation can be found in the appendix on page~\pageref{sec:fp moments}. The result obtained there is
+%
+\begin{align}
+	M_{00;c} &= 1 + \Cal O(\d t) \\
+	M_{01;c} &= (-p\gamma(p) - V'(q)) \d t + \Cal O(\d t^2) \\
+	M_{02;c} &= \Gamma(p)^2 \d t + \Cal O(\d t^2) \\
+	M_{ij;c} &= \Cal O(\d t^{i+1}) \quad (i,j > 0)
+\end{align}
+%
+These expressions have some important properties:
+\begin{enumerate}
+	\item The ambiguity parameter \(c\) does not appear in terms of leading order, indicating that the propagator moments are independent of said ambiguity at least in the present special case, where the fields are evaluated linearly between start and end points. (Recall that the most general version, introduced in section~\RefSection{sec:general propagator case}, allows evaluation at arbitrary points \(\varphi(\vec x,\vec x')\), whereas here \((1-c)\vec x + c\vec x'\) has been chosen.)
+	\item None of the nonzero \(\d q\) moments matter; they all contribute to higher-order in \(\d t\) terms only.
+	\item The ad-hoc quantity \(\varepsilon\) of the equations of motion \RefEqn{eqn:underdamped sde epsilon} vanishes naturally in the calculation, once again justifying its previous introduction.
+\end{enumerate}
+
+
+
+
 
 
 
