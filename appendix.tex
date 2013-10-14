@@ -1,5 +1,58 @@
 \chapter{Appendix}
 
+\renewcommand{\thechapter}{\Alph{chapter}.}
+\renewcommand{\thesection}{\Alph{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\Alph{chapter}.\arabic{section}.\arabic{subsection}}
+\renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}
+
+\section{General expressions for environmental entropy production}
+\label{sec:general SEnv expressions}
+
+The general expressions obtained for \SF and \HF are different; despite this fact, they lead to identical results in the investigated scenarios. Here are the full expressions, with the ambiguities \({\color{red}a}\) and \({\color{red}b}\) left as free and independent parameters and differing terms boxed, for \(\d\SEnv\):
+\\
+\textbf{Spinney-Ford:}
+\begin{equation*}\begin{split}
+	\d\SEnv^\SF &= 
+	{\color{red}a} \Bigl(-\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}+\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}-\frac{\d p^2 \mu (p)}{\Gamma (p)^2}+\frac{2 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}-\frac{3 \d p \Gamma '(p)}{\Gamma (p)}
+		\\&\qquad\quad
+		+ \d t p \mu '(p)-\frac{2 \d t p \mu (p) \Gamma '(p)}{\Gamma (p)}+\d t \mu (p)-\frac{2 \d t \Gamma '(p) V'(q)}{\Gamma (p)}\Bigr)
+	\\&\quad
+	+{\color{red}b} \Bigl(\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}-\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}+\frac{\d p^2 \mu (p)}{\Gamma (p)^2}-\frac{3 \d p^2 \Gamma ''(p)}{\Gamma (p)} +\frac{3 \d p^2 \Gamma '(p)^2}{\Gamma (p)^2}
+		\\&\qquad\quad
+		\boxed{+\frac{2 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}}-\frac{3 \d p \Gamma '(p)}{\Gamma (p)}-\d t p \mu '(p)+\frac{2 \d t p \mu (p) \Gamma '(p)}{\Gamma (p)}
+		\\&\qquad\quad
+		-\d t \mu (p)\boxed{-\frac{2 \d t \Gamma '(p) V'(q)}{\Gamma (p)}}\Bigr)
+	\\&\quad
+	+({\color{red}a}^2 - {\color{red}b}^2) \left(-\frac{5 \d p^2 \Gamma ''(p)}{2 \Gamma (p)}+\frac{5 \d p^2 \Gamma '(p)^2}{2 \Gamma (p)^2}+\d t \Gamma (p) \Gamma ''(p)-\d t \Gamma '(p)^2\right)
+	\\&\quad
+	-\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}+\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}-\frac{\d p^2 \mu (p)}{\Gamma (p)^2}+\frac{\d p^2 \Gamma ''(p)}{2 \Gamma (p)}
+	\\&\quad
+	-\frac{\d p^2 \Gamma '(p)^2}{2 \Gamma (p)^2}\boxed{-\frac{2 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}}-\frac{2 \d p p \mu (p)}{\Gamma (p)^2}+\frac{\d p \Gamma '(p)}{\Gamma (p)}-\frac{2 \d t p \mu (p) V'(q)}{\Gamma (p)^2}
+\end{split}\end{equation*}
+%
+\\
+\textbf{Flow model:}
+\begin{equation*}\begin{split}
+	\d\SEnv^\HF &=
+	{\color{red}a} \Bigl(-\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}+\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}-\frac{\d p^2 \mu (p)}{\Gamma (p)^2}+\frac{2 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}-\frac{3 \d p \Gamma '(p)}{\Gamma (p)}
+		\\&\quad\qquad
+		+\d t p \mu '(p)-\frac{2 \d t p \mu (p) \Gamma '(p)}{\Gamma (p)}+\d t \mu (p)-\frac{2 \d t \Gamma '(p) V'(q)}{\Gamma (p)}\Bigr)
+	\\&\quad
+	+{\color{red}b} \Bigl(\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}-\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}+\frac{\d p^2 \mu (p)}{\Gamma (p)^2}-\frac{3 \d p^2 \Gamma ''(p)}{\Gamma (p)}+\frac{3 \d p^2 \Gamma '(p)^2}{\Gamma (p)^2}
+		\\&\quad\qquad
+		\boxed{+\frac{4 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}}-\frac{3 \d p \Gamma '(p)}{\Gamma (p)}-\d t p \mu '(p)+\frac{2 \d t p \mu (p) \Gamma '(p)}{\Gamma (p)}
+		\\&\quad\qquad
+		-\d t \mu (p)\boxed{-\frac{4 \d t \Gamma '(p) V'(q)}{\Gamma (p)}}\Bigr)
+	\\&\quad
+	+({\color{red}a}^2-{\color{red}b}^2) \left(-\frac{5 \d p^2 \Gamma ''(p)}{2 \Gamma (p)}+\frac{5 \d p^2 \Gamma '(p)^2}{2 \Gamma (p)^2}+\d t \Gamma (p) \Gamma ''(p)-\d t \Gamma '(p)^2\right)
+	\\&\quad
+	-\frac{\d p^2 p \mu '(p)}{\Gamma (p)^2}+\frac{2 \d p^2 p \mu (p) \Gamma '(p)}{\Gamma (p)^3}-\frac{\d p^2 \mu (p)}{\Gamma (p)^2}+\frac{\d p^2 \Gamma ''(p)}{2 \Gamma (p)}
+	\\&\quad
+	-\frac{\d p^2 \Gamma '(p)^2}{2 \Gamma (p)^2}\boxed{-\frac{3 \d p^2 \Gamma '(p) V'(q)}{\Gamma (p)^3}}-\frac{2 \d p p \mu (p)}{\Gamma (p)^2}+\frac{\d p \Gamma '(p)}{\Gamma (p)}-\frac{2 \d t p \mu (p) V'(q)}{\Gamma (p)^2}
+	\\&\quad
+	\boxed{+\frac{\d t \Gamma '(p) V'(q)}{\Gamma (p)}}
+\end{split}\end{equation*}
+
 \section{Calculation of Fokker-Planck propagator moments}
 \label{sec:fp moments}
 
@@ -30,9 +83,10 @@ The following describes how to calculate these up to relevant orders. For the sy
 
 \subsection{i-th dq moment}
 
-Calculation of the \(i\)-th \(\d q\) moment is a straightforward application of the method of steepest descent \TODO{Ref}
+Calculation of the \(i\)-th \(\d q\) moment is a straightforward application of the standard method of steepest descent
 \begin{align}
-	\inflint\d q f(q)e^{\frac1\varepsilon g(q)}
+	\label{eqn:steepest-descent}
+	\lim_{\varepsilon\to0}\inflint\d q f(q)e^{\frac1\varepsilon g(q)}
 	= \lim_{\varepsilon\to0} f(q_{\text{max}}) e^{\varepsilon g(q_{\text{max}})}\sqrt{\frac{2\pi}{-\varepsilon g''(q_{\text{max}})}}
 \end{align}
 where \(q_{\text{max}}\) denotes the extremum of \(g(q)\).
@@ -90,7 +144,7 @@ where the integrand ``\(fe^{g/\d t}\)'' is given by \RefEqn{eqn:dq-integration-f
 			+ \Cal O(\d p'^3\d t^{3/2})
 		\right)
 \end{align}
-This intermediate result resembles a corresponding expression in the method of steepest descent: suppose \(f\) does not have an implicit \(\d t\) dependence (in the present notation: does not depend on the index), then the integral would simply be Gaussian in the limit \(\d t\to0\), and we would recover the standard formula.
+This intermediate result resembles a corresponding expression in the method of steepest descent: suppose \(f\) does not have an implicit \(\d t\) dependence (in the present notation: does not depend on the index), then the integral would simply be Gaussian in the limit \(\d t\to0\), standard formula \RefEqn{eqn:steepest-descent} would be recovered. Compared to the \(\d q\) case, \(\d p_\text{max}\) could not be easier, as it turns out to be \(0\).
 
 The following integral will prove handy later (\(a < 0\)):
 \begin{align}
@@ -113,11 +167,13 @@ The following integral will prove handy later (\(a < 0\)):
 	J_4 = \sqrt{\frac{18\pi}{-a^5}} ~.
 \end{align}
 
-\TODO{Mention that $p_{max} = 0$ now}
+
+
+
 
 \subsubsection{Zeroth dp moment}
 
-The zeroth moment appears with an already given factor of \(\d t\) in \TODO{ref}, therefore the result here only has to be considered in \(\Cal O(\d t^0)\) to get an overall \(\Cal O(\d t^1)\) expression.
+The zeroth moment appears in the context of \(\sigma_{00}\), which is accompanied by \(\d t\) implicitly (due to the shape of the propagator quotients' expansions, namely \RefEqn{eqn:sf entropy production}/\SF{} and \RefEqn{eqn:hf entropy}/\HF{}) in \RefEqn{eqn:dSEnvLoc split up}. Therefore, in order to obtain an overall result of up to \(\Cal O(\d t^1)\), it is sufficient to calculate only \(\Cal O(\d t^0)\) here.
 %
 \begin{align*}
 	I_0(\d t)
@@ -136,7 +192,7 @@ The zeroth moment appears with an already given factor of \(\d t\) in \TODO{ref}
 	&= f(0)e^{\frac{g(0)}{\d t}}\sqrt{\frac{2\pi\d t}{-g''(0)}} + \Cal O(\d t^1)
 \end{align*}
 %
-Inserting the expressions for \(f\) and \(g\) (obtained by comparing \RefEqn{eqn:dp-moments-integral} with \RefEqn{eqn:dq-integration-finished}) and using \RefEqn{eqn:gaussian_moments} to calculate/cancel out the integrals, then gives
+Inserting the expressions for \(f\) and \(g\) (obtained by comparing \RefEqn{eqn:dp-moments-integral} with \RefEqn{eqn:dq-integration-finished}) and using \RefEqn{eqn:gaussian_moments} to calculate/cancel out the integrals, then results in
 %
 \begin{align}
 	M_{i0,c} = \d t^i p^i + \Cal O(\d t^{i+1})
@@ -144,7 +200,7 @@ Inserting the expressions for \(f\) and \(g\) (obtained by comparing \RefEqn{eqn
 
 \subsubsection{First dp moment}
 
-Unlike the zeroth order, the \(\d p^1\) moment does not have a \(\d t\) prefactor in the entropy formula; expansion therefore has to be up to \(\Cal O(\d t^1)\) here. The surprising property of this moment is that the Gaussian exponential is \emph{not} the only exponential contributing to the result up to the desired order: the term \(\exp(\propto\d p'^3)\) needs to be considered as well, otherwise the result additionally contains an incorrect \(c\)-dependent expression.
+Unlike the zeroth order, the \(\d p^1\) moment does not have an implicit \(\d t\) prefactor in the entropy formula; expansion therefore has to be up to \(\Cal O(\d t^1)\) here. The surprising property of this moment is that the Gaussian exponential is \emph{not} the only exponential contributing to the result up to the desired order: the term \(\exp(\propto\d p'^3)\) needs to be considered as well, otherwise the result additionally contains an incorrect \(c\)-dependent expression. Using \RefEqn{eqn:gaussian_moments} again allows us to calculate the integrals, leading to
 %
 \begin{align*}
 	I_1(\d t)
@@ -167,22 +223,22 @@ Unlike the zeroth order, the \(\d p^1\) moment does not have a \(\d t\) prefacto
 	   + \Cal O(\d t^2)
 \end{align*}
 %
-Note how in the second root the exponents of \(\d t\) and \(g''\) do not match. The reason for this is that there is an additional \(1/\d t\) hidden in \(f(0\) that appears only in the second summand, canceling the \(\d t^5\) in the root to \(\d t^3\); as a consequence, both summands contribute to the end result to the same order.
-
-Again, \RefEqn{eqn:gaussian_moments} allows us to calculate the integrals, leading to
+so the moment turns out to be
 %
 \begin{align}
 	M_{i1,c} = -\d t^{i+1}\left(
 		p^{i+1}\gamma(p)
 		+ p^iV'(q)
 		- p^{i-1}ci\Gamma(p)^2\right)
-	+ \Cal O(\d t^2)
+	+ \Cal O(\d t^2) ~.
 \end{align}
 %
-For \(i = 0\), the only case relevant here because it contains a term of order \(\d t^1\), the odd-looking term involving \(ci\) vanishes.
+The only case relevant to entropy production is \(i = 0\), as it is the only one containing a term of order \(\d t^1\). This also gets rid of the odd term involving \(c\cdot i\).
 
 \subsubsection{Second dp moment}
 
+The highest moment is, maybe surprisingly, the easiest one of the three required ones: all the complicated terms are of order higher than \(\Cal O(\d t^1)\), and the only significant expression left over is a single square root term:
+%
 \begin{align*}
 	I_2(\d t)
 	&=
@@ -204,23 +260,85 @@ For \(i = 0\), the only case relevant here because it contains a term of order \
 and one last time \RefEqn{eqn:gaussian_moments} is used for integration,
 %
 \begin{align}
-	M_{i2,c} = \d t^{i+1} p^i \Gamma(p)^2 + \Cal O(\d t^2)
+	M_{i2,c} = \d t^{i+1} p^i \Gamma(p)^2 + \Cal O(\d t^2) ~.
 \end{align}
 
 \subsubsection{Higher-order dp moments}
 
-Since terms of higher than \(\d t^1\) aren't interesting for short-time entropy production, and keeping in mind that \(f_{\d t}\) involves a factor of \(\d t^{-1/2}\), it can be seen that for \(k>2\) \RefEqn{eqn:I_k(dt)} will always yield a result of negligible order. Therefore, the \(\d p\) moments of power greater than~\(2\) do not appear in short-time entropy and need not be considered.
+Since terms of higher than \(\d t^1\) aren't interesting for short-time entropy production, and keeping in mind that \(f_{\d t}\) involves a factor of \(\d t^{-1/2}\), it can be seen that for \(k>2\) \RefEqn{eqn:I_k(dt)} will always yield a result of negligible order. Therefore, the \(\d p\) moments of power greater than~\(2\) do not appear in short-time entropy and need not be considered, as it is the case for \(\d q\) moments of order greater than \(0\).
 
 \subsubsection{Summary of the moments}
 
 Taking the previous sections together, it can be seen that the moments are as follows:
 %
-\begin{align}
+\begin{align*}
 	M_{00;c} &= 1 + \Cal O(\d t) \\
 	M_{01;c} &= (-p\gamma(p) - V'(q)) \d t + \Cal O(\d t^2) \\
 	M_{02;c} &= \Gamma(p)^2 \d t + \Cal O(\d t^2) \\
-	M_{ij;c} &= \Cal O(\d t^{i+1}) \quad (i,j > 0)
+	M_{ij;c} &= \Cal O(\d t^{i+1}) \quad\text{else}
+\end{align*}
+%
+as claimed in the main text.
+
+
+\section{Calculation of the global entropy production in \RefSection{sec:global entropy production}}
+\label{sec:global entropy zero}
+
+The integral in question is
+%
+\begin{equation}
+	\langle\d\SEnv\rangle(t)
+	= \d t \inflint\d q\inflint\d p\, P(q, p, t) \, \d\SEnvLoc(q, p, \d t)
+\end{equation}
+%
+with
+%
+\begin{align}
+	P(q,p,t) &= \tfrac1Ze^{-\beta\left(\frac{p^2}2-V(q)\right)} \\
+	\d\SEnvLoc(q,p,\d t) &= \left(
+		- \tfrac12\beta\Gamma(p)^2
+		+ \tfrac12\beta^2p^2\Gamma(p)^2
+		- \beta p\Gamma(p)\Gamma'(p)
+		\right)\,\d t
 \end{align}
+%
+where terms of higher than linear order have been dropped. Noting that
+%
+\begin{align}
+	&\phantom{=} - \tfrac12\beta\Gamma(p)^2
+		+ \tfrac12\beta^2p^2\Gamma(p)^2
+		- \beta p\Gamma(p)\Gamma'(p) \\
+	&= \tfrac12\beta^2p^2\Gamma(p)^2
+		- \frac\beta2\left(
+		\Gamma^2+p\Gamma(p)\Gamma'(p)
+		\right) \\
+	&= \underbrace{\tfrac12\beta^2p^2\Gamma(p)^2}_{\equiv A}
+		- \underbrace{\frac\beta2\tdq{}p\left(p\Gamma(p)^2\right)}_{\equiv B}
+\end{align}
+%
+the integral can be divided up in two contributions over \(A\) and \(B\); then
+%
+\begin{equation}\begin{split}
+	I_B &= \frac\beta{2Z} \inflint\d p e^{-\beta\left(\frac{p^2}2-V(q)\right)} \tdq{}p\left(p\Gamma(p)^2\right) \\
+	&= \frac\beta{2Z}\left(\left[ -\beta p e^{-\beta\left(\frac{p^2}2-V(q)\right)} \right]_{p = -\infty}^\infty - \inflint\d p \; (-\beta p) e^{-\beta\left(\frac{p^2}2-V(q)\right)} p\Gamma(p)^2\right) \\
+	&= \frac{\beta^2}{2Z} \inflint\d p e^{-\beta\left(\frac{p^2}2-V(q)\right)} p^2\Gamma^2 \\
+	&= I_A
+\end{split}\end{equation}
+%
+so both terms cancel out (before the \(\d q\) integration is even necessary), resulting in
+%
+\begin{equation}
+	\forall t. ~ \langle\d\SEnv\rangle(t) = 0
+\end{equation}
+%
+as claimed in \RefEqn{eqn:global entropy 0}.
+
+
+
+
+
+
+
 
 
 \section{Abbreviations}
@@ -232,5 +350,19 @@ Taking the previous sections together, it can be seen that the moments are as fo
 	SDE & Stochastic Differential equation \\
 	SF & Spinney and Ford, authors of \cite{sf}
 \end{tabular}
+
+
+
+
+
+
+\section*{Thanks}
+
+\begin{itemize}
+	\item Kinzel
+	\item Hinrichsen
+	\item Andre
+	\item Group
+\end{itemize}
 
 

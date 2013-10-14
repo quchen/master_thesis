@@ -3,6 +3,10 @@
 
 The contents of this chapter are again an in-depth description of a publication, this time in the Journal of Statistical Physics, under the same title \cite{flow-paper}.
 
+An overview is as follows: The first section will talk about how to transfer some of the ideas used in the previous chapter to a continuous setting, and what problems arise on the way there. Afterwards, in section~\RefSection{sec:sde}, a brief overview over stochastic differential equations (SDEs) is given, before the main model of interest is introduced in section~\RefSection{sec:underdamped-model}. Section~\RefSection{sec:differential entropy production}, the chapter's main part, will then develop a new entropy definition, and compare it with a previously known one in the process.
+
+The most important result will be that the production of environmental entropy is in a certain sense ambiguous, allowing multiple different definitions that all agree in their end results.
+
 
 
 \section{From discrete to continuous systems}
@@ -68,6 +72,7 @@ but it turns out that the velocity \(\dot q\) has a different sign as momentum \
 
 
 \section{Stochastic differential equations}
+\label{sec:sde}
 
 There are multiple equivalent approaches to stochastic differential equations (SDEs), i.e. differential equations with a probabilistic or ``noise'' term. There are two important distinctions to make between the three commonly used ones.
 
@@ -186,7 +191,26 @@ This models a single one-dimentional particle of unit mass in full phase space \
 	\langle\xi(t)\xi(t')\rangle &= 2D\delta(t-t')
 \end{split}\end{equation}
 %
-and \(D\) is a diffusive coefficient. The noise term \(\xi\) is integrated according to the \Ito{} scheme throughout this paper (due to pragmatic reasons -- there will be plenty more ambiguities to discuss later).
+and \(D\) is a diffusive coefficient.
+
+The main question this chapter is trying to answer is what mechanism leads to the production of environmental entropy in a system that follows the above dynamics. In the sense of classical thermodynamics, environmental entropy can be thought of as the flow of energy in the form of heat in and out of a system (held at constant temperature). In the specific case here, the noise \(\xi\) adds energy to the system (decreasing the entropy in the environment due to the resulting cooling), while the friction takes out heat (increasing the entropy in the environment). Equipped with this simple knowledge of classical thermodynamics, it is already possible to formulate a definition for environmental entropy for a special case of the present model, namely if the particle is in equilibrium with a heat bath of temperature \(T\),
+%
+\begin{equation} T\d\SEnv = -\d Q \end{equation}
+%
+where \(Q\) is the heat contained in the system, and \(\SEnv\) is the environment's entropy. Since heat flowing from the environment into the system increases its entropy by \(\d\SEnv\) while decreasing the heat of the environment by \(\d Q\), a negative sign appears in the equation. Due to conservation of energy (first law of thermodynamics in the absence of mechanical work), the heat flow is precisely the energy flow between the systems, \(\d Q = \d E\), and \(E\) is simply the particle's energy,
+%
+\begin{equation} E = \frac{p^2}2 + V(q) \end{equation}
+%
+allowing the entropy production \(\d\SEnv\) to be written as
+%
+\begin{align}
+	\d\SEnv(q,p) &= -\beta\,\d\left(\frac{p^2}2 + V(q)\right) \notag \\
+	\Rightarrow \d\SEnv(q,p) &= -\beta p\d p - \beta V'(q)\d q ~.
+	\label{eqn:classical environmental entropy production}
+\end{align}
+%
+Reproducing this result from a microscopic approach however is nontrivial, and poses a strong consistency check for any theory trying to explain environmental entropy production in a similar setting. It will later turn out that under certain circumstances, some \emph{correct} theories fail to do so, yet yield correct physical results after another calculation. The reason and significance of this will be discussed at that point, where the terminology and formalism to deal with location-dependent ``thermodynamic'' quantities, like \(\d\SEnv(q,p)\) above, has been developed.
+
 
 
 
@@ -218,7 +242,8 @@ taking into account the individual fluctuations each component of \(\vec x\) may
 	D_i(\vec x,t) &= \frac12B_i(\vec x,t)^2
 \end{align}
 %
-and therefore the FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} is
+when integrating accoring to \Ito{} scheme, done so for pragmatic reasons (there will be plenty of probably more interesting ambiguities later).
+The FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} there turns out to be
 %
 \begin{equation}\begin{split}
 	\partial_t P(q,p,t) &= \Cal L \, P(q,p,t) \\
@@ -271,10 +296,11 @@ Thanks to computer algebra systems\footnote{Mathematica~9.0.0.0}, the solution o
 where \(C\) is an arbitrary integration constant. However, since the last term is exponentially divergent for \(p\to\infty\), it unphysical: the mean acceleration of a system in equilibrium would be infinite. Therefore \(C = 0\) is the only suitable choice, and what remains is
 %
 \begin{equation}
+	\label{eqn:einstein}
 	\mu(p) = \frac12\beta\Gamma(p)^2 - \frac1p\Gamma(p)\Gamma'(p) ~.
 \end{equation}
 %
-This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\Gamma^2\) \TODO{ref} (also known as the Einstein relation) for momenum-independent (``additive'') noise and linear friction.
+This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\Gamma^2\) \TODO{ref?} (also known as the Einstein relation) for momenum-independent (``additive'') noise and linear friction.
 
 
 
@@ -290,7 +316,7 @@ The short-time propagator \(G(\vec x'|\vec x;\,\d t)\) solves the FP equation to
 \begin{enumerate}
 	\item The short-time propagator need not be Gaussian, as long as the (``arbitrary-time'') macroscopic propagator is reproduced by it. According to the central limit theorem, any distribution with the correct first and second moments is sufficient. (Intuitively, this can be understood by the fact that many functions have identical first-order power series coefficients, but their actual global shape is influenced by the higher-order terms. In the present scenario, these terms are neglected, leading to said ambiguity.)
 	%
-	\item It is not clear where the fields contained in the FP equation \RefEqn{eqn:fp phase}, \(f_i(\vec x,t)\) and \(D_i(\vec x,t)\), have to be evaluated: at \(\vec x\), \(\vec x'\), between, somewhere in the neighbourhood? In general, an evaluation point at any \(\vec r = \varphi(\vec x,\vec x')\) will do \TODO{ref, check how general \(\varphi\) really is}. Conceptually, this is similar to the \Ito{}-Stratonovich dilemma introduced in the conext of stochastic differential equations in section~\RefSection{sec:ito-stratonovich dilemma}, but it is important to emphasize that this is a \emph{new, independent} ambiguity in addition to the previous one (which was resolved to integration according to \Ito{} scheme to obtain the FP equation from the SDE).
+	\item It is not clear where the fields contained in the FP equation \RefEqn{eqn:fp phase}, \(f_i(\vec x,t)\) and \(D_i(\vec x,t)\), have to be evaluated: at \(\vec x\), \(\vec x'\), between, somewhere in the neighbourhood? In general, an evaluation point at any \(\vec r = \varphi(\vec x,\vec x')\) with bijective \(\varphi\) will do \cite{wissel}. Conceptually, this is similar to the \Ito{}-Stratonovich dilemma introduced in the conext of stochastic differential equations in section~\RefSection{sec:ito-stratonovich dilemma}, but it is important to emphasize that this is a \emph{new, independent} ambiguity in addition to the previous one (which was resolved to integration according to \Ito{} scheme to obtain the FP equation from the SDE).
 \end{enumerate}
 %
 To get a hold of the infinitely many short-time propagators, assume the evaluation point is linearly between the two end points,
@@ -299,18 +325,19 @@ To get a hold of the infinitely many short-time propagators, assume the evaluati
 	\vec r = (1-a)\vec x + a\vec x' \qquad a\in[0,1] ~,
 \end{equation}
 %
-as done in \TODO{ref [8] in flow paper}. This leads to the following expression for the propagator:
+as done in \cite{sf}. Using \cite{wissel, donoso} this leads to the following expression for the propagator:
 %
-\begin{align}
+\begin{equation}\begin{split}
 	\label{eqn:propagator general}
 	G_a(\vec x'|\vec x;\,\d t)
 	&= \prod_i \frac1{\sqrt{2\pi D_i\d t}}
+	\\&\qquad
 	\exp\left(
 		- \frac{(\d x_i-A_i\d t+2aD_i'\d t)^2}{4D_i\d t}
 		- a A_i'\d t
 		+ a^2 D_i''\d t
 		\right)
-\end{align}
+\end{split}\end{equation}
 %
 with the short-hands
 %
@@ -371,6 +398,7 @@ where the \(\delta\) accounts for the deterministic location.
 
 
 \section{Differential entropy production}
+\label{sec:differential entropy production}
 
 The focus of the main part of this chapter is the definition of differential environmental entropy \(\d\SEnv\). The term \emph{differential} will be used in multiple similar but different contexts; it can always be understood as some form of Taylor expansion of the finite entropy increase \(\Delta\SEnv\) in \(\d t\), \(\d q\) and \(\d p\) to lowest order. Which meaning is appropriate will be specified explicitly in ambiguous places.
 
@@ -419,7 +447,7 @@ In order to make this equation well-behaved in the limit of the ad-hoc parameter
 	(q'-q)-(p+a(p'-p))\d t = -\bigl((q-q') - (-p'+b(-p+p'))\d t\bigr)
 \end{equation}
 %
-which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment \TODO{ref}. Anyway, direct calculation of the entropy production results in the expression \TODO{verify}
+which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment \TODO{ref}. direct calculation of the entropy production results in the expression \TODO{verify}
 %
 \begin{equation}\begin{split}
 	\label{eqn:sf entropy production}
@@ -443,17 +471,31 @@ which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator
 where for the sake of brevity the explicit arguments of \(\Gamma(p)\), \(\mu(p)\) and \(V(q)\) have been dropped.
 Note that the series expansion is to first order in \(\d t\) and \emph{second} order in \(\d p\).
 
-This expression however has some surprising properties. Most notably, in the case of a particle subject to linear friction (\(\mu(p) = \const\)) in detailed balance (\(\Gamma = \sqrt{2T\mu}\)) it reduces to
+This formula has some surprising properties. Most notably, in the case of a particle subject to linear friction (\(\mu(p) = \const\)) in detailed balance (\(\Gamma = \sqrt{2T\mu}\)) it reduces to
 %
 \begin{equation}
 	\d\SEnv^\SF = -\beta p \d p - \beta V'(q) \d q - \mu \d t
 \end{equation}
 %
-which has an additional term \(- \mu \d t\) compared to the textbook example \TODO{ref}, which indefinitely produces (negative) environmental entropy regardless of the state of the system (take for example a resting free particle, \(p=0,V=\const\)) when there should be no such production. This implausibility was in fact one of the motivations behind investigating the topic of continuous entropy further, although this specific issue was resolved upon further investigation.
+which has an additional term \(- \mu \d t\) compared to the textbook example \RefEqn{eqn:classical environmental entropy production}, indefinitely producing (negative) environmental entropy regardless of the state of the system -- take for example a resting free particle, \(p=0,V=\const\) to make this obvious -- when there should be no such production. This implausibility was in fact one of the motivations behind investigating the topic of continuous entropy further, although this specific issue was resolved upon further investigation (section \RefSection{sec:flow entropy}).
 
+SF's approach has some further conceptually unsatisfactory properties though, first and foremost the \(\dagger\) operation is non-local in phase space: it maps \(p\to-p\), which may be in a completely different part of phase space where the Hamiltonian flow is not necessarily identical to the mirror image of the original flow. Furthermore, the start and end points of the normal trajectory are different from the ones for the conjugate process, which seems to be inconsistent with the idea behind the discrete environmental entropy production~\RefEqn{eqn:SEnv single jump definition}.
 
+One last thing to mention here due to its later relevance is that the calculation to obtain \RefEqn{eqn:sf entropy production} can be done in the general case \(a = 1-b\) instead of setting \(a=0\) from the beginning on. The result is quite long and was therefore therefore moved appendix~\RefSection{sec:general SEnv expressions}, but for \(a = b = \frac12\) the resulting entropy reads
+%
+\begin{equation}\begin{split}
+	\label{eqn:sf entropy production 1/2}
+	\d\SEnv^{\SF_{1/2}} &=
+	\frac1{\Gamma^2}\bigl(-2p\mu V'-2\Gamma\Gamma'V'\bigr)\d t
+	+ \frac1{\Gamma^2}\bigl(-2p\mu-2\Gamma\Gamma'\bigr)\d p
+	\\&\qquad
+	+ \frac1{\Gamma^2}\bigl( -p\mu' + 2p\mu \tfrac{\Gamma'}\Gamma - \mu - \Gamma\Gamma'' + \Gamma'^2 \bigr) \d p^2
+	\\&\qquad
+	+ \Cal O(\d t^2) + \Cal O(\d p^3)
+\end{split}\end{equation}
+%
+which is of course different from the \(a = 0\) result. Not very meaningful on its own, this term will reappear again in a different approach to entropy; the significance of this will become apparent later.
 
-% SF's approach has some unsatisfactory properties though, first and foremost the \(\dagger\) operation is non-local in phase space: it maps \(p\to-p\), which may be in a completely different part of phase space where the Hamiltonian flow is not necessarily identical to the mirror image of the original flow. Furthermore, the start and end points of the normal trajectory are different from the ones for the conjugate process, which seems to be inconsistent with the idea behind the discrete environmental entropy production~\RefEqn{eqn:SEnv single jump definition}.
 
 
 
@@ -465,10 +507,11 @@ When a continuous system changes ``its state'' in the previous sense, i.e. moves
 This realization leads to the question whether ``the state'' of a stochastic system is maybe something different, and not just the current location in phase space, and as will be shown in the following, an alternative definition can be made that solves these issues.
 
 \subsection{Hamiltonian orbit based entropy definition}
+\label{sec:flow entropy}
 
 Reversible processes do not produce entropy, and any Hamiltonian process is reversible. A new definition of environmental entropy should satisfy this constraint, and therefore yield \(\Delta\SEnv = 0\) if a process follows a single Hamiltonian orbit; quite naturally, the idea that ``a state switch'' is a switch of such orbits, leading from one Hamiltonian process to another, lends itself as the basis for a new entropy definition, which will be developed in a moment. This approach will also have the side effect of eliminating the need to distinguish between odd and even variables, and yield a somewhat different expression for \(\Delta\SEnv\). However, it will turn out that the observables predicted by the new model lead to the \emph{same} expressions as SF's approach, indicating that there is a certain ambiguity in the way \(\Delta\SEnv\) cab be defined. The only necessary condition on the dynamics of the system for the following approach is that the equations of motion can be separated in Hamiltonian and non-Hamiltonian parts, so that the Hamiltonian orbits (i.e. the flow of the Hamiltonian part) can be identified.
 
-More detailed, the new definition of the forward and backward paths is based on two Hamiltonian orbits \(\sigma\) and \(\sigma'\). The forward path \(\gamma\) is given in the same way as in SF's model, but the construction of the conjugate path -- denoted as \(\tilde\gamma\) instead of \(\gamma^\dagger\) to distinguish it from SF's approach -- is different, as illustrated in figure~\RefFigure{fig:XXX}. The algorithm for the construction is as follows:
+More detailed, the new definition of the forward and backward paths is based on two Hamiltonian orbits \(\sigma\) and \(\sigma'\). The forward path \(\gamma\) is given in the same way as in SF's model, but the construction of the conjugate path -- denoted as \(\tilde\gamma\) instead of \(\gamma^\dagger\) to distinguish it from SF's approach -- is different, as illustrated in figure~\TODO{figure + reference to it here}. The algorithm for the construction is as follows:
 %
 \begin{enumerate}
 	\item The start point of the process is a phase space coordinate \(\vec x\), located on a Hamiltonian orbit \(\sigma\).
@@ -497,16 +540,65 @@ This can be interpreted as calculating the weight of a jump between the orbits \
 \end{equation}
 %
 where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for the previous model. Note that the propagator ambiguities \(a\) and \(b\) are independent at this point, and will be dealt with later when the entropy definition is applied to a concrete model. This definition will also frequently be referred to as ``Flow entropy''.
+%
+
+
+
+\subsection{Differences between the models}
+
+
 
 Important consequences compared to SF's model are as follows:
 %
 \begin{itemize}
-	\item The entropy definition is local: nothing is mirrored into a different part of phase space, and the entire quotient is constrained to an arbitrarily small part of phase space for sufficiently small timespans.
-	\item No distinction between odd and even variables is necessary, again because of the absence of time or momentum reversal.
-	\item No entropy is produced for ``transitioning'' onto the same orbit again. This will be disucssed in more detail later.
+	\item The \HF{} entropy definition is local in phase space: nothing is mirrored into a different part of phase space, and the entire quotient is constrained to an arbitrarily small part of phase space for sufficiently small timespans.
+	\item Inside the \HF{} entropy definition, distinction between odd and even variables is necessary, again because of the absence of time or momentum reversal.
+	\item No differential entropy is produced for ``transitioning'' onto the same orbit again in the \HF{} case, whereas for \SF{} this is not necessarily so.
 \end{itemize}
 
+The second point is particularly important, as it contains what is probably the crucial conceptual difference between \HF{} and \SF{}. For \HF{}, the splitting is done \emph{a priori} with only the equations of motion known, in particular before entropy is even mentioned. On the other hand, in Spinney/Ford's case, reversal of dynamics is hard-wired into the entropy definition itself. In other words, \textbf{the \HF{} approach factors out the reversal of dynamics}.
+
+In order to obtain the conjugate propagator to the original forward process in the \HF{} model, the Hamiltonian part of the equations of motion needs to be known, which allows tracing the Hamiltonian flow back along the deterministic trajectory to reach the starting position of the reverse process, and similarly for the end position. In other words, the equations of motions must be partitioned in two parts, one for the Hamiltonian flow and one for the non-Hamiltonian processes such as dissipation and friction.
+
+The principle behind the algorithm for the separation is inspired by the definition of the Riemann tensor: the system is run in a process that should return to the origin in the end; if it does not, the discrepancy is characteristic for a certain property of that system. In case of the Riemann tensor that discrepancy is the curvature of space, in phase space system it accounts for the non-Hamiltonian parts of the dynamics.
+
+Formally, the most general equations of motion read, with \(x\) = \(q\) or \(p\):
 %
+\begin{align}
+	\dot x &= f_x(q,p) + \Gamma_x(q,p)\xi_x(t)
+\end{align}
+%
+This can be split up in Hamiltonian (\(\dot x_H\)) and non-Hamiltonian (\(\dot x_\Delta\)) parts:
+%
+\begin{align}
+	\dot x &= \dot x_H + \dot x_\Delta
+\end{align}
+%
+To obtain the summands individually, the following algorithm is used:
+%
+\begin{enumerate}
+	\item Calculate \(x(t+\d t/2) \).
+	\item Reverse the system's dynamics by substituting \(p \to -p\).
+	\item Evolve the for another \(\d t/2\), starting at the previously reached end point.
+	\item The end position is \(x(t+\d t)\), from which \(x_\Delta = x(t+\d t) - x(t)\) can be determined.
+\end{enumerate}
+%
+For example, this procedure applied to the underdamped particle discussed in the present work
+%
+\begin{align*}
+	\dot q &= p \\
+	\dot p &= -V'(q) - \mu(p)p + \Gamma(p)\xi(t)
+\end{align*}
+results in
+\begin{align*}
+	\dot q_H &= p  &  \dot q_\Delta &= 0 \\
+	\dot p_H &= -V'(q)  &  \dot p_\Delta &= - \mu(p)p + \Gamma(p)\xi(t) ~.
+\end{align*}
+This approach is quite general and can be applied to more complicated systems, in which the separation may not be as clear.
+
+
+
+\subsection{Flow-based entropy production of the model}
 
 This new model can now be applied to the one-dimensional underdamped particle introduced before in section~\RefSection{sec:underdamped-model}. Here, the forward process starts at \(\vec x = (q,p)\) and ends at \(\vec x' = (q',p')\). The conjugate process starts at \(\tilde{\vec x}' = (q'-p'\d t, p'-f(q')\d t)\), which as described before is where tracing back the Hamiltonian orbit through \((q',p')\) for a timespan \(\d t\) reaches; similarly, \(\tilde{\vec x} = (q+p\d t, p+f(q)\d t)\). The entropy thus reads
 %
@@ -537,6 +629,7 @@ which holds iff \(a = b = \tfrac12\), as can be shown by expanding the force \(f
 Like in the SF chapter before, the entropy production \RefEqn{eqn:flow entropy quotient} can be calculated in this case, yielding \TODO{verify}
 %
 \begin{equation}\begin{split}
+	\label{eqn:hf entropy}
 	\d\SEnv^\HF &=
 	\frac1{\Gamma^2}\bigl(-2p\mu V'-2\Gamma\Gamma'V'\bigr)\d t
 	+ \frac1{\Gamma^2}\bigl(-2p\mu-2\Gamma\Gamma'\bigr)\d p
@@ -551,7 +644,8 @@ where once again the explicit dependencies of the coefficients have been dropped
 \begin{itemize}
 	\item No entropy is produced to leading order in \(\d t\) along the deterministic trajectory \(\d p = -V'(q)\d t\). This is of course a direct result of the construction, which specifically addressed the issue that only switching orbits should yield an entropy contribution.
 	\item While the SF result does not include a term proportional to \(\d p^2\), the expression here does.
-	\item Applied to a particle in a system with linear friction and additive noise in detailed balance, the expression reduces to the expected textbook result \TODO{incorporate that}.
+	\item Applied to a particle in a system with linear friction and additive noise in detailed balance, the expression reduces to the expected textbook result \RefEqn{eqn:classical environmental entropy production}.
+	\item The result coincides with the result SF would have gotten, had they not chosen \(a = \tfrac12\) instead of \(0\) in their model -- \RefEqn{eqn:sf entropy production 1/2} is identical to \RefEqn{eqn:hf entropy}! This brings up the question once again as to why they made this specific choice, but as mentioned earlier, this is done without further comment in \cite{sf}.
 \end{itemize}
 
 
@@ -559,29 +653,34 @@ where once again the explicit dependencies of the coefficients have been dropped
 
 
 
+\section{Towards observable quantities}
 
+The previously defined quantity \(\d\SEnv(\vec x'|\vec x;\,\d t)\) is a two-point function, yielding the expected entropy production for the transition \(\vec x\to\vec x'\). However, this quantity is not easily accessible by experiment or simulation: while the starting point \(\vec x\) can be set, \(\vec x'\) is much less accessible due to it being statistically distributed over arbitrary phase space regions. The following sections will successively integrate out the unknowns, in order to yield a testable result.
 
 
 \subsection{Local entropy production}
 \newcommand\SEnvLoc{\ensuremath{S_\text{env,\,loc}}}
 
-The previously defined quantity \(\d\SEnv(\vec x'|\vec x;\,\d t)\) is a two-point function, yielding the expected entropy production for the transition \(\vec x\to\vec x'\). However, this quantity is not easily accessible by experiment or simulation: while the starting point \(\vec x\) can be set, \(\vec x'\) is much less accessible due to it being statistically distributed over arbitrary phase space regions. For this reason, a new quantity is introduced, which is based on averaging over all finishing positions: the \emph{local entropy production rate}
+The \emph{local entropy production rate} integrates out the final phase space coordinate:
 %
 \begin{equation}
 	\d\SEnvLoc(\vec x;\,\d t) = \int_\Omega\d\vec x' G_c(\vec x'|\vec x;\,\d t) \d\SEnv(\vec x'|\vec x;\,\d t) + \Cal O(\d t^2)
 \end{equation}
 %
-which encodes the expected change in environmental entropy in a short timespan \(\d t\), given an initial location \(\vec x\) in phase space \(\Omega\). Note that the propagator to encode the transition likelihood contains yet another ambiguity parameter in addition to \(a\) and \(b\) implicitly contained in \(\d\SEnv\). Translated to the present model of a particle in two-dimensional phase space, this equation reads
+This describes the expected change in environmental entropy in a short timespan \(\d t\), given an initial location \(\vec x\) in phase space \(\Omega\). Note that the propagator to encode the transition likelihood contains yet another ambiguity parameter in addition to \(a\) and \(b\) implicitly contained in \(\d\SEnv\).
+
+Translated to the present model of a particle in two-dimensional phase space, the equation reads
 %
 \begin{equation}\begin{split}
 	\label{eqn:local entropy 1d}
 	\d\SEnvLoc(q,p;\,\d t) &= \inflint\d q'\inflint\d p'\; G_c(q',p'|q,p;\,\d t) \d\SEnv(q',p'|q,p;\,\d t)
 	\\&\quad + \Cal O(\d t^2) ~.
 \end{split}\end{equation}
-
+%
 To calculate its value, first expand the ordinary differential entropy production in terms of differences of its arguments,
 %
 \begin{equation}
+	\label{eqn:dSEnv power expansion}
 	\d\SEnv(q',p'|q,p;\,\d t)
 	= \sum_{i,j=0}^\infty
 	\sigma_{ij}(q,p,\d t)
@@ -605,7 +704,7 @@ so that \(\sigma_{ij}\) are the Taylor coefficients of \(\d\SEnv\) in terms of \
 	\\&\qquad + \Cal O(\d t^2)
 \end{split}\end{equation}
 %
-which allows the second line to be identified as the \((i,j)\)-th \((q,p)\) propagator moment respectively,
+where the second line can be identified as the \((i,j)\)-th \((q,p)\) propagator moments respectively,
 %
 \begin{equation}
 	M_{ij,c}(q,p,\d t) = 
@@ -616,11 +715,23 @@ which allows the second line to be identified as the \((i,j)\)-th \((q,p)\) prop
 	(p'-p)^j
 \end{equation}
 %
-Now, the local entropy production is split up in two parts that easily combine into the local entropy production. \(\sigma_{ij}\) is obtained via the expansions of the propagator quotients from the previous section, and the not yet known propagator moments.
+which allows rewriting \(\d\SEnvLoc\) as
+%
+\begin{equation}
+	\label{eqn:dSEnvLoc split up}
+	\d\SEnvLoc(q,p;\,\d t)
+	=
+	\sum_{i,j=0}^\infty
+	\sigma_{ij}(q,p,\d t)
+	M_{ij,c}(q,p,\d t)
+	+ \Cal O(\d t^2)
+\end{equation}
+%
+where the expression is split up in two parts that easily combine into the local entropy production: \(\sigma_{ij}\) is obtained via the expansions of the known propagator quotients from the previous section using \RefEqn{eqn:dSEnv power expansion}, and the not yet known propagator moments \(M_{ij,c}\).
 
 
 
-In the case of the present model of the underdamped particle \RefEqn{eqn:underdamped sde epsilon}, the propagator moments can be calculated. Due to the length of the intermediate results, this calculation can be found in the appendix on page~\pageref{sec:fp moments}. The result obtained there is
+In the case of the present model of the underdamped particle \RefEqn{eqn:underdamped sde epsilon}, the propagator moments can be calculated. Due to the length of the intermediate results, this calculation can be found in appendix~\RefSection{sec:fp moments}. The result obtained there is
 %
 \begin{align}
 	M_{00;c} &= 1 + \Cal O(\d t) \\
@@ -629,24 +740,75 @@ In the case of the present model of the underdamped particle \RefEqn{eqn:underda
 	M_{ij;c} &= \Cal O(\d t^{i+1}) \quad (i,j > 0)
 \end{align}
 %
-These expressions have some important properties:
+These expressions are noteworthy in a couple of ways:
 \begin{enumerate}
 	\item The ambiguity parameter \(c\) does not appear in terms of leading order, indicating that the propagator moments are independent of said ambiguity at least in the present special case, where the fields are evaluated linearly between start and end points. (Recall that the most general version, introduced in section~\RefSection{sec:general propagator case}, allows evaluation at arbitrary points \(\varphi(\vec x,\vec x')\), whereas here \((1-c)\vec x + c\vec x'\) has been chosen.)
 	\item None of the nonzero \(\d q\) moments matter; they all contribute to higher-order in \(\d t\) terms only.
 	\item The ad-hoc quantity \(\varepsilon\) of the equations of motion \RefEqn{eqn:underdamped sde epsilon} vanishes naturally in the calculation, once again justifying its previous introduction.
 \end{enumerate}
 
+Now \(\d\SEnvLoc\) can be calculated for the Spinney-Ford case with \(a=0\), the Hamiltonian Flow model and therefore also \SF with \(a = \tfrac12\), and remarkably the results are all identical, namely \TODO{verify formula}
+%
+\begin{equation}\begin{split}
+	\d\SEnvLoc(q,p,\d t)
+		&=
+		\Bigl(-\mu(p) - p \mu'(p) + \frac{2p^2\mu(p)^2}{\Gamma(p)^2} + \frac{4p\mu(p)\Gamma'(p)}{\Gamma(p)} \\
+		&\qquad + \Gamma'(p)^2 - \Gamma(p)\Gamma''(p)\Bigr) \, \d t + \Cal O(\d t^2) ~.
+\end{split}\end{equation}
+%
+The terms proportional to \(\d p^2\) in \RefEqn{eqn:hf entropy} compensate the other differences compared to \RefEqn{eqn:sf entropy production} during integration (i.e. multiplication with the propagator moments) by moving them to higher orders of \(\d t\), explaining how different differential entropies can yield the same local entropy production.
 
 
 
 
 
+\subsection{Global entropy production}
+\label{sec:global entropy production}
+
+The \emph{global entropy production} once again averages over all positions, to give an expectation value for the short-time environmental entropy production in an ensemble of many (non-interacting) particles. It is obtained from the local entropy production developed just above via
+%
+\begin{equation}\begin{split}
+	\label{eqn:global entropy production}
+	\langle\d\SEnv\rangle(t)
+	&= \d t \int_\Omega \d\vec x P(\vec x, t)\d\SEnvLoc(\vec x, \d t) \\
+	&= \d t \infint\!\!\d q\infint\!\!\d p\, P(q, p, t) \, \d\SEnvLoc(q, p, \d t)
+\end{split}\end{equation}
+%
+where \(P\) is the probability density for being in a certain point of phase space.
+
+For example, take a system in thermal equilibrium. Here, \(\mu(p)\) and \(\Gamma(p)\) are related via the generalized Einstein relation \RefEqn{eqn:einstein}, and \(P(q,p)\) is Boltzmannian. The differential entropy productions then turn out to be
+%
+\begin{align}
+	\d\SEnv^\SF &= -\beta p(\d p + V'(q)\d t) - \frac\beta2\Gamma(p)^2 + \Cal O(\d t^2) + \Cal O(\d p^3) \\
+	\d\SEnv^\HF &= -\beta p(\d p + V'(q)\d t) + \Cal O(\d t^2) + \Cal O(\d p^2)
+\end{align}
+%
+which also showcases the previously claimed fact that \SF's result does not vanish along the deterministic trajectory \(\d p = -V'(q)\d t\), while the \HF{} result does. Maybe more importantly even, \SF's result does not reproduce the result previously obtained using only classical thermodynamics in \RefEqn{eqn:classical environmental entropy production}. However, as claimed earlier, the resulting local entropy production is identical for both results,
+%
+\begin{equation}
+	\d\SEnvLoc(q,p,\d t) = \left(
+		- \tfrac12\beta\Gamma(p)^2
+		+ \tfrac12\beta^2p^2\Gamma(p)^2
+		- \beta p\Gamma(p)\Gamma'(p)
+		\right)\,\d t
+		+ \Cal O(\d t^2) ~.
+\end{equation}
+%
+By integrating this together with the Boltzmann distribution
+%
+\begin{equation}
+	P(q,p) = \frac1Z e^{-\beta\left(\frac{p^2}2-V(q)\right)}
+\end{equation}
+%
+in \RefEqn{eqn:global entropy production}, the global entropy production can be obtained. As the explicit calculation in appendix~\RefSection{sec:global entropy zero} shows, the result is
+%
+\begin{equation}
+	\label{eqn:global entropy 0}
+	\forall t. ~ \langle\d\SEnv\rangle(t) = 0
+\end{equation}
+%
+which is what a system obeying detailed balance in thermal equilibrium should obey. This is in agreement with classical thermodynamics again, and the necessity for the previous calculation also hints at why the expression for \(\d\SEnv\) in \RefEqn{eqn:classical environmental entropy production} is not entirely correct: although it assumes \emph{some} properties equilibrium provides, it is a ``thermodynamic'' quantity in terms of \(q\) and \(p\), while classical thermodynamics only deals with averages in which single appearances of location and momentum are meaningless.
 
 
 
-
-
-
-
-\input{separating}
 

@@ -3,6 +3,8 @@
 
 The contents of this chapter were published in Physical Review E, ``Strong fluctuation theorem for nonstationary nonequilibrium systems'' \cite{thingie-paper}. The following is an elaborate description of its contents.
 
+This chapter has two main parts. The first one provides an introduction to fluctuation theorems, Markov processes, entropy, and the terminology used. The secone one then uses these definitions to prove a new general fluctuation theorem, specializes it to appear in a more familiar form, and finally puts it to the test in two numerical examples.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Preliminaries}
@@ -21,9 +23,9 @@ Classical thermodynamics is a theory of averages of certain quantities. For exam
 	\d S \geq 0 ~,
 \end{equation}
 %
-meaning that \emph{on average} entropy is always increasing.
+meaning that thermodynamic (macroscopic) entropy is always increasing.
 
-However, looking at the microscopic properties of a system, it is indeed possible that entropy spontaneously decreases. Fluctuation theorems provide a characteristic expression for the likelihood for certain statistical events to occur in a system. For example in the case of microscopic total entropy changes \(\Delta S\), it can be shown that
+However, looking at the microscopic properties of a system, it is indeed possible that entropy spontaneously decreases -- when all microstates occur with some nonzero probability, there is also always a nonzero (albeit small) chance of transition to a highly ordered system. Fluctuation theorems provide a characteristic expression for the likelihood for certain statistical events to occur in a system. For example in the case of microscopic total entropy changes \(\Delta S\), it can be shown that
 %
 \begin{equation}
 	P(\Delta S) = e^{\Delta S}P(-\Delta S)
@@ -42,25 +44,27 @@ which, using Jensen's inequality \(\langle e^x\rangle \geq e^{\langle x\rangle}\
 	\langle\Delta S\rangle \geq 0 ~.
 \end{equation}
 %
-Averages of this form are known as an \textbf{integral} fluctuation theorem.
+Averages of this form are known as \textbf{integral} fluctuation theorems.
 
 It turns out that this derivation was overly general: in fact, a detailed fluctuation theorem implies arbitrarily many integral fluctuation theorems, since
 %
 \begin{align}
-	\notag
-	   \underbrace{\inflint\d x \, P(x) e^{-\frac x2}A(x)}_{\equiv B}
-	&= \int\limits_\infty^{-\infty}\d(-x) P(-x) e^{\frac x2}A(-x)
-	 = \underbrace{- \inflint\d x \, P(x) e^{-\frac x2}A(x)}_{= -B}
-	 = 0
-	\\
+	   B
+	&\equiv \langle e^{-\frac x2}A(x)\rangle
+	= \inflint\d x \, P(x) e^{-\frac x2}A(x)
+	= \int\limits_\infty^{-\infty}\d(-x) P(-x) e^{\frac x2}A(-x) \notag \\
+	&= - \inflint\d x \, P(x) e^{-\frac x2}A(x)
+	 = -B
+	 = 0 \notag \\
 	\label{eqn:antisymmetric exp average}
-	\Rightarrow
+	&\Rightarrow
 	\langle e^{-\frac x2}A(x)\rangle = 0
 \end{align}
+
 %
 where \(A\) is an arbitrary antisymmetric function; the relation \RefEqn{eqn:average of exp} can be recovered by setting \(A(x) = \sinh(x/2) = \frac12(e^x-e^{-x})\).
 
-This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities, as can be seen e.g. in \cite{seifert-review}, and one of the main results of this chapter will be yet another entire class of fluctuation theorems.
+This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities (such as different forms of heat, work, other sub-categories of entropy), as can be seen e.g. in \cite{seifert-review}, and one of the main results of this chapter will be yet another entire class of fluctuation theorems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,7 +128,7 @@ In a typical system, many such paths can be taken when starting from an initial 
 
 A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Since later calculations will require ratios of rates it is required that in case of a nonzero jumping rate, the reverse jump also has a nonzero entry. Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and such trajectories are what this chapter is about.
 
-Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering intermediate \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions, \TODO{ref}
+Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering intermediate \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions \cite{seifert-review},
 %
 \begin{equation}
 	\begin{split}
@@ -144,7 +148,9 @@ where \(r_c\) stands for the escape rate from state \(c\),
 	r_c = \sum_{c'\neq c} w_{c\to c'} ~.
 \end{equation}
 %
-Assuming time-independent rates \(w\), \RefEqn{eqn:discrete path probability} reduces to
+Here the first line, \(\exp\left(-\int_{\tau_0}^{\tau_1}\d\tau\;r_{c_0}(\tau)\right)\), corresponds to the probability for staying in configuration \(c_0\) from time \(\tau_0\) to \(\tau_1\). This is then followed by a transition to \(c_1\) given by the first factor of the product, namely \(w_{\cdots}\), followed by staying in this configuration for times \(\tau_1\) to \(\tau_2\). The process -- jumping, then staying -- then repeats itself another \(J-1\) times, until all jumps have happened and the trajectory has been run through. The product of the probabilities of the constituents then makes up the overall path probability.
+
+Assuming time-independent rates \(w\), the integrals in \RefEqn{eqn:discrete path probability} can trivially be evaluated, and the expression reduces to
 \begin{equation}
 	p[\{c_{i,\tau_i}\} | c_0]\Bigr|_{w\;\const}
 	\equiv
@@ -160,7 +166,7 @@ Assuming time-independent rates \(w\), \RefEqn{eqn:discrete path probability} re
 It will also be necessary to calculate the probability of taking the steps of a path in reverse direction, denoted ``\(\dagger\)'', and the above definitions turn out as follows in this case:
 %
 \begin{align*}
-	\gamma &=~
+	\gamma^\dagger &=~
 	\newcommand\iarrow[1]{~\underset{T-\tau_{#1}}\longrightarrow~}
 	%
 	c_{J}
@@ -223,13 +229,13 @@ It will also be necessary to calculate the probability of taking the steps of a 
 
 For Markov processes, it is often suitable not to look at the total entropy \STot{}, but to split it up in two constituents, namely the system entropy \SSys{} and the environmental entropy \SEnv{}.
 
-The \textbf{system entropy} \(\mathbf{\SSys{}}\) is the Shannon entropy of an ensemble. Running a Markov process, starting with some random initial configuration \(c_0\) drawn using some distribution \(p_0(t=0)\), then after some time \(\Delta t\) the system will be in a new configuration \(c_i\). Repeating the procedure many times will yield a distribution \(p_i(\Delta t)\) of the various \(c_i\) reached. \SSys{} is now the Shannon entropy associated to that distribution:
+The \textbf{system entropy} \(\mathbf{\SSys{}}\) is the Shannon entropy of an ensemble. Running a Markov process, starting with some random initial configuration \(c_0\) drawn using some distribution \(p_0(t=0)\), then after some time \(\Delta t\) the system will be in a new configuration \(c_i\). Repeating the procedure many times will yield a distribution \(p_i(t)\) of the various \(c_i\) reached. \SSys{} is now the Shannon entropy associated to that distribution:
 %
 \begin{align}
 	\SSys(t) = \sum_i p_i(t)\ln p_i(t)
 \end{align}
 %
-The standard interpretation of this relationship is that \SSys{} is a quantity describing how ``concentrated'' the system is around certain states at a single point in time. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower.
+The standard interpretation of this relationship is that \SSys{} is a quantity describing how ``concentrated'' the system is around certain states at a single point in time, or in other words how much more likely it is to be in some specific state (or set of states) compared to others. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower, while maximum entropy is achieved when all states are reached with the same probability.
 
 On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes not the system's internal configuration into account, but characterizes how the current configuration has been reached. Each time the system changes its state, \SEnv{} increases by a certain amount,
 %
@@ -238,16 +244,16 @@ On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes
 	\Delta\SEnv^{c\to c'} = \ln\frac{w_{c\to c'}}{w_{c'\to c}} ~.
 \end{align}
 %
-This provides a characteristic quantity for the reversibility of a process: \(\Delta \SEnv\) is zero if the jumps and its reverse are equally likely, larger than zero if a transition was made in a more likely state, and lastly smaller than zero if an unlikely jump (towards lower uncertainty) happens.
+This provides a characteristic quantity for the reversibility of a process: \(\Delta \SEnv\) is zero if the jumps and its reverse are equally likely, larger than zero if a transition was made in a more likely state, and lastly smaller than zero if an unlikely jump happens.
 
 A stochastic trajectory \(\gamma\) now is a series of many such jumps, hence the total of the accumulated environmental entropy can be seen as a functional on \(\gamma\),
 %
 \begin{align}
 	\label{eqn:SEnv rate jump functional}
-	\Delta\SEnv[\gamma] = \sum_{i=1}^n\ln\frac{w_{c_{i-1}\to c_i}}{w_{c_i\to c_{i-1}}}
+	\Delta\SEnv[\gamma] = \sum_{i=1}^J\ln\frac{w_{c_{i-1}\to c_i}}{w_{c_i\to c_{i-1}}}
 \end{align}
 %
-where \(n\) is the total number of jumps on \(\gamma\), and \(c_i\) are the configurations it consists of.
+where \(J\) is the total number of jumps in \(\gamma\), and \(c_i\) are the configurations it consists of.
 
 
 
@@ -305,7 +311,7 @@ From now on, all rates will be assumed time-independent,
 	\tdq{}tw_{c\to c'} = 0 ~,
 \end{equation}
 %
-for all configurations \(c, c'\in\Omega\).
+for all configurations \(c, c'\in\Omega\). This simplifies the equations significantly, at the cost of limiting the system's drive to be constant over time. One important scenario where this is the case is in the study of relaxation processes, where the rates change just before the experiment, within which they will be unchanging; this particular case is described in detail in section~\RefSection{sec:thingie-applications}.
 
 
 
@@ -511,15 +517,15 @@ Let \(F[\gamma] = -F[\gamma^\dagger]\) be an antisymmetric functional on a path 
 } % end theorem
 
 \proof{
-(This proof largely follows the same ideas as the one for the Master Fluctuation Theorem presented in \cite{seifert-review}.)
+(This largely follows the same ideas as the one for the Master Fluctuation Theorem presented in \cite{seifert-review}.)
 
 Let
 \begin{align}
-	W[\gamma] &= p^\init_{c_0}Q[\gamma]
+	W[\gamma] &= p^\init_{c_0}Q[\gamma] ~.
 \end{align}
 %
 (Recall again that \(p_c^\init\) is the probability the experiment is started with initial configuration \(c\).)
-
+%
 The left hand side of \RefEqn{eqn:thingie} can, using \RefEqn{eqn:weighted functional average}, be written as
 %
 \begin{equation}
@@ -593,6 +599,7 @@ as claimed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Applications}
+\label{sec:thingie-applications}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 One of the challenges of general theorems is fixing the degrees of freedom it provides so that a practically viable result emerges. The Master Fluctuation Theorem \cite{seifert-review} does not have this issue as much, because it unifies lots of known fluctuation theorems; in the present case however, the general theorem is proven, but what it unifies or even describes is not so clear. This section will provide an example of one emergent result: a fluctuation theorem for the energy set free after sudden cooling of an equilibrium system.
@@ -735,7 +742,7 @@ Surprisingly, the quench over the phase transition into a nonequilibrium state (
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=30em]{figures/growth_process}
-	\caption[]{Convergence of \(\langle e^{\Delta\mu\Delta H}\rangle\) to~1 in the growth model with system sizes of~2 and~4. The initially empty lattice is equilibriated using 50 time steps to reach the initial configuration, before the final state is obtained using three additional steps. Each run records one value \(e^{\Delta\mu\Delta H}\), which is then averaged over many individual runs. The blue and yellow graphs show the development of said average over time in an ordinary quench, and confirm the fluctuation theorem's claim. The red line corresponds to changing the rates so that the system is brought beyond the phase transition (\(q > 1\)); in this scenario, there is no relaxation into a new stationary state, as the interface grows arbitrarily high over time. Remarkably, the fluctuation theorem seems to hold even in this scenario.}
+	\caption[]{Convergence of \(\langle e^{\Delta\mu\Delta H}\rangle\) to~1 in the growth model with system sizes of~{\color{blue}2} and~{\color{dyellow}4}. The initially empty lattice is equilibriated using 50 time steps to reach the initial configuration, before the final state is obtained using three additional steps. Each run records one value \(e^{\Delta\mu\Delta H}\), which is then averaged over many individual runs. The {\color{blue}blue} and {\color{dyellow}yellow} graphs show the development of said average over time in an ordinary quench, and confirm the fluctuation theorem's claim. The {\color{red}red} line corresponds to changing the rates so that the system is brought beyond the phase transition (\(q > 1\)); in this scenario, there is no relaxation into a new stationary state, as the interface grows arbitrarily high over time. Remarkably, the fluctuation theorem seems to hold even in this case, despite the assumption of asymptotic equilibrium in its derivation.}
 	\label{fig:growth_process_plot}
 \end{figure}
 
@@ -771,7 +778,7 @@ A simulation now consists of a decent amount (\(10^7\)) individual runs, the res
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=30em]{figures/histogram_lin}
-	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{yellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the yellow graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
+	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{dyellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the {\color{dyellow}yellow} graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
 	\label{fig:histogram_lin}
 \end{figure}
 
