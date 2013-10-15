@@ -4,29 +4,21 @@
 	\begin{scope}[arr/.style={->, shorten <=\ShortenBy, shorten >=\ShortenBy, thick}]
 		\newcommand\deltaAngle{45}
 		\newcommand\Radius{3}
+		\newcommand\StartAngle{90}
 
-		\node at (90:\Radius) { \(c_{n-2}\) };
-		\draw[arr] (90:\Radius) -- (90+\deltaAngle:\Radius);
 
-		\node at (90+\deltaAngle:\Radius) { \(c_{n-1}\) };
-		\node[anchor=west,rotate=-65] at (90+\deltaAngle/2:\Radius-0.3) { \(w_{c_{n-2}\to c_{n-1}}\) };
-		\draw[arr] (90+\deltaAngle:\Radius) -- (90+2*\deltaAngle:\Radius);
+		\foreach \i/\fst/\snd in {0/n-2/n-1, 1/n-1/n, 2/n/1, 3/1/2} {
+			\node at (\StartAngle+\i*\deltaAngle:\Radius) { \(c_{\fst}\) };
+			\draw[arr] \TikzArcAround\Radius{\StartAngle+\i*\deltaAngle}{\deltaAngle};
+			\node[anchor=west,rotate=-65+\i*\deltaAngle] at (\StartAngle+\i*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_{\fst}\to c_{\snd}}\) };
+		}
 
-		\node at (90+2*\deltaAngle:\Radius) { \(c_n\) };
-		\node[anchor=west,rotate=-65+\deltaAngle] at (90+\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_{n-1}\to c_n}\) };
-		\draw[arr] (90+2*\deltaAngle:\Radius) -- (90+3*\deltaAngle:\Radius);
-
-		\node at (90+3*\deltaAngle:\Radius) { \(c_1\) };
-		\node[anchor=west,rotate=-65+2*\deltaAngle] at (90+2*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_n\to c_1}\) };
-		\draw[arr] (90+3*\deltaAngle:\Radius) -- (90+4*\deltaAngle:\Radius);
-
+		% Explicitly code this arrow so the label can be flipped
 		\node at (90+4*\deltaAngle:\Radius) { \(c_2\) };
-		\node[anchor=west,rotate=-65+3*\deltaAngle] at (90+3*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_1\to c_2}\) };
-		\draw[arr] (90+4*\deltaAngle:\Radius) -- (90+5*\deltaAngle:\Radius);
-
 		\node at (90+5*\deltaAngle:\Radius) { \(c_3\) };
 		\node[anchor=east,rotate=-65+4*\deltaAngle+180] at (90+4*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_2\to c_3}\) };
-
+		\draw[arr] \TikzArcAround\Radius{\StartAngle+4*\deltaAngle}{\deltaAngle};
+% 
 		\draw[arr, dashed] \TikzArcAround\Radius{90+5*\deltaAngle}{130};
 
 	\end{scope}
