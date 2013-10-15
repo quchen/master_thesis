@@ -441,6 +441,8 @@ recall that the propagator \(G_a(\vec x'|x;\,\d t)\) acorresponds to the probabi
 			{_\varepsilon G_b(q,-p|q',-p';\,\d t)} ~.
 \end{equation}
 %
+A graphical representation of the paths constructed here can be found in the left part of figure~\RefFigure{fig:hf sf} (page~\pageref{fig:hf sf}).
+
 In order to make this equation well-behaved in the limit of the ad-hoc parameter \(\varepsilon\to0\), both parts of the fraction have to peak at the same location; taking a step away from mathematics, this can be understood as the \(\delta\)~distributions in \RefEqn{eqn:delta-limit} cancelling. This leads to the condition \TODO{verify equation}
 %
 \begin{equation}
@@ -511,7 +513,7 @@ This realization leads to the question whether ``the state'' of a stochastic sys
 
 Reversible processes do not produce entropy, and any Hamiltonian process is reversible. A new definition of environmental entropy should satisfy this constraint, and therefore yield \(\Delta\SEnv = 0\) if a process follows a single Hamiltonian orbit; quite naturally, the idea that ``a state switch'' is a switch of such orbits, leading from one Hamiltonian process to another, lends itself as the basis for a new entropy definition, which will be developed in a moment. This approach will also have the side effect of eliminating the need to distinguish between odd and even variables, and yield a somewhat different expression for \(\Delta\SEnv\). However, it will turn out that the observables predicted by the new model lead to the \emph{same} expressions as SF's approach, indicating that there is a certain ambiguity in the way \(\Delta\SEnv\) cab be defined. The only necessary condition on the dynamics of the system for the following approach is that the equations of motion can be separated in Hamiltonian and non-Hamiltonian parts, so that the Hamiltonian orbits (i.e. the flow of the Hamiltonian part) can be identified.
 
-More detailed, the new definition of the forward and backward paths is based on two Hamiltonian orbits \(\sigma\) and \(\sigma'\). The forward path \(\gamma\) is given in the same way as in SF's model, but the construction of the conjugate path -- denoted as \(\tilde\gamma\) instead of \(\gamma^\dagger\) to distinguish it from SF's approach -- is different, as illustrated in figure~\TODO{figure + reference to it here}. The algorithm for the construction is as follows:
+More detailed, the new definition of the forward and backward paths is based on two Hamiltonian orbits \(\sigma\) and \(\sigma'\). The forward path \(\gamma\) is given in the same way as in SF's model, but the construction of the conjugate path -- denoted as \(\tilde\gamma\) instead of \(\gamma^\dagger\) to distinguish it from SF's approach -- is different, as illustrated in figure~\RefFigure{fig:hf sf} (page~\pageref{fig:hf sf}). The algorithm for the construction is as follows:
 %
 \begin{enumerate}
 	\item The start point of the process is a phase space coordinate \(\vec x\), located on a Hamiltonian orbit \(\sigma\).
@@ -544,11 +546,17 @@ where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for th
 
 
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9 \linewidth]{figures/trajectories}
+	\caption[]{Path construction in the two models. The left side shows SF's approach, which mirrors the forward trajectory \(\gamma\) into a different part of phase space (yielding \(\gamma^\dagger\)), and calculates the ratio of the weights of these two paths. On the right hand side is the flow-based approach, which does not mirror momenta; instead, it traces the Hamiltonian flow in order to reach the start and end points of the conjugate process \(\tilde\gamma\). (Image by Haye Hinrichsen, taken from \cite{flow-paper}.)}
+	\label{fig:hf sf}
+\end{figure}
+
 \subsection{Differences between the models}
 
 
-
-Important consequences compared to SF's model are as follows:
+At this point may be a good idea to mention figure~\RefFigure{fig:hf sf} again, where the two path constructions (SF and flow) are pictured alongside each other. Important consequences compared to SF's model are as follows:
 %
 \begin{itemize}
 	\item The \HF{} entropy definition is local in phase space: nothing is mirrored into a different part of phase space, and the entire quotient is constrained to an arbitrarily small part of phase space for sufficiently small timespans.

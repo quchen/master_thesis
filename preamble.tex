@@ -1,22 +1,20 @@
 \chapter{Introduction}
 
-explain master equation in the thingie chapter
+
+\section{Overview in German}
 
 
-\section{Historical overview}
 
-\section{Entropy}
+\section{Statistical physics and entropy}
 
-Shannon entropy
+Statistical physics is a branch of physics that uses probability theory in order to approximate and solve problems typically involving large amounts of actors. Due to the generality of these principles, the methods and results are far from being confined to the domain of physics, where the ``actors'' are typically things like single atoms, often revealing surprising similarities between seemingly unrelated fields. To give a few examples: Opinions spread in a fashion that resembles spins in an atomic lattice. Cells contain proteins that, unfolded to full length, would not fit at all and make them explode; a key reason why this never happens also explains why the all the air in the room you're sitting in does not suddenly move in the bottom right corner simultaneously. Fluids and traffic patterns are very much alike in many respects. All these examples have one thing in common: the basic principles are very simple, and for that reason it is found in many places in nature.
 
-Popsci explanations
+The quantity this thesis revolves around is entropy (which accounts for the previous protein example). Its concept dates back all the way to the 19th century, where it became one of the key quantities in classical thermodynamics; probably the most famous mentioning of entropy nowadays is the then conceived ``second law (of thermodynamics)'', which in various formulations expresses the phenomenon that things in nature prefer to break rather than be created, unless a considerable amount of energy is invested. In this sense, (the change of) entropy is a measure of reversibility of a process. Mix two fluilds and stir, then no amount of ``unstirring'' will result in them separating again.
 
-Zwiebelfisch
+There is another way of approaching entropy though, closely related to computer science and mathematics. Here the so-called Shannon entropy measures how much information is contained in a system, or better: how much about it is unknown. Take a bag of Scrabble pieces: the chance to draw a couple of letters that allow making a word is pretty good, the entropy in the bag is high. Now take a bag of equal size that contains only the letters X, U and F. Drawing from this bag is not going to yield any surprise combinations of useful letters; the system is known to be rigged towards three letters, the entropy is low (and incidentially also the chance to create a useful word).
 
-Entropie eines einzelnen Teilchens erklären
+What scientsts then found out is that both the thermodynamic and the information theoretical entropies are the same thing, just viewed from different angles: thermodynamics deals with systems as a whole, information theory with individual parts on a microscopic level. The intersection of these two is precisely where statistical physics, and therefore this thesis, is located.
 
-
-``Taking away the averages''
 
 
 \section{Thesis overview}
@@ -26,7 +24,7 @@ This thesis is divided in two parts, the first one being about environmental ent
 
 \subsection{A new set of fluctuation theorems}
 
-Chapter~\ref{chap:thingie} is the result of modifying computer simulation, leading to a surprising outcome: when the resulting histogram was weighted using a seemingly arbitrary factor, it turns out to obey a certain symmetry called detailed fluctuation theorem. A detailed fluctuation theorem is an equation of the form
+Chapter~\ref{chap:thingie} is the result of playing around in a computer simulation, leading to a surprising outcome: when the resulting histogram was weighted using a seemingly arbitrary factor, it turns out to obey a certain symmetry called detailed fluctuation theorem. A detailed fluctuation theorem is an equation of the form
 %
 \begin{equation}
 	p(x) = e^{x}p(-x)
@@ -42,7 +40,7 @@ This distribution will be the likelihood to obtain a certain value of one specia
 
 \subsection{Entropy in continuous settings}
 
-The second topic is discussed in chapter~\ref{chap:flow}, which is concerned with how entropy can be defined in a meaningful way in a continuous setting. This is surprisingly difficult, as one could naively think the definitions just carry over. To give a motivating example, consider the before mentioned definition of entropy for a discrete distribution,
+The second topic is discussed in chapter~\ref{chap:flow}, which is concerned with how entropy can be defined in a meaningful way in a continuous setting. This is surprisingly difficult, as one could naively think the definitions just carry over. To give a motivating example, consider the before mentioned definition of (Shannon) entropy for a discrete distribution,
 %
 \begin{equation}
 	S_\text{discrete} = \sum_ip_i\ln p_i
@@ -61,9 +59,9 @@ But there is a problem with this equation: it does not have a lower bound. Intui
 	\Rightarrow S_\text{cont.} &= -\ln(\sigma) + \const
 \end{align}
 %
-which is logarithmically divergent for \(\sigma\to0\), the same limit that yields the \(\delta\)~distribution for a Gaussian. Another way of looking at it is that a \(\delta\) centered at a real value \(\mu\) carries infinite information (hence infinite entropy), namely all the decimals of \(\mu\); in a discrete setting, that would merely be an integer.
+which is logarithmically divergent for \(\sigma\to0\), the same limit that yields the \(\delta\)~distribution for a Gaussian. Another way of looking at it is that a \(\delta\) centered at a real value \(\mu\) carries infinite information (hence infinite entropy), namely all the decimals of \(\mu\).
 
-This was but one motivating example. The actual work in chapter~\ref{chap:flow} will be concerned with how the concept of environmental entropy -- in many cases easier to picture as the heat exchange with the environment -- can be brought from its easy discrete definition into a setting where the degrees of freedom are continuous.
+This was but one motivating example of the difficulties entropy poses when applied to continuous settings. The actual work in chapter~\ref{chap:flow} will be concerned with how the concept of environmental entropy -- in many cases easier to picture as the heat exchange with the environment -- can be brought from its easy discrete definition into a setting where the degrees of freedom are continuous.
 
 
 

@@ -288,15 +288,29 @@ The first term describes the system jumping into a state (probability current \(
 
 When talking about a system obeying statistical dynamics, there is a certain hierarchy of names describing how ``equilibriated'' it is. In a general setting it cannot be assumed that a system obeys special statistical properties because it follows arbitrary dynamics, and is called being in total nonequilibrium. The other end of the spectrum is equilibrium, where all macroscopic properties of the system are constant. There are a few important intermediate notions though, and one of them is called \emph{detailed balance}.
 
-A system in detailed balance looks like it is in equilibrium from the outside, but on a microscopic level it is not. What happens instead is that each process is cancelled out by its reverse on an individual level. Mathematically, the current from one state to another is identical to the reverse one,
+A system in detailed balance looks like it is in equilibrium from the outside, but on a microscopic level it is not. What happens instead is that each process is cancelled out by its reverse on an individual level. Mathematically, the probability current from one state to another is identical to the reverse one,
 %
 \begin{align}
 	j_{c\to c'} &= j_{c'\to c} \\
 	\Leftrightarrow p_cw_{c\to c'} &= p_{c'}w_{c'\to c} ~.
 \end{align}
 %
-This obviously leads to a stationary Master equation, which explains how the macroscopic properties of the system are constant. Another concequence of detailed balance is that no entropy (hence heat) is exchanged with the environment, \(\Delta\SEnv(t)=0\).
+This formulation leads directly to a stationary Master Equation, which explains how the macroscopic properties of the system are constant. However, it falsely suggests that detailed balance depends on the probability distribution \(p_c\) of the system at a point in time, when in fact this is not so, as can be seen in an alternative formulation: A system is in detailed balance iff the product of rates along a closed trajectory \(\gamma = \{c_1,\ldots,c_n,c_1\}\) is the same as for the reverse trajectory, \TODO{pic}
+%
+\begin{equation}
+	w_{c_1\to c_2}\cdots w_{c_{n-1}\to c_n}w_{c_n\to c_1}
+	=
+	w_{c_1\to c_n}w_{c_n\to c_{n-1}}\cdots w_{c_2\to c_1}
+\end{equation}
+%
+This picture, also illustrated in figure~\RefFigure{fig:pathcircle}, makes it easier to understand that systems in detailed balance are reversible and therefore produce no entropy in the environment, \(\Delta\SEnv(t)=0\).
 
+\begin{figure}[htbp]
+	\centering
+	\include{figures/pathcircle}
+	\caption[]{Illustration of the second definition of detailed balance. A system obeys detailed balance iff the product of rates along a closed trajectory (pictured) is the same as the product of rates along the reverse direction. In the illustration, this would mean that all arrows and all indices of the \(w\) are flipped.}
+	\label{fig:pathcircle}
+\end{figure}
 
 
 
