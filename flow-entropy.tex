@@ -8,9 +8,10 @@ An overview is as follows: The first section will talk about how to transfer som
 The most important result will be that the production of environmental entropy is in a certain sense ambiguous, allowing multiple different definitions that all agree in their end results.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{From discrete to continuous systems}
 \label{sec:discrete to continuous}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
 
@@ -29,7 +30,7 @@ Most noticably, the above equation does not include any form of momentum. This c
 	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^\dagger[\gamma^\dagger | q_0^\dagger]}
 \end{equation}
 %
-where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), and \(p^\dagger[\gamma^\dagger]\) is the likelihood of walking that same path in reverse direction. The \(\dagger\) or \emph{conjugation} operation encodes this reversal in the obvious way: for a process running from time \(t=0\) to \(T\),
+where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), and \(p^\dagger[\gamma^\dagger]\) is the likelihood of walking that same path in reverse direction. The \(\dagger\) (``dagger'') or \emph{conjugation} operation encodes this reversal in the obvious way: for a process running from time \(t=0\) to \(T\),
 %
 \begin{equation}
 	\begin{split}
@@ -39,7 +40,14 @@ where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), an
 	\end{split}
 \end{equation}
 %
-where the last line is important if the coefficients in \RefEqn{eqn:overdamped} have an explicit time dependency. Note that the \(\dagger\) operation is \emph{not} reversing time in this context -- when \(p[\gamma | q_0]\) is the probability for a process to run along \(\gamma\) forward in time, \(p^\dagger[\gamma^\dagger | q_0^\dagger]\) is the probability for that same process to follow a different path \(\gamma^\dagger\), also forward in time, albeit with a reversed explicit time-dependency of the SDE coefficients. \TODO{illustration}
+where the last line is important if the coefficients in \RefEqn{eqn:overdamped} have an explicit time dependency. Note that the \(\dagger\) operation is \emph{not reversing time}, it only stands for walking the same path in reverse directions, probably better described as ``making the same decisions, but in reverse order''. Figure~\RefFigure{fig:knight} also illustrates this process.
+
+\begin{figure}[htbp]
+	\centering
+	\include{figures/knight}
+	\caption[]{Path reversal, for simplicity pictured using discrete coordinates, using a randomly moving knight on an infinite chess board. The {\color{red}forward path \(\gamma\)} is take by the knight with probability \(p[{\color{red}\gamma}|{\color{yellow}x_0}]\) of following this path. The {\color{blue}conjugate path \(\gamma^\dagger\)} is that same knight making the same jumps, but in opposite order and direction, which happens with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{yellow}x_0^\dagger}]\).}
+	\label{fig:knight}
+\end{figure}
 
 
 Of course not all systems in nature are overdamped in the continuous case, just like not every discrete system has the Markov property. These non-overdamped -- \emph{underdamped} -- systems take the full Hamiltonian phase space into account, and the Hamiltonian equations of motion take the form
@@ -70,16 +78,20 @@ but it turns out that the velocity \(\dot q\) has a different sign as momentum \
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Stochastic differential equations}
 \label{sec:sde}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 There are multiple equivalent approaches to stochastic differential equations (SDEs), i.e. differential equations with a probabilistic or ``noise'' term. There are two important distinctions to make between the three commonly used ones.
 
 The goal of this section is not providing an introduction to SDEs, but to illustrate different formalisms briefly, and mention their key concepts. A more rigorous yet practical treatment of stochastic calculus can be found in e.g. \cite{sde}, which also served as a main source for what follows.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Math vs. physics}
 \label{sec:math vs physics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
 %
@@ -109,9 +121,10 @@ This is the form often used in physics. In this setting, the noise is usually de
 and can therefore be pictured as a quantity fluctuating around \(0\) so wildly that there are no correlations between any given different points in time. The advantage of this approach of course is that \(\xi\) can be treated as an ordinary function with certain special properties.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\Ito{} vs. Stratonovich}
 \label{sec:ito-stratonovich dilemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
 %
@@ -146,8 +159,10 @@ In the context of these issues, it is important to mention that both approaches 
 where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integration, and anything without special syntax is \Ito{}. The spatial derivative \(\partial_x\) is to be read as with respect to \(f\)'s first argument (which appears with explicit mention of the Wiener process in the integrands). As can be seen above, both approaches are identical if the integrand \(f\) is spatially constant; otherwise, the nonvanishing integral will be referred to as a \emph{drift term}.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Micro vs. macro}
 \label{sec:fp introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
 
@@ -173,8 +188,10 @@ when integrated according to the \Ito{} calculus \cite{sde}.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Underdamped particle with additive noise}
 \label{sec:underdamped-model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The treatment of the most general case of Hamiltonian motion, as stated for a single particle in \RefEqn{eqn:general hamiltonian equations}, turns out to be very complicated. For this reason, the model used here is a special case of said equations. That is not to say it is impractical though; many of the basic systems of classical mechanics can be described by these equations:
 %
@@ -216,7 +233,9 @@ Reproducing this result from a microscopic approach however is nontrivial, and p
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fokker-Planck equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 A key quantity later will be the propagator of the Fokker-Planck equation, which can be seen as the continuous analogon of the Master quation \RefEqn{eqn:master}. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into Fokker-Planck form. This will be done following the notation of \TODO{ref: [8] in flow paper} and defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
 %
@@ -257,7 +276,9 @@ The FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} t
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Detailed balance redux}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The idea of detailed balance (section \RefSection{sec:detailed balance}) is also applicable to continuous system, where as mentioned the Fokker-Planck equation \RefEqn{eqn:fp} takes over for the Master equation \RefEqn{eqn:master}. Analogous, a stationary FP equation means all macroscopic state variables are constant; in the present context it is of particular interest that no heat or environmental entropy is exchanged with the bath.
 
@@ -304,7 +325,9 @@ This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\G
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Short-time propagator}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{General case}
 \label{sec:general propagator case}
@@ -397,8 +420,10 @@ where the \(\delta\) accounts for the deterministic location.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Differential entropy production}
 \label{sec:differential entropy production}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The focus of the main part of this chapter is the definition of differential environmental entropy \(\d\SEnv\). The term \emph{differential} will be used in multiple similar but different contexts; it can always be understood as some form of Taylor expansion of the finite entropy increase \(\Delta\SEnv\) in \(\d t\), \(\d q\) and \(\d p\) to lowest order. Which meaning is appropriate will be specified explicitly in ambiguous places.
 
@@ -406,7 +431,9 @@ The outline of what follows is this. First, an overview of Spinney and Ford's ap
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Spinney and Ford's entropy definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. More explicitly, what they do is defining \(\dagger\) as \TODO{ref [9] is given here in the flow paper}
@@ -449,7 +476,7 @@ In order to make this equation well-behaved in the limit of the ad-hoc parameter
 	(q'-q)-(p+a(p'-p))\d t = -\bigl((q-q') - (-p'+b(-p+p'))\d t\bigr)
 \end{equation}
 %
-which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment \TODO{ref}. direct calculation of the entropy production results in the expression \TODO{verify}
+which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment~\cite{sf}. Direct calculation of the entropy production results in the expression \TODO{verify}
 %
 \begin{equation}\begin{split}
 	\label{eqn:sf entropy production}
@@ -475,9 +502,9 @@ Note that the series expansion is to first order in \(\d t\) and \emph{second} o
 
 This formula has some surprising properties. Most notably, in the case of a particle subject to linear friction (\(\mu(p) = \const\)) in detailed balance (\(\Gamma = \sqrt{2T\mu}\)) it reduces to
 %
-\begin{equation}
+\begin{align}
 	\d\SEnv^\SF = -\beta p \d p - \beta V'(q) \d q - \mu \d t
-\end{equation}
+\end{align}
 %
 which has an additional term \(- \mu \d t\) compared to the textbook example \RefEqn{eqn:classical environmental entropy production}, indefinitely producing (negative) environmental entropy regardless of the state of the system -- take for example a resting free particle, \(p=0,V=\const\) to make this obvious -- when there should be no such production. This implausibility was in fact one of the motivations behind investigating the topic of continuous entropy further, although this specific issue was resolved upon further investigation (section \RefSection{sec:flow entropy}).
 
@@ -501,15 +528,19 @@ which is of course different from the \(a = 0\) result. Not very meaningful on i
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{What is ``the state'' of a stochastic system?}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The entropy definition, even in the continuous case, is based on the idea that environmental entropy is produced when the system changes from one state to another. SF's approach implicitly considers such a state to be the current location in phase space. As shown just above, this notion leads to strange results, illustrating an important difference between discrete and continuous settings: while randomness is the only source of dynamics in discrete models, continuous phase space systems consist of two parts: random \emph{and deterministic}.
 When a continuous system changes ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes, for example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
 
 This realization leads to the question whether ``the state'' of a stochastic system is maybe something different, and not just the current location in phase space, and as will be shown in the following, an alternative definition can be made that solves these issues.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hamiltonian orbit based entropy definition}
 \label{sec:flow entropy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Reversible processes do not produce entropy, and any Hamiltonian process is reversible. A new definition of environmental entropy should satisfy this constraint, and therefore yield \(\Delta\SEnv = 0\) if a process follows a single Hamiltonian orbit; quite naturally, the idea that ``a state switch'' is a switch of such orbits, leading from one Hamiltonian process to another, lends itself as the basis for a new entropy definition, which will be developed in a moment. This approach will also have the side effect of eliminating the need to distinguish between odd and even variables, and yield a somewhat different expression for \(\Delta\SEnv\). However, it will turn out that the observables predicted by the new model lead to the \emph{same} expressions as SF's approach, indicating that there is a certain ambiguity in the way \(\Delta\SEnv\) cab be defined. The only necessary condition on the dynamics of the system for the following approach is that the equations of motion can be separated in Hamiltonian and non-Hamiltonian parts, so that the Hamiltonian orbits (i.e. the flow of the Hamiltonian part) can be identified.
 
@@ -553,7 +584,9 @@ where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for th
 	\label{fig:hf sf}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Differences between the models}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 At this point may be a good idea to mention figure~\RefFigure{fig:hf sf} again, where the two path constructions (SF and flow) are pictured alongside each other. Important consequences compared to SF's model are as follows:
@@ -606,7 +639,9 @@ This approach is quite general and can be applied to more complicated systems, i
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Flow-based entropy production of the model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 This new model can now be applied to the one-dimensional underdamped particle introduced before in section~\RefSection{sec:underdamped-model}. Here, the forward process starts at \(\vec x = (q,p)\) and ends at \(\vec x' = (q',p')\). The conjugate process starts at \(\tilde{\vec x}' = (q'-p'\d t, p'-f(q')\d t)\), which as described before is where tracing back the Hamiltonian orbit through \((q',p')\) for a timespan \(\d t\) reaches; similarly, \(\tilde{\vec x} = (q+p\d t, p+f(q)\d t)\). The entropy thus reads
 %
@@ -661,12 +696,17 @@ where once again the explicit dependencies of the coefficients have been dropped
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Towards observable quantities}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The previously defined quantity \(\d\SEnv(\vec x'|\vec x;\,\d t)\) is a two-point function, yielding the expected entropy production for the transition \(\vec x\to\vec x'\). However, this quantity is not easily accessible by experiment or simulation: while the starting point \(\vec x\) can be set, \(\vec x'\) is much less accessible due to it being statistically distributed over arbitrary phase space regions. The following sections will successively integrate out the unknowns, in order to yield a testable result.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Local entropy production}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand\SEnvLoc{\ensuremath{S_\text{env,\,loc}}}
 
 The \emph{local entropy production rate} integrates out the final phase space coordinate:
@@ -770,8 +810,10 @@ The terms proportional to \(\d p^2\) in \RefEqn{eqn:hf entropy} compensate the o
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Global entropy production}
 \label{sec:global entropy production}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The \emph{global entropy production} once again averages over all positions, to give an expectation value for the short-time environmental entropy production in an ensemble of many (non-interacting) particles. It is obtained from the local entropy production developed just above via
 %
@@ -816,6 +858,15 @@ in \RefEqn{eqn:global entropy production}, the global entropy production can be 
 \end{equation}
 %
 which is what a system obeying detailed balance in thermal equilibrium should obey. This is in agreement with classical thermodynamics again, and the necessity for the previous calculation also hints at why the expression for \(\d\SEnv\) in \RefEqn{eqn:classical environmental entropy production} is not entirely correct: although it assumes \emph{some} properties equilibrium provides, it is a ``thermodynamic'' quantity in terms of \(q\) and \(p\), while classical thermodynamics only deals with averages in which single appearances of location and momentum are meaningless.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Although the initial goal of the presented subject was finding a better definition of entropy production in continuous settings, it turned out that both the new (flow based) and the old (SF, \cite{sf}) approach yield identical results both for the local and the global environmental entropy production in the scenarios presented above. This leads to the conclusion that (two-point) \textbf{short-time environmental entropy production is not a uniquely defined quantity}, and should be regarded as a mathematical intermediate step. However, the flow-based approach seems to be closer to physical intuition, as it does not require a time reversal (which is particularly difficult to map to the real world), its intermediate results vanish along the deterministic trajectory of the system, the distinction between odd and even variables is not necessary, and the propagator ambiguities fall away during the calculation without making further assumptions (which is important to mention because SF and HF models are identical in their two-point entropy production, given the \emph{arbitrary} choice of \(a = \tfrac12\) in the former model).
+
+It is worth noting that the case of a more general system than \RefEqn{eqn:model hamiltonian eqns of motion} has not been investiated, and it is unknown whether both path constructions still agree in this scenario. Furthermore, the SDE of the system has been integrated according to the \Ito{} scheme in order to obtain the FP equation; the consequences of choosing Stratonovich or an arbitrary parameter value for the stochastic integration are also subject to further research.
 
 
 

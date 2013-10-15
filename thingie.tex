@@ -16,14 +16,14 @@ This chapter has two main parts. The first one provides an introduction to fluct
 \subsection{Fluctuation theorems}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Classical thermodynamics is a theory of averages of certain quantities. For example, temperature is a measure for the \emph{mean} energy per degree of freedom of a gas, or the \emph{mean} cost of energy to increase the \emph{mean} entropy by a certain amount. Unfortunately, this approach requires certain quantities to exist a priori, and does not explain their origins. On the other hand, statistical physics typically starts with all individual constituents at the same time, and tries to explain how certain statistical properties -- the mean being just one of them -- emerge. In that sense, fluctuation theorems are about \textbf{taking away the averages} of classical thermodynamics. One of these averages is the entropy of a system \TODO{ref zum Vorspann}, of which we know that it obeys the second law of thermodynamics, typically written as
+Classical thermodynamics is a theory of averages of certain quantities. For example, temperature is a measure for the \emph{mean} energy per degree of freedom of a gas, or the \emph{mean} cost of energy to increase the \emph{mean} entropy by a certain amount. Unfortunately, this approach requires certain quantities to exist a priori, and does not explain their origins. On the other hand, statistical physics typically starts with all individual constituents at the same time, and tries to explain how certain statistical properties -- the mean being just one of them -- emerge. In that sense, fluctuation theorems are about \textbf{taking away the averages} of classical thermodynamics. One of these averages is the entropy of a system, of which we know that it obeys the second law of thermodynamics, typically written as
 %
 \begin{equation}
 	\label{eqn:2nd_law_classical}
 	\d S \geq 0 ~,
 \end{equation}
 %
-meaning that thermodynamic (macroscopic) entropy is always increasing.
+meaning that thermodynamic (macroscopic) entropy is always increasing. In colloquial terms, this describes the phenomenon that systems in nature are automatically driven towards greater uncertainty (a sand castle is a highly ordered arrangement of particles, and the wind is much more likely of rearranging these particles in a way that makes their position uncertain than to build up a castle by random chance).
 
 However, looking at the microscopic properties of a system, it is indeed possible that entropy spontaneously decreases -- when all microstates occur with some nonzero probability, there is also always a nonzero (albeit small) chance of transition to a highly ordered system. Fluctuation theorems provide a characteristic expression for the likelihood for certain statistical events to occur in a system. For example in the case of microscopic total entropy changes \(\Delta S\), it can be shown that
 %
@@ -235,7 +235,7 @@ The \textbf{system entropy} \(\mathbf{\SSys{}}\) is the Shannon entropy of an en
 	\SSys(t) = \sum_i p_i(t)\ln p_i(t)
 \end{align}
 %
-The standard interpretation of this relationship is that \SSys{} is a quantity describing how ``concentrated'' the system is around certain states at a single point in time, or in other words how much more likely it is to be in some specific state (or set of states) compared to others. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower, while maximum entropy is achieved when all states are reached with the same probability.
+The standard interpretation of this relationship is that \SSys{} is a quantity describing how concentrated the system is around certain states at a single point in time, or in other words how much more likely it is to be in some specific state (or set of states) compared to others. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower, while maximum entropy is achieved when all states are reached with the same probability.
 
 On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes not the system's internal configuration into account, but characterizes how the current configuration has been reached. Each time the system changes its state, \SEnv{} increases by a certain amount,
 %
@@ -288,19 +288,27 @@ The first term describes the system jumping into a state (probability current \(
 
 When talking about a system obeying statistical dynamics, there is a certain hierarchy of names describing how ``equilibriated'' it is. In a general setting it cannot be assumed that a system obeys special statistical properties because it follows arbitrary dynamics, and is called being in total nonequilibrium. The other end of the spectrum is equilibrium, where all macroscopic properties of the system are constant. There are a few important intermediate notions though, and one of them is called \emph{detailed balance}.
 
+\subsubsection{First definition}
+
 A system in detailed balance looks like it is in equilibrium from the outside, but on a microscopic level it is not. What happens instead is that each process is cancelled out by its reverse on an individual level. Mathematically, the probability current from one state to another is identical to the reverse one,
 %
-\begin{align}
+\begin{equation}\begin{split}
+	\label{eqn:db first def}
 	j_{c\to c'} &= j_{c'\to c} \\
 	\Leftrightarrow p_cw_{c\to c'} &= p_{c'}w_{c'\to c} ~.
-\end{align}
+\end{split}\end{equation}
 %
-This formulation leads directly to a stationary Master Equation, which explains how the macroscopic properties of the system are constant. However, it falsely suggests that detailed balance depends on the probability distribution \(p_c\) of the system at a point in time, when in fact this is not so, as can be seen in an alternative formulation: A system is in detailed balance iff the product of rates along a closed trajectory \(\gamma = \{c_1,\ldots,c_n,c_1\}\) is the same as for the reverse trajectory,
+This formulation leads directly to a stationary Master Equation, which explains how the macroscopic properties of the system are constant. However, it falsely suggests that detailed balance depends on the probability distribution \(p_c\) of the system at a point in time, when in fact this is not so, as can be seen in an alternative formulation.
+
+
+\subsubsection{Second definition}
+
+A system is in detailed balance iff the product of rates along a closed trajectory \(\gamma = \{c_1,\ldots,c_n,c_1\}\) is the same as for the reverse trajectory,
 %
 \begin{equation}
-	w_{c_1\to c_2}\cdots w_{c_{n-1}\to c_n}w_{c_n\to c_1}
+	w_{c_1\to c_2} \; \cdots \; w_{c_{n-1}\to c_n}w_{c_n\to c_1}
 	=
-	w_{c_1\to c_n}w_{c_n\to c_{n-1}}\cdots w_{c_2\to c_1}
+	w_{c_1\to c_n}w_{c_n\to c_{n-1}} \; \cdots \; w_{c_2\to c_1} ~.
 \end{equation}
 %
 This picture, also illustrated in figure~\RefFigure{fig:pathcircle}, makes it easier to understand that systems in detailed balance are reversible and therefore produce no entropy in the environment, \(\Delta\SEnv(t)=0\).
@@ -308,7 +316,7 @@ This picture, also illustrated in figure~\RefFigure{fig:pathcircle}, makes it ea
 \begin{figure}[htbp]
 	\centering
 	\include{figures/pathcircle}
-	\caption[]{Illustration of the second definition of detailed balance. A system obeys detailed balance iff the product of rates along a closed trajectory (pictured) is the same as the product of rates along the reverse direction. In the illustration, this would mean that all arrows and all indices of the \(w\) are flipped.}
+	\caption[]{Illustration of the second definition of detailed balance. A system obeys detailed balance iff for all closed trajectories \({\color{red}\gamma}\) the product of the rates along them is the same as the product of rates along the corresponding reverse direction \({\color{blue}\gamma^\dagger}\). In the illustration, \({\color{blue}\gamma^\dagger}\) would mean that all arrows in the circle and all indices of \(w\) are flipped. This definition makes it obvious that detailed balance is a property of the rates of a Markov process only, and does not depend on the probability distribution these rates produce, as \RefEqn{eqn:db first def} might suggest.}
 	\label{fig:pathcircle}
 \end{figure}
 
@@ -624,7 +632,7 @@ Take a classical system that is initially in equlibrium with a heat bath of cons
 	p_c^\init = \frac1{Z(\beta_1)}e^{-\beta_1E_c}
 \end{equation}
 %
-with the partition sum \(Z(\beta) = \sum_ce^{-\beta E_c}\). Since the system is in equlibrium it also obeys detailed balance \TODO{ref}, and consequently the rates can be expressed as follows:
+with the partition sum \(Z(\beta) = \sum_ce^{-\beta E_c}\). Since the system is in equlibrium it also obeys detailed balance (recall that detailed balance is a weaker condition than equilibrium, see section~\RefSection{sec:detailed balance}), and consequently the rates can be expressed as follows:
 %
 \begin{align}
 	p_c w_{c\to c'} &= p_{c'} w_{c'\to c}
@@ -635,8 +643,8 @@ with the partition sum \(Z(\beta) = \sum_ce^{-\beta E_c}\). Since the system is 
 		 = e^{-\beta_1(E_{c'}-E_c)}
 \end{align}
 
-At time \(t = 0\), the temperature of the bath is now instantaneously changed (``quenched'') to \(\beta_2\) \TODO{figure?}, and the system converges to a new stationary equilibrium state. How much energy \(\Delta E = E_{c_0} - E_{c_T}\) does this process take out or feed into the system in a given amount of time \(T\)?
-Since the reservoir is not part of the system, changing the temperature leaves the energy associated to a certain state unchanged. What \emph{does} change, however, are the rates, which again fulfill detailed balance, albeit at a different temperature \(T_2 = 1/(k_B\beta_2)\),
+At time \(t = 0\), the temperature of the bath is now instantaneously changed (``quenched'') to \(\beta_2\), and the system converges to a new stationary equilibrium state. How much energy \(\Delta E = E_{c_0} - E_{c_T}\) does this process take out or feed into the system in a given amount of time \(T\)?
+Since the reservoir is not part of the system, changing the temperature leaves the energy associated to a certain state unchanged. The new system will again obey detailed balance. This can be understood by first noting that it is in detailed balance a long time after the quench when it is equilibriated again; but then this means that the rates themselselves obey detailed balance, and since they are constant, they did this for the entire time after the quench, not just asymptotically (cf. the second definition of detailed balance in section~\RefSection{sec:detailed balance} and illustrated in figure~\RefFigure{fig:pathcircle}). Therefore, for the new temperature \(T_2 = 1/(k_B\beta_2)\),
 %
 \begin{equation}
 	\frac{w_{c\to c'}}{w_{c'\to c}}
@@ -655,8 +663,6 @@ Since after the quench \(\beta = \beta_2\) is constant, this expression is easil
 	\label{eqn:Delta SEnv in terms of energies}
 	\Delta\SEnv[\gamma] = -\beta_2(E_{c_T}-E_{c_0}) ~.
 \end{equation}
-%
-\TODO{Why does this hold even if the system isn't in equilibrium again yet? That's what our paper says.}
 
 In order to connect this to the new class of fluctuation theorems obtained in the previous section, define the weights
 %
@@ -802,3 +808,20 @@ A simulation now consists of a decent amount (\(10^7\)) individual runs, the res
 	\caption[]{Same histogram as figure \RefFigure{fig:histogram_lin}, but with logarithmic \(y\)-axis. In addition to the graphs for the histogram ({\color{blue}blue}), the symmetrized version ({\color{red}red}, again just barely visible) and the absolute deviation ({\color{yellow}yellow}), this also shows the relative deviation in {\color{cyan}cyan}. This demonstrates again that both graphs match fairly well, particularly in around \(\Delta\SEnv = 0\), where most events happen. Leaving the middle region the overlap becomes worse as \(|\Delta\SEnv|\) increases, which can be explained by the fact that these events are relatively rare, hence the statistics aren't as good (compare e.g. about \(100\) weighted counts at \(\Delta\SEnv = 7\) vs. \(10^4\) around \(\Delta\SEnv = 1\)).}
 	\label{fig:histogram_log}
 \end{figure}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+One of the main results of this chapter is a set of fluctuation theorems for continuous time Markov processes. An important consequence -- and the other main result -- of this is a detailed fluctuation theorem for for the environmental entropy production \(\Delta\SEnv\), which holds even in finite time, and not just asymptotically. This suggests that it is suitable to study relaxation processes from arbitrary initial conditions into equilibrium, as well as nonequilibrium seady states (NESS).
+
+One application of this result is to investigate a system that is initially in equilibrium, before it is suddenly heated or cooled to a different tempreature. Properties of the energy fluctuations of this system as it approaches the new equilibrium at the new temperature are captured by the mentioned fluctuation theorem. Even more, the simulation suggests that the theorem holds even when the target temperature is in a nonequilibrium region -- something assumed not to be the case in its derivation -- suggesting that it may be suitable for studying phase transitions. This claim should be handled with care until the phenomenon is better understood though.
+
+
+

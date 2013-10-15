@@ -1,7 +1,10 @@
 \begin{tikzpicture}
 
-	\newcommand\ShortenBy{0.5cm}
-	\begin{scope}[arr/.style={->, shorten <=\ShortenBy, shorten >=\ShortenBy, thick}]
+	\newcommand\ShortenBy{0.6cm}
+	\begin{scope}[
+			arr/.style={->, red, shorten <=\ShortenBy, shorten >=\ShortenBy, thick},
+			arr2/.style={->, blue, thick}
+			]
 		\newcommand\deltaAngle{45}
 		\newcommand\Radius{3}
 		\newcommand\StartAngle{90}
@@ -10,16 +13,23 @@
 		\foreach \i/\fst/\snd in {0/n-2/n-1, 1/n-1/n, 2/n/1, 3/1/2} {
 			\node at (\StartAngle+\i*\deltaAngle:\Radius) { \(c_{\fst}\) };
 			\draw[arr] \TikzArcAround\Radius{\StartAngle+\i*\deltaAngle}{\deltaAngle};
-			\node[anchor=west,rotate=-65+\i*\deltaAngle] at (\StartAngle+\i*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_{\fst}\to c_{\snd}}\) };
+			\node[anchor=west,rotate=-65+\i*\deltaAngle] at (\StartAngle+\i*\deltaAngle+\deltaAngle/2:\Radius-0.2) { \(w_{c_{\fst}\to c_{\snd}}\) };
 		}
 
 		% Explicitly code this arrow so the label can be flipped
 		\node at (90+4*\deltaAngle:\Radius) { \(c_2\) };
 		\node at (90+5*\deltaAngle:\Radius) { \(c_3\) };
-		\node[anchor=east,rotate=-65+4*\deltaAngle+180] at (90+4*\deltaAngle+\deltaAngle/2:\Radius-0.3) { \(w_{c_2\to c_3}\) };
+		\node[anchor=east,rotate=-65+4*\deltaAngle+180] at (90+4*\deltaAngle+\deltaAngle/2:\Radius-0.2) { \(w_{c_2\to c_3}\) };
 		\draw[arr] \TikzArcAround\Radius{\StartAngle+4*\deltaAngle}{\deltaAngle};
-% 
-		\draw[arr, dashed] \TikzArcAround\Radius{90+5*\deltaAngle}{130};
+
+		\draw[->, red, dashed, thick] (0,0) \TikzArcAround\Radius{90+5*\deltaAngle+10}{130-20};
+
+		\newcommand\SmallOffset{0.5}
+% 		\draw[arr2] \TikzArcAround{\Radius+\SmallOffset}{-15}{60};
+% 		\node[anchor = south east, red] at (45:\Radius+\SmallOffset) { \(\gamma\) };
+		\node[anchor = center, red] at (15:\Radius-\SmallOffset) { \(\gamma\) };
+		\draw[arr2] \TikzArcAround{\Radius+\SmallOffset}{45}{-60};
+		\node[anchor = center, blue] at (15:\Radius+\SmallOffset+0.5) { \(\gamma^\dagger\) };
 
 	\end{scope}
 
