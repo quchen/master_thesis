@@ -40,15 +40,16 @@ where \(p[\gamma]\) is the probability of taking the forward path \(\gamma\), an
 	\end{split}
 \end{equation}
 %
-where the last line is important if the coefficients in \RefEqn{eqn:overdamped} have an explicit time dependency. Note that the \(\dagger\) operation is \emph{not reversing time}, it only stands for walking the same path in reverse directions, probably better described as ``making the same decisions, but in reverse order''. Figure~\RefFigure{fig:knight} also illustrates this process.
+where the last line is important if the coefficients in \RefEqn{eqn:overdamped} have an explicit time dependency. Note that the \(\dagger\) operation is \emph{not reversing time}, it only stands for walking the same path in reverse directions, probably better described as ``making the same decisions, but in reverse order''. Figure~\RefFigure{fig:knight continuous} also illustrates this process.
 
 \begin{figure}[htbp]
 	\centering
-	\include{figures/knight}
-	\caption[]{Path reversal, for simplicity pictured using discrete coordinates, using a randomly moving knight on an infinite chess board. The {\color{red}forward path \(\gamma\)} is take by the knight with probability \(p[{\color{red}\gamma}|{\color{yellow}x_0}]\) of following this path. The {\color{blue}conjugate path \(\gamma^\dagger\)} is that same knight making the same jumps, but in opposite order and direction, which happens with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{yellow}x_0^\dagger}]\).}
-	\label{fig:knight}
+	\include{figures/knight-continuous}
+	\caption[]{
+		The knight from figure~\RefFigure{fig:knight}, but now in a continuous setting, where the configuration is \((x,y)\in\Set R^2\). The {\color{red}forward path \(\gamma\)} is taken with probability \(p[{\color{red}\gamma}|{\color{yellow}x_0}]\), and the {\color{blue}backward/conjugate path \(\gamma^\dagger\)} occurs with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{yellow}x_0^\dagger}]\). In both cases, the paths can be constructed so time runs forward as the particle follows the trajectory.
+	}
+	\label{fig:knight continuous}
 \end{figure}
-
 
 Of course not all systems in nature are overdamped in the continuous case, just like not every discrete system has the Markov property. These non-overdamped -- \emph{underdamped} -- systems take the full Hamiltonian phase space into account, and the Hamiltonian equations of motion take the form
 %
