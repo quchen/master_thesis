@@ -167,7 +167,7 @@ where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integ
 
 SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
 
-However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the brownian motion of small particles in liquid \cite{sengupta}.} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
+However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the Brownian motion of small particles in liquid \cite{sengupta}.} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
 %
 \begin{equation}
 	\label{eqn:fp}
@@ -180,9 +180,9 @@ However, individual partcles are rarely\footnote{For a case where this \emph{is}
 %
 Like the Heat Equation, the FP equation describes a flow in terms of a current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
 %
-\begin{equation}
+\begin{align}
 	\d X_t = f(X_t,t)\d t + \sqrt{2 D(X_t,t)}\,\d W_t ~.
-\end{equation}
+\end{align}
 %
 when integrated according to the \Ito{} calculus \cite{sde}.
 

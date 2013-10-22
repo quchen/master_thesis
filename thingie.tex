@@ -320,7 +320,7 @@ A system is in detailed balance iff the product of rates along a closed trajecto
 %
 This picture, also illustrated in figure~\RefFigure{fig:pathcircle}, makes it easier to understand that systems in detailed balance are reversible and therefore produce no entropy in the environment, \(\Delta\SEnv(t)=0\).
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\include{figures/pathcircle}
 	\caption[]{Illustration of the second definition of detailed balance. A system obeys detailed balance iff for all closed trajectories \({\color{red}\gamma}\) the product of the rates along them is the same as the product of rates along the corresponding reverse direction \({\color{blue}\gamma^\dagger}\). In the illustration, \({\color{blue}\gamma^\dagger}\) would mean that all arrows in the circle and all indices of \(w\) are flipped. This definition makes it obvious that detailed balance is a property of the rates of a Markov process only, and does not depend on the probability distribution these rates produce, as \RefEqn{eqn:db first def} might suggest.}
@@ -802,14 +802,14 @@ which describes the distribution of states on a statistical level directly, wher
 A simulation now consists of a decent amount (\(10^7\)) individual runs, the result of which is then binned and put in a histogram. As can be seein in figures \RefFigure{fig:histogram_lin}~and~\RefFigure{fig:histogram_log}, the theorem is reproducible in simulation.
 
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=30em]{figures/histogram_lin}
 	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{dyellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the {\color{dyellow}yellow} graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
 	\label{fig:histogram_lin}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=30em]{figures/histogram_log}
 	\caption[]{Same histogram as figure \RefFigure{fig:histogram_lin}, but with logarithmic \(y\)-axis. In addition to the graphs for the histogram ({\color{blue}blue}), the symmetrized version ({\color{red}red}, again just barely visible) and the absolute deviation ({\color{yellow}yellow}), this also shows the relative deviation in {\color{cyan}cyan}. This demonstrates again that both graphs match fairly well, particularly in around \(\Delta\SEnv = 0\), where most events happen. Leaving the middle region the overlap becomes worse as \(|\Delta\SEnv|\) increases, which can be explained by the fact that these events are relatively rare, hence the statistics aren't as good (compare e.g. about \(100\) weighted counts at \(\Delta\SEnv = 7\) vs. \(10^4\) around \(\Delta\SEnv = 1\)).}
