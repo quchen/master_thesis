@@ -24,7 +24,7 @@ Recall that a Markov process is fully described by an initial configuration \(p^
 %
 which can be understood in two different ways. Coming from a Markov process, \(f\) corresponds to the bias of the transition rates to go towards a certain state, and \(g\) accounts for how the noise depends on location. On the other hand, seen from a neutral standpoint, \(f\) is of course a force term, and \(g\xi\) is the randomness of the system due to a heat bath represented by Gaussian noise \(\xi(t)\), for example.
 
-Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly \TODO{ref [6] in flow paper},
+Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly \cite{seifert-overdamped},
 %
 \begin{equation}
 	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^\dagger[\gamma^\dagger | q_0^\dagger]}
@@ -238,7 +238,7 @@ Reproducing this result from a microscopic approach however is nontrivial, and p
 \subsection{Fokker-Planck equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A key quantity later will be the propagator of the Fokker-Planck equation, which can be seen as the continuous analogon of the Master quation \RefEqn{eqn:master}. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into Fokker-Planck form. This will be done following the notation of \TODO{ref: [8] in flow paper} and defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
+A key quantity later will be the propagator of the Fokker-Planck equation, which can be seen as the continuous analogon of the Master quation \RefEqn{eqn:master}. For this reason, \RefEqn{eqn:model hamiltonian eqns of motion} has to be transformed into Fokker-Planck form. This will be done following the notation of \cite{sf} and defining phase space coordinates \(\vec x = (q,p)\), allowing it to be written as
 %
 \begin{equation}
 	\d x_i = A_i(\vec x,t)\d t + B_i(\vec x, t)\d W_i
@@ -322,7 +322,7 @@ where \(C\) is an arbitrary integration constant. However, since the last term i
 	\mu(p) = \frac12\beta\Gamma(p)^2 - \frac1p\Gamma(p)\Gamma'(p) ~.
 \end{equation}
 %
-This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\Gamma^2\) \TODO{ref?} (also known as the Einstein relation) for momenum-independent (``additive'') noise and linear friction.
+This generalizes the usual condition for detailed balance \(\mu = \frac12\beta\Gamma^2\) (also known as the Einstein relation) for momenum-independent (``additive'') noise and linear friction.
 
 
 
@@ -437,7 +437,7 @@ The outline of what follows is this. First, an overview of Spinney and Ford's ap
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. More explicitly, what they do is defining \(\dagger\) as \TODO{ref [9] is given here in the flow paper}
+In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. More explicitly, what they do is defining \(\dagger\) as \cite{sf-odd-even}
 %
 \begin{equation}\begin{split}
 	\gamma &= \Bigl\{\bigl(q(t),p(t)\bigr)\Bigr\}
@@ -453,7 +453,7 @@ where \(\varepsilon\) is a parity operator, and equates to \(+1\) for even quant
 	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^{\dagger_\SF}[\gamma^{\dagger_\SF} | q_0^{\dagger_\SF}]}
 \end{equation}
 %
-to derive an expression for the differential environmental entropy production of arbitrary underdamped stochastic systems in full phase space, \TODO{ref [8] is given here in the flow paper} given by
+to derive an expression for the differential environmental entropy production of arbitrary underdamped stochastic systems in full phase space \cite{sf}, given by
 %
 \begin{equation}
 	\d\SEnv^\SF = \ln \frac{G_a(\vec x'|x;\,\d t)}{G_b(\vec x'^\dagger|\vec x^\dagger;\,\d t)} ~;
