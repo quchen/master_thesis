@@ -25,7 +25,7 @@ Classical thermodynamics is a theory of averages of certain quantities. For exam
 %
 meaning that thermodynamic (macroscopic) entropy is always increasing. In colloquial terms, this describes the phenomenon that systems in nature are automatically driven towards greater uncertainty (a sand castle is a highly ordered arrangement of particles, and the wind is much more likely of rearranging these particles in a way that makes their position uncertain than to build up a castle by random chance).
 
-However, looking at the microscopic properties of a system, it is indeed possible that entropy spontaneously decreases -- when all microstates occur with some nonzero probability, there is also always a nonzero (albeit small) chance of transition to a highly ordered system. Fluctuation theorems provide a characteristic expression for the likelihood for certain statistical events to occur in a system. For example in the case of microscopic total entropy changes \(\Delta S\), it can be shown that
+However, looking at the microscopic properties of a system, it is indeed possible that entropy spontaneously decreases -- when all microstates occur with some nonzero probability, there is also always a nonzero (albeit small) chance of transition to a highly ordered system. Fluctuation theorems provide a characteristic expression for the likelihood for certain statistical events to occur in a system, and have been extensively studied in the past \cite{seifert-review, seifert-overdamped, crooks, esposito, evans-cohen-morriss, gallavotti-cohen, evans-searles, kurchan, lebowitz-spohn, jarzynski, crooks99, crooks00, maes, hatano-sasa, gaspard, kurchan2, harris}. For example in the case of microscopic total entropy changes \(\Delta S\), it can be shown that
 %
 \begin{equation}
 	P(\Delta S) = e^{\Delta S}P(-\Delta S)
@@ -64,7 +64,7 @@ It turns out that this derivation was overly general: in fact, a detailed fluctu
 %
 where \(A\) is an arbitrary antisymmetric function; the relation \RefEqn{eqn:average of exp} can be recovered by setting \(A(x) = \sinh(x/2) = \frac12(e^x-e^{-x})\).
 
-This was but one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities (such as different forms of heat, work, other sub-categories of entropy), as can be seen e.g. in \cite{seifert-review}, and one of the main results of this chapter will be yet another entire class of fluctuation theorems.
+This is just one example of a fluctuation theorem for \(\Delta S\); there are many more for other quantities (such as different forms of heat, work, other sub-categories of entropy), as can be seen e.g. in \cite{seifert-review}, and one of the main results of this chapter will be yet another entire class of fluctuation theorems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,13 +72,13 @@ This was but one example of a fluctuation theorem for \(\Delta S\); there are ma
 \label{sec:markov process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-A \emph{jumping process} is a system consisting of a discrete number of states that, governed by certain transition rates or probabilities, switches from one state to another repeatedly. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
+A \emph{jumping process} is a system consisting of a discrete number of states that, governed by certain transition rates or probabilities, spontaneously switches from one state to another repeatedly in a random fashion. A \emph{Markov process} is a special jumping process where the ``next'' state can only depend on the current state, and has no knowledge about its history. In other words, a Markov process is one in which the system does not have a concept of ``momentum'' in the colloquial sense.
 
 An example for a jumping process is a gambler in a casino, the state being how much money he has. Each time he places a bet, he changes his state (loses or wins money).
 %
 \begin{enumerate}
 	\item A realistic gambler can be seen jumping process, and can make his bets dependent on e.g. whether he lost his last game (which requires to know about the current balance and the one before that), or if he is suspicious kind could alter the winning probabilities in his favour. Note that the concept of ``winning streaks'' also falls into this category, as ``having'' one requires knowledge of the previous games/balances.
-	\item A Markovian gambler would decide how much to bet based solely on how much money he currently has (and possibly how late it is). He would base none of his decisions on his knowledge about previous games.
+	\item A Markovian gambler would decide how much to bet based solely on how much money he currently has. He would base none of his decisions on his knowledge about previous games.
 \end{enumerate}
 
 
@@ -90,7 +90,7 @@ An example for a jumping process is a gambler in a casino, the state being how m
 \subsection{Terminology}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Suppose we have a system \(\Omega\) of \(N\) states, enumerated by \(j\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_j\), the system transitions from an old state \(n_{j-1}\) into a new one. \(c_j\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space with \(J\) jumps,
+Suppose we have a system \(\Omega\) of \(N\) states, enumerated by \(j\). Time runs from \(t = 0\) to \(t = T\). At times \(\tau_j\), the system transitions from an old state \(c_{j-1}\) into a new one, \(c_j\). Grouping multiple successive state changes together, we can describe the history of the system using a trajectory through time/state space with \(J\) jumps,
 %
 \begin{align}
 	\gamma &=~
@@ -122,7 +122,7 @@ An ``element'' \(c_{i,\tau_i}\) of \(\gamma\) can thus be interpreted as ``the s
 	\label{fig:discrete_jumping_process}
 \end{figure}
 
-In a typical system, many such paths can be taken when starting from an initial configuration \(c_0\); depending on the dynamics of the system, the jumps can occur at different times or to different states. Due to the stochastic nature of the system, trajectories most likely occur with different probabilities; these probabilities will be denoted \(p[\{c_{i,\tau_i}\}|c_0]\) with an explicit mentioning of the starting point \(n_0\).
+In a typical system, many such paths can be taken when starting from an initial configuration \(c_0\); depending on the dynamics of the system, the jumps can occur at different times or to different states. Due to the stochastic nature of the system, trajectories most likely occur with different probabilities; these conditional probabilities will be denoted as \(p[\{c_{i,\tau_i}\}|c_0]\), with an explicit mentioning of the starting point \(n_0\).
 
 
 
@@ -239,7 +239,7 @@ For Markov processes, it is often suitable not to look at the total entropy \STo
 The \textbf{system entropy} \(\mathbf{\SSys{}}\) is the Shannon entropy of an ensemble. Running a Markov process, starting with some random initial configuration \(c_0\) drawn using some distribution \(p_0(t=0)\), then after some time \(\Delta t\) the system will be in a new configuration \(c_i\). Repeating the procedure many times will yield a distribution \(p_i(t)\) of the various \(c_i\) reached. \SSys{} is now the Shannon entropy associated to that distribution:
 %
 \begin{align}
-	\SSys(t) = \sum_i p_i(t)\ln p_i(t)
+	\SSys(t) = -\sum_i p_i(t)\ln p_i(t)
 \end{align}
 %
 The standard interpretation of this relationship is that \SSys{} is a quantity describing how concentrated the system is around certain states at a single point in time, or in other words how much more likely it is to be in some specific state (or set of states) compared to others. For example, if the transition matrix \(w_{c\to c'}\) has a bias to make the system go into a particular subset of configurations, \SSys will be lower, while maximum entropy is achieved when all states are reached with the same probability.
@@ -248,8 +248,9 @@ On the other hand, the \textbf{environmental entropy} \(\mathbf{\SEnv{}}\) takes
 %
 \begin{align}
 	\label{eqn:SEnv single jump definition}
-	\Delta\SEnv^{c\to c'} = \ln\frac{w_{c\to c'}}{w_{c'\to c}} ~.
+	\Delta\SEnv^{c\to c'} = \ln\frac{w_{c\to c'}}{w_{c'\to c}}
 \end{align}
+which is known as the Schnakenberg formula, after its discoverer \cite{schnakenberg}.
 %
 This provides a characteristic quantity for the reversibility of a process: \(\Delta \SEnv\) is zero if the jumps and its reverse are equally likely, larger than zero if a transition was made in a more likely state, and lastly smaller than zero if an unlikely jump happens.
 
@@ -293,11 +294,16 @@ The first term describes the system jumping into a state (probability current \(
 \label{sec:detailed balance}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-When talking about a system obeying statistical dynamics, there is a certain hierarchy of names describing how ``equilibriated'' it is. In a general setting it cannot be assumed that a system obeys special statistical properties because it follows arbitrary dynamics, and is called being in total nonequilibrium. The other end of the spectrum is equilibrium, where all macroscopic properties of the system are constant. There are a few important intermediate notions though, and one of them is called \emph{detailed balance}.
+Systems obeying statistical dynamics can be classified in multiple categories. On the one end of the spectrum there is total nonequilibrium, where all quantities fluctuate as they please. The opposite scenario is equilibrium, in which all macroscopic properties of the system are constant.
+
+\emph{Detailed balance} takes an intermediate position between these two: although on a microscopic level the system may fluctuate and change its state, all these fluctuations cancel each other out in their contribution to the macroscopic observables. This leads to a setting where the internal dynamics appear unequilibriated, but viewed from the outside it appears as if the system is in equilibrium.
+
+
 
 \subsubsection{First definition}
 
-A system in detailed balance looks like it is in equilibrium from the outside, but on a microscopic level it is not. What happens instead is that each process is cancelled out by its reverse on an individual level. Mathematically, the probability current from one state to another is identical to the reverse one,
+
+Mathematically, the cancellation of the contributions to macroscopic quantities mentioned above translates to the probability current from one state to another being identical to the reverse one,
 %
 \begin{equation}\begin{split}
 	\label{eqn:db first def}
@@ -455,7 +461,7 @@ where again \(A\) is an arbitrary antisymmetric function.
 \subsubsection{Path reversal and environmental entropy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-While \RefEqn{eqn:P(SEnv)} provides a statistical summary, an expression relating the actual value of \(\Delta\SEnv\) to path probabilities will be useful in the proof. \RefEqn{eqn:SEnv rate jump functional} is such a functional, but is rate- and noth path-based; therefore, the following postulate is useful, and will be shown to be equivalent to \RefEqn{eqn:SEnv rate jump functional}. Note that, although not necessary for this thesis, the statement holds even when the rates are time-dependent.
+While \RefEqn{eqn:P(SEnv)} provides a statistical summary, an expression relating the actual value of \(\Delta\SEnv\) to path probabilities will be useful in the proof. \RefEqn{eqn:SEnv rate jump functional} is such a functional, but is rate- and not path-based; therefore, the following postulate is useful, and will be shown to be equivalent to \RefEqn{eqn:SEnv rate jump functional}. Note that, although not necessary for this thesis, the statement holds even when the rates are time-dependent.
 %
 \begin{equation}
 	\label{eqn:SEnv path functional}
@@ -726,7 +732,7 @@ This section describes two numerical simulations to test the theorems previously
 \subsubsection{Simple growth process}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To demonstrate the result of the last section, consider the following growth model, which was originally investgated to explain certain wetting phenomena on an inert substrate. On an initially empty \(d\)-dimensional lattice with periodic boundary conditions, let \(h_i \in\Set N_0\) be the height of site \(i\). The dynamics now consist of repeatedly depositing particles to or evaporating them from the system at certain rates. However, the heights of adjacent sites are not independent, and subject to certain constraints.
+To demonstrate the result of the last section, consider the following growth model, which was originally investgated to explain certain wetting phenomena on an inert substrate \cite{wet1, wet2}. On an initially empty \(d\)-dimensional lattice with periodic boundary conditions, let \(h_i \in\Set N_0\) be the height of site \(i\). The dynamics now consist of repeatedly depositing particles to or evaporating them from the system at certain rates. However, the heights of adjacent sites are not independent, and subject to certain constraints.
 
 Now consider the simple case of a \(1\)-dimensional ring consisting of \(N\) sites (\(i+N \equiv i\)), subject to the constraint that adjacent sites' heights may only differ by a maximum of one,
 %
@@ -793,7 +799,9 @@ The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), a
 A single run now consists of sampling an initial state from \(p^\init\), and letting it evolve in a Monte-Carlo simulation for some time \(T\) (here: \(1\)), corresponding to a certain amount of attempted state transitions (here: \(10^5\)). Each time the system's configuration changes, the generated \(\Delta\SEnv\) is recorded. As an additional consistency check, the overall distriburion of final states was checked against a numerical solution of the Mater equation
 %
 \begin{equation}
-	\forall c.\;\dot p_c(t) = \underbrace{\sum_{c'}w_{c'\to c}p_{c'}(t)}_{\text{jump into } c} - \underbrace{\sum_{c'} w_{c\to c'}p_{c}(t)}_{\text{jump out of } c} ~,
+	\;\dot p_c(t) = \underbrace{\sum_{c'}w_{c'\to c}p_{c'}(t)}_{\text{jump into } c} - \underbrace{\sum_{c'} w_{c\to c'}p_{c}(t)}_{\text{jump out of } c}
+	\quad\forall c % Forgive me, I know the quantors belong in front of the formulas, but my boss won't have that :-P
+	~,
 \end{equation}
 %
 which describes the distribution of states on a statistical level directly, whereas the main simulation is based on individual runs, which are then later used for statistics.

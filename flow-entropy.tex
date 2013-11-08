@@ -13,7 +13,7 @@ The most important result will be that the production of environmental entropy i
 \label{sec:discrete to continuous}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system governed by Hamiltonian equations of motion.
+The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system \cite{sf, sf-odd-even, sf-overview, koreans} governed by Hamiltonian equations of motion.
 
 Recall that a Markov process is fully described by an initial configuration \(p^\init\) and a set of transition rates \(w\), which provide a way of getting from one state to the next. Conceptually, this can be continualized to the case where the configuration is the location of a particle, leading to a system described by
 %
@@ -24,7 +24,7 @@ Recall that a Markov process is fully described by an initial configuration \(p^
 %
 which can be understood in two different ways. Coming from a Markov process, \(f\) corresponds to the bias of the transition rates to go towards a certain state, and \(g\) accounts for how the noise depends on location. On the other hand, seen from a neutral standpoint, \(f\) is of course a force term, and \(g\xi\) is the randomness of the system due to a heat bath represented by Gaussian noise \(\xi(t)\), for example.
 
-Most noticably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}. Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly \cite{seifert-overdamped},
+Most notably, the above equation does not include any form of momentum. This can be seen as a residue of the Markov property, which was previously informally described as ``momentum-less''; in a continuous differential equation (DE), this description is much more meaningful, because very high damping gets rid of any momentum right away. For this reason, equations of the form \RefEqn{eqn:overdamped} are called \emph{overdamped}, and could for example describe the motion of a bacteria in water (which happens to be quite thick for small organisms \cite{sengupta}). Many of the quantities associated with Markov processes have clear corresponding quantities in the overdamped case, in particular the notion of a ``jump'' from one state to the other has a reverse, allowing the definition of environmental entropy to carry over quite directly \cite{seifert-overdamped},
 %
 \begin{equation}
 	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^\dagger[\gamma^\dagger | q_0^\dagger]}
@@ -61,7 +61,7 @@ Of course not all systems in nature are overdamped in the continuous case, just 
 %
 As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward way (i.e. the ``\(\dagger\)'' operation is not easily defined), and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
 
-To explain this, consider simply carrying over the \(\dagger\)~operation from the above (overdamped) case. The stochastic trajectory, now through \((q,p)\) space, will be transformed \`a la
+To explain this, consider simply carrying over the \(\dagger\)~operation from the above (overdamped) case. The stochastic trajectory, now through \((q,p)\) space, will be transformed according to
 %
 \begin{equation}\begin{split}
 	\gamma &= \Bigl\{\bigl(q(t),p(t)\bigr)\Bigr\}
@@ -94,7 +94,7 @@ The goal of this section is not providing an introduction to SDEs, but to illust
 \label{sec:math vs physics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
+A stochastic differential equation in mathematics usually takes the form
 %
 \begin{equation}
 	\label{eqn:sde}
@@ -127,7 +127,11 @@ and can therefore be pictured as a quantity fluctuating around \(0\) so wildly t
 \label{sec:ito-stratonovich dilemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
+%The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
+
+%There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
+
+There is a surprising phenomenon when integrating SDEs numerically. The na\"ive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later, using
 %
 \begin{equation}
 	X(t+\d t) = f(X(t))\d t + g(X(t)) \Cal R ~.
@@ -143,11 +147,11 @@ However, this leaves one question open: why should the functions be evaluated at
 are theoretically valid ways of defining the integration of \RefEqn{eqn:sde}. Which value of \(a\) to choose depends on a number of factors, a couple of which are:
 %
 \begin{itemize}
-	\item \emph{Modelling.} What is the nature of the noise? In finance, the randomness of the market is assumed to be a result of the current state and appears random due to the fact people are unpredictable. This is what the \Ito{} method models by setting \(a = 0\). On the other hand, for example in physics or biology, the noise often originates from a second, underlying and inaccessible process, such as temperature-related fluctuations, and setting \(a = 1/2\) (=~Stratonovich) accounts for this independence of noise and system by not preferring either side of the timestep over the other. Other values of \(a\) are not commonly used, although they do appear in special cases \TODO{ref: jaegon mentioned \(a=1\)}.
-	\item \emph{Pragmatism.} Some formulas are easier in certain formulations. A good example is the chain rule, which is called just that in the Stratonovich case, whereas its analogon has the telling name ``\Ito{}'s lemma''.
+	\item \emph{Modelling.} What is the nature of the noise? In finance, the randomness of the market is assumed to be a result of the current state and appears random due to the fact people are unpredictable. This is what the \Ito{} method models by setting \(a = 0\). On the other hand, for example in physics or biology, the noise often originates from a second, underlying and inaccessible process, such as temperature-related fluctuations, and setting \(a = 1/2\) (=~Stratonovich) accounts for this independence of noise and system by not preferring either side of the timestep over the other.
+	\item \emph{Pragmatism.} Some formulas are easier in certain formulations. A good example is the chain rule, which is called just that in the Stratonovich case, whereas its analogon has the telling name ``\Ito{}'s lemma'' \cite{sde}.
 \end{itemize}
 %
-In the context of these issues, it is important to mention that both approaches are equvalent and can be converted into each other via
+In the context of these issues, it is important to mention that both approaches are equivalent and can be converted into each other via
 %
 \begin{equation}
 	\int_0^Tf(W_t,t)\circ\d W_t
@@ -178,7 +182,7 @@ However, individual partcles are rarely\footnote{For a case where this \emph{is}
 	\end{split}
 \end{equation}
 %
-Like the Heat Equation, the FP equation describes a flow in terms of a current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
+Like the Heat Equation, the FP equation describes a flow in terms of a probability current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
 %
 \begin{align}
 	\d X_t = f(X_t,t)\d t + \sqrt{2 D(X_t,t)}\,\d W_t ~.
@@ -278,10 +282,10 @@ The FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} t
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Detailed balance redux}
+\subsection{Detailed balance in continuous systems}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The idea of detailed balance (section \RefSection{sec:detailed balance}) is also applicable to continuous system, where as mentioned the Fokker-Planck equation \RefEqn{eqn:fp} takes over for the Master equation \RefEqn{eqn:master}. Analogous, a stationary FP equation means all macroscopic state variables are constant; in the present context it is of particular interest that no heat or environmental entropy is exchanged with the bath.
+The idea of detailed balance (section \RefSection{sec:detailed balance}) is also applicable to continuous systems, where as mentioned the Fokker-Planck equation \RefEqn{eqn:fp} takes over for the Master equation \RefEqn{eqn:master}. Analogous, a stationary FP equation means all macroscopic state variables are constant; in the present context it is of particular interest that no heat or environmental entropy is exchanged with the bath.
 
 This can probably be better understood than in the discrete scenario even, where the explanation was quite abstract (``probability currents cancel out''). Eqns. \RefEqn{eqn:model hamiltonian eqns of motion} contains a friction term responsible for heating up the environment as the system moves, and also a noise term transferring energy (also in the form of heat) into the system. If these two contributions cancel out just right, then all that's left is a Hamiltonian system of a free particle in a potential, which is of course reversible and does not produce any heat.
 
@@ -309,7 +313,7 @@ The result is a first-order differential equation for \(\mu(p\)),
 	+ \mu(p)  ~.
 \end{split}\end{equation}
 %
-Thanks to computer algebra systems\footnote{Mathematica~9.0.0.0}, the solution of this daunting equation is obtained quite easily, it is
+Thanks to computer algebra systems\footnote{Mathematica~9.0.0.0}, the solution of this equation is obtained quite easily, it is
 %
 \begin{equation}
 	\mu(p) = \frac12\beta\Gamma(p)^2 - \frac1p\Gamma(p)\Gamma'(p) + C\frac1pe^{\frac{\beta p^2}2}
@@ -343,7 +347,7 @@ The short-time propagator \(G(\vec x'|\vec x;\,\d t)\) solves the FP equation to
 	\item It is not clear where the fields contained in the FP equation \RefEqn{eqn:fp phase}, \(f_i(\vec x,t)\) and \(D_i(\vec x,t)\), have to be evaluated: at \(\vec x\), \(\vec x'\), between, somewhere in the neighbourhood? In general, an evaluation point at any \(\vec r = \varphi(\vec x,\vec x')\) with bijective \(\varphi\) will do \cite{wissel}. Conceptually, this is similar to the \Ito{}-Stratonovich dilemma introduced in the conext of stochastic differential equations in section~\RefSection{sec:ito-stratonovich dilemma}, but it is important to emphasize that this is a \emph{new, independent} ambiguity in addition to the previous one (which was resolved to integration according to \Ito{} scheme to obtain the FP equation from the SDE).
 \end{enumerate}
 %
-To get a hold of the infinitely many short-time propagators, assume the evaluation point is linearly between the two end points,
+To get a hold of the infinitely many short-time propagators, assume the evaluation point is located linearly between the two end points,
 %
 \begin{equation}
 	\vec r = (1-a)\vec x + a\vec x' \qquad a\in[0,1] ~,
@@ -459,7 +463,7 @@ to derive an expression for the differential environmental entropy production of
 	\d\SEnv^\SF = \ln \frac{G_a(\vec x'|x;\,\d t)}{G_b(\vec x'^\dagger|\vec x^\dagger;\,\d t)} ~;
 \end{equation}
 %
-recall that the propagator \(G_a(\vec x'|x;\,\d t)\) acorresponds to the probability to go from \(\vec x = (q,p)\) to \(\vec x'\) in the short time \(\d t\), plus an ambiguity parameter \(a\). In the case of the underdamped particle \RefEqn{eqn:underdamped sde epsilon} this then reads
+recall that the propagator \(G_a(\vec x'|x;\,\d t)\) corresponds to the probability to go from \(\vec x = (q,p)\) to \(\vec x'\) in the short time \(\d t\), plus an ambiguity parameter \(a\). In the case of the underdamped particle \RefEqn{eqn:underdamped sde epsilon} this then reads
 %
 \begin{equation}
 	\label{eqn:DSEnv spinney main definition}
@@ -495,7 +499,7 @@ which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator
 	\\&\qquad
 		+\frac1{\Gamma^2}
 		(-2\Gamma\Gamma' - 2\mu p) \d p
-		+ \Cal O(\d t^2) +  \Cal O(\d p^3) ~;
+		+ \Cal O(\d t^2) +  \Cal O(\d p^3)
 \end{split}\end{equation}
 %
 where for the sake of brevity the explicit arguments of \(\Gamma(p)\), \(\mu(p)\) and \(V(q)\) have been dropped.
@@ -530,11 +534,11 @@ which is of course different from the \(a = 0\) result. Not very meaningful on i
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{What is ``the state'' of a stochastic system?}
+\subsection{What is ``the state'' of a stochastic system in continuous phase space?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The entropy definition, even in the continuous case, is based on the idea that environmental entropy is produced when the system changes from one state to another. SF's approach implicitly considers such a state to be the current location in phase space. As shown just above, this notion leads to strange results, illustrating an important difference between discrete and continuous settings: while randomness is the only source of dynamics in discrete models, continuous phase space systems consist of two parts: random \emph{and deterministic}.
-When a continuous system changes ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes, for example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
+When a continuous system c\zwiebelfisch{h}anges ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes, for example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
 
 This realization leads to the question whether ``the state'' of a stochastic system is maybe something different, and not just the current location in phase space, and as will be shown in the following, an alternative definition can be made that solves these issues.
 
@@ -581,7 +585,7 @@ where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for th
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9 \linewidth]{figures/trajectories}
-	\caption[]{Path construction in the two models. The left side shows SF's approach, which mirrors the forward trajectory \(\gamma\) into a different part of phase space (yielding \(\gamma^\dagger\)), and calculates the ratio of the weights of these two paths. On the right hand side is the flow-based approach, which does not mirror momenta; instead, it traces the Hamiltonian flow in order to reach the start and end points of the conjugate process \(\tilde\gamma\). (Image by Haye Hinrichsen, taken from \cite{flow-paper}.)}
+	\caption[]{Path construction in the two models. The left side shows SF's approach, which mirrors the forward trajectory \(\gamma\) into a different part of phase space (yielding \(\gamma^\dagger\)), and calculates the ratio of the weights of these two paths. On the right hand side is the flow-based approach, which does not mirror momenta; instead, it traces the Hamiltonian flow in order to reach the start and end points of the conjugate process \(\tilde\gamma\). (Image taken from \cite{flow-paper}.)}
 	\label{fig:hf sf}
 \end{figure}
 
@@ -590,7 +594,7 @@ where \emph{HF} is short for \emph{Hamiltonian Flow}, as opposed to \SF{} for th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-At this point may be a good idea to mention figure~\RefFigure{fig:hf sf} again, where the two path constructions (SF and flow) are pictured alongside each other. Important consequences compared to SF's model are as follows:
+In order emphasize the differences between the models recall figure~\RefFigure{fig:hf sf}, where the two path constructions (SF and flow) are pictured alongside each other. Important consequences compared to SF's model are as follows:
 %
 \begin{itemize}
 	\item The \HF{} entropy definition is local in phase space: nothing is mirrored into a different part of phase space, and the entire quotient is constrained to an arbitrarily small part of phase space for sufficiently small timespans.
