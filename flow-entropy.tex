@@ -13,7 +13,7 @@ The most important result will be that the production of environmental entropy i
 \label{sec:discrete to continuous}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The basis of Chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system \cite{sf, sf-odd-even, sf-overview, koreans} governed by Hamiltonian equations of motion.
+The basis of chapter~\ref{chap:thingie} was the assumption of a discrete system \(\Omega = \{c_1, c_2, \ldots\}\). On the other hand, many processes occurring in nature are not discrete. This chapter describes an attempt to transfer the concept of environmental entropy used before to a continuous phase space system \cite{sf, sf-odd-even, sf-overview, koreans} governed by Hamiltonian equations of motion.
 
 Recall that a Markov process is fully described by an initial configuration \(p^\init\) and a set of transition rates \(w\), which provide a way of getting from one state to the next. Conceptually, this can be continualized to the case where the configuration is the location of a particle, leading to a system described by
 %
@@ -46,7 +46,7 @@ where the last line is important if the coefficients in \RefEqn{eqn:overdamped} 
 	\centering
 	\include{figures/knight-continuous}
 	\caption[]{
-		The knight from figure~\RefFigure{fig:knight}, but now in a continuous setting, where the configuration is \((x,y)\in\Set R^2\). The {\color{red}forward path \(\gamma\)} is taken with probability \(p[{\color{red}\gamma}|{\color{yellow}x_0}]\), and the {\color{blue}backward/conjugate path \(\gamma^\dagger\)} occurs with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{yellow}x_0^\dagger}]\). In both cases, the paths can be constructed so time runs forward as the particle follows the trajectory.
+		The knight from figure~\RefFigure{fig:knight}, but now in a continuous setting, where the configuration is \((x,y)\in\Set R^2\). The {\color{red}forward path \(\gamma\)} is taken with probability \(p[{\color{red}\gamma}|{\color{dyellow}x_0}]\), and the {\color{blue}backward/conjugate path \(\gamma^\dagger\)} occurs with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{dyellow}x_0^\dagger}]\). In both cases, the paths can be constructed so time runs forward as the particle follows the trajectory.
 	}
 	\label{fig:knight continuous}
 \end{figure}
@@ -59,7 +59,7 @@ Of course not all systems in nature are overdamped in the continuous case, just 
 	\dot p(t) &= f_p(q,p,t) + g_p(q,p,t)\xi_p(t)
 \end{split}\end{equation}
 %
-As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward way (i.e. the ``\(\dagger\)'' operation is not easily defined), and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
+As will be discussed later, it is nontrivial to introduce the concept of environmental entropy production in this scenario. The key reason to this is that a path cannot be reversed in a straight-forward way (i.e. the ``\(\dagger\)'' operation is not that easy to find), and the main result of this chapter is a new way this path reversal can be defined, and what the consequences are.
 
 To explain this, consider simply carrying over the \(\dagger\)~operation from the above (overdamped) case. The stochastic trajectory, now through \((q,p)\) space, will be transformed according to
 %
@@ -90,7 +90,7 @@ The goal of this section is not providing an introduction to SDEs, but to illust
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Math vs. physics}
+\subsection{Mathematics vs. physics}
 \label{sec:math vs physics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -126,10 +126,6 @@ and can therefore be pictured as a quantity fluctuating around \(0\) so wildly t
 \subsection{\Ito{} vs. Stratonovich}
 \label{sec:ito-stratonovich dilemma}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%The area usually associated with stochastic differential equations in mathematics is \Ito{} calculus, while its close relative named after Stratonovich is what physics typically deals with. Both of these deal with equations of the form
-
-%There is a surprising difference between the \Ito{} and Stratonovich schemata used to describe a system's behaviour. Suppose one wanted to solve a SDE numerically. The naive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later \`a la
 
 There is a surprising phenomenon when integrating SDEs numerically. The na\"ive approach would take the current state of the system \(X(t)\), and extrapolate its new value using the SDE (using a suitably generated random number \(\Cal R\) for the noise) a timespan \(\d t\) later, using
 %
@@ -169,9 +165,9 @@ where the convention is that ``\(\circ\,\d W_t\)'' stands for Stratonovich integ
 \label{sec:fp introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), tracks its behaviour over time, and accumulates this in a final probability distribution for its value. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
+SDEs like eq.~\RefEqn{eqn:sde} assume a single quantity \(X\), track its behaviour over time, and accumulate this in a final probability distribution for its possible values. This is a microscopic approach, effectively equivalent to repeating the same experiment with identical initial conditions (i.e. particle in the same place) many times, recording each individual result, and putting that in a histogram.
 
-However, individual partcles are rarely\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the Brownian motion of small particles in liquid \cite{sengupta}.} accessible, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat Equation:
+However, individual partcles are rarely accessible\footnote{For a case where this \emph{is} possible, consider biophysical models of individual cells, or the Brownian motion of small particles in liquid \cite{sengupta}.}, and the starting point of the experiment is a probability distribution in the first place. This scenario is described by the Fokker-Planck (FP) equation, which can be interpreted as a generalized Heat equation:
 %
 \begin{equation}
 	\label{eqn:fp}
@@ -182,7 +178,7 @@ However, individual partcles are rarely\footnote{For a case where this \emph{is}
 	\end{split}
 \end{equation}
 %
-Like the Heat Equation, the FP equation describes a flow in terms of a probability current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
+Like the Heat equation, the FP equation describes a flow in terms of a probability current, just that this current can be more complex. Nevertheless, it still describes the evolution of an entire distribution over time, and not of one of its constituents. It can be shown that the FP equation is an alternative and equivalent formulation of the SDE
 %
 \begin{align}
 	\d X_t = f(X_t,t)\d t + \sqrt{2 D(X_t,t)}\,\d W_t ~.
@@ -198,7 +194,7 @@ when integrated according to the \Ito{} calculus \cite{sde}.
 \label{sec:underdamped-model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The treatment of the most general case of Hamiltonian motion, as stated for a single particle in \RefEqn{eqn:general hamiltonian equations}, turns out to be very complicated. For this reason, the model used here is a special case of said equations. That is not to say it is impractical though; many of the basic systems of classical mechanics can be described by these equations:
+The treatment of the most general case of Hamiltonian motion, as stated for a single particle in \RefEqn{eqn:general hamiltonian equations}, turns out to be very complicated. For this reason, the model used here is a special case of said equations. That is not to say it is impractical though; many of the basic systems of classical mechanics can be described by them:
 %
 \begin{equation}\boxed{\begin{split}
 	\label{eqn:model hamiltonian eqns of motion}
@@ -287,9 +283,9 @@ The FP equation corresponding to \RefEqn{eqn:model hamiltonian eqns of motion} t
 
 The idea of detailed balance (section \RefSection{sec:detailed balance}) is also applicable to continuous systems, where as mentioned the Fokker-Planck equation \RefEqn{eqn:fp} takes over for the Master equation \RefEqn{eqn:master}. Analogous, a stationary FP equation means all macroscopic state variables are constant; in the present context it is of particular interest that no heat or environmental entropy is exchanged with the bath.
 
-This can probably be better understood than in the discrete scenario even, where the explanation was quite abstract (``probability currents cancel out''). Eqns. \RefEqn{eqn:model hamiltonian eqns of motion} contains a friction term responsible for heating up the environment as the system moves, and also a noise term transferring energy (also in the form of heat) into the system. If these two contributions cancel out just right, then all that's left is a Hamiltonian system of a free particle in a potential, which is of course reversible and does not produce any heat.
+This can probably be better understood than in the discrete scenario even, where the explanation was quite abstract (``probability currents cancel out''). Eqns. \RefEqn{eqn:model hamiltonian eqns of motion} contain a friction term responsible for heating up the environment as the system moves, and also a noise term transferring energy (also in the form of heat) into the system. If these two contributions cancel out just right, then all that's left is a Hamiltonian system of a free particle in a potential, which is of course reversible and does not produce any heat.
 
-Being in detailed balance introduces a connection between the friction terms \(\mu(p)\) and the noise coefficient \(\Gamma(p)\) in \RefEqn{eqn:model hamiltonian eqns of motion}. This relation can be obtainex explicitly by inserting a Boltzmann distribution (which is the equilibrium distribution of a system in thermal equilibrium with a heat bath) into the FP equation \RefEqn{eqn:fp phase} and setting it equal zero, namely
+Being in detailed balance introduces a connection between the friction terms \(\mu(p)\) and the noise coefficient \(\Gamma(p)\) in \RefEqn{eqn:model hamiltonian eqns of motion}. This relation can be obtained explicitly by inserting a Boltzmann distribution (which is the equilibrium distribution of a system in thermal equilibrium with a heat bath) into the FP equation \RefEqn{eqn:fp phase} and setting it equal zero, namely
 %
 \begin{equation}
 	P_\text{Boltz}(q,p)
@@ -388,7 +384,7 @@ The system in question, \RefEqn{eqn:model hamiltonian eqns of motion}, consists 
 \end{equation}
 %
 the coefficient \(\varepsilon\) will later fall away on its own, justifying this rather ad-hoc addition.
-The resulting propagator for this model then reads \TODO{check for correctness}
+The resulting propagator for this model then reads
 %
 \begin{equation}
 	\label{eqn:short time propagator}
@@ -421,7 +417,7 @@ As a consistency check, consider the limit \(\varepsilon\to0\). According to the
 	\end{split}
 \end{equation}
 %
-where the \(\delta\) accounts for the deterministic location.
+where the \(\delta\) accounts for the deterministic location, and the exponent ``\ldots'' is independent of the location \(q\).
 
 
 
@@ -441,7 +437,7 @@ The outline of what follows is this. First, an overview of Spinney and Ford's ap
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. More explicitly, what they do is defining \(\dagger\) as \cite{sf-odd-even}
+In order to solve the issue of na\"ive path reversal mentioned in section~\RefSection{sec:discrete to continuous}, Spinney and Ford (SF) \cite{sf} choose to reverse time itself (\(t\to-t\)); more precisely, they take the time parity of all quantities into account, and mirror only those changing sign under time reversal. They define ``\(\dagger\)'' as \cite{sf-odd-even}
 %
 \begin{equation}\begin{split}
 	\gamma &= \Bigl\{\bigl(q(t),p(t)\bigr)\Bigr\}
@@ -451,7 +447,7 @@ In order to solve the issue of na\"ive path reversal mentioned in section~\RefSe
 		= \Bigl\{\bigl(\varepsilon q(T-t),\varepsilon p(T-t)\bigr)\Bigr\}
 \end{split}\end{equation}
 %
-where \(\varepsilon\) is a parity operator, and equates to \(+1\) for even quantities such as \(q\) and \(-1\) for odd ones such as \(p\) under time reversal. Using this, they are able to use the entropy definition
+where \(\varepsilon\) is a parity operator, which is \(+1\) for even quantities such as \(q\) and \(-1\) for odd ones such as \(p\) under time reversal. Using this, they are able to use the entropy definition
 %
 \begin{equation}
 	\Delta\SEnv = \ln\frac{p[\gamma | q_0]}{p^{\dagger_\SF}[\gamma^{\dagger_\SF} | q_0^{\dagger_\SF}]}
@@ -475,13 +471,13 @@ recall that the propagator \(G_a(\vec x'|x;\,\d t)\) corresponds to the probabil
 %
 A graphical representation of the paths constructed here can be found in the left part of figure~\RefFigure{fig:hf sf} (page~\pageref{fig:hf sf}).
 
-In order to make this equation well-behaved in the limit of the ad-hoc parameter \(\varepsilon\to0\), both parts of the fraction have to peak at the same location; taking a step away from mathematics, this can be understood as the \(\delta\)~distributions in \RefEqn{eqn:delta-limit} cancelling. This leads to the condition \TODO{verify equation}
+In order to make this equation well-behaved in the limit of the ad-hoc parameter \(\varepsilon\to0\), both parts of the fraction have to peak at the same location; taking a step away from mathematics, this can be understood as the \(\delta\)~distributions in \RefEqn{eqn:delta-limit} cancelling. This leads to the condition
 %
 \begin{equation}
 	(q'-q)-(p+a(p'-p))\d t = -\bigl((q-q') - (-p'+b(-p+p'))\d t\bigr)
 \end{equation}
 %
-which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment~\cite{sf}. Direct calculation of the entropy production results in the expression \TODO{verify}
+which is solved by \(b = 1 - a\), and therefore eliminates one of the propagator ambiguity parameters in \RefEqn{eqn:DSEnv spinney main definition}. SF obtain the same relation after a lengthy derivation in their appendix, and choose \(a = 0\) in the main text without further comment~\cite{sf}. Direct calculation of the entropy production results in the expression
 %
 \begin{equation}\begin{split}
 	\label{eqn:sf entropy production}
@@ -538,7 +534,7 @@ which is of course different from the \(a = 0\) result. Not very meaningful on i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The entropy definition, even in the continuous case, is based on the idea that environmental entropy is produced when the system changes from one state to another. SF's approach implicitly considers such a state to be the current location in phase space. As shown just above, this notion leads to strange results, illustrating an important difference between discrete and continuous settings: while randomness is the only source of dynamics in discrete models, continuous phase space systems consist of two parts: random \emph{and deterministic}.
-When a continuous system c\zwiebelfisch{h}anges ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes, for example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
+When a continuous system c\zwiebelfisch{h}anges ``its state'' in the previous sense, i.e. moves to a different point in phase space, this is not necessarily due to the noise, but could just be a consequence of deterministic processes. For example the ``SDE'' of the Hamiltonian model \RefEqn{eqn:model hamiltonian eqns of motion} with \(\mu \equiv \Gamma \equiv 0\), i.e. only the deterministic part of the system, seems to change state, but as it moves deterministically on the Hamiltonian flow it of course produces no entropy.
 
 This realization leads to the question whether ``the state'' of a stochastic system is maybe something different, and not just the current location in phase space, and as will be shown in the following, an alternative definition can be made that solves these issues.
 
@@ -674,7 +670,7 @@ where the propagator has no explicit \(t\) dependence, which has therefore been 
 %
 which holds iff \(a = b = \tfrac12\), as can be shown by expanding the force \(f(q')\) around \(q\) and neglecting terms of \(\Cal O(\d t^3)\). This makes a lot of sense, as it means that the fields are evaluated around the center of each trajectory, which to leading order in time is the same for both processes. This result is much stronger than what is obtained in SF's case, where \(a = b\) is imposed, without giving them a specific value.
 
-Like in the SF chapter before, the entropy production \RefEqn{eqn:flow entropy quotient} can be calculated in this case, yielding \TODO{verify}
+Like in the SF chapter before, the entropy production \RefEqn{eqn:flow entropy quotient} can be calculated in this case, yielding
 %
 \begin{equation}\begin{split}
 	\label{eqn:hf entropy}
@@ -780,7 +776,7 @@ which allows rewriting \(\d\SEnvLoc\) as
 	+ \Cal O(\d t^2)
 \end{equation}
 %
-where the expression is split up in two parts that easily combine into the local entropy production: \(\sigma_{ij}\) is obtained via the expansions of the known propagator quotients from the previous section using \RefEqn{eqn:dSEnv power expansion}, and the not yet known propagator moments \(M_{ij,c}\).
+where the expression is split up in two parts that easily combine into the local entropy production: \(\sigma_{ij}\) is obtained via the expansions of the known propagator quotients from the previous section using \RefEqn{eqn:dSEnv power expansion}, and the rest of the moments \(M_{ij,c}\).
 
 
 
@@ -797,10 +793,10 @@ These expressions are noteworthy in a couple of ways:
 \begin{enumerate}
 	\item The ambiguity parameter \(c\) does not appear in terms of leading order, indicating that the propagator moments are independent of said ambiguity at least in the present special case, where the fields are evaluated linearly between start and end points. (Recall that the most general version, introduced in section~\RefSection{sec:general propagator case}, allows evaluation at arbitrary points \(\varphi(\vec x,\vec x')\), whereas here \((1-c)\vec x + c\vec x'\) has been chosen.)
 	\item None of the nonzero \(\d q\) moments matter; they all contribute to higher-order in \(\d t\) terms only.
-	\item The ad-hoc quantity \(\varepsilon\) of the equations of motion \RefEqn{eqn:underdamped sde epsilon} vanishes naturally in the calculation, once again justifying its previous introduction.
+	\item The ad-hoc quantity \(\varepsilon\) of the equations of motion \RefEqn{eqn:underdamped sde epsilon} vanishes on its own in the calculation, once again justifying its previous introduction.
 \end{enumerate}
 
-Now \(\d\SEnvLoc\) can be calculated for the Spinney-Ford case with \(a=0\), the Hamiltonian Flow model and therefore also \SF with \(a = \tfrac12\), and remarkably the results are all identical, namely \TODO{verify formula}
+Now \(\d\SEnvLoc\) can be calculated for the Spinney-Ford case with \(a=0\), the Hamiltonian Flow model and therefore also \SF with \(a = \tfrac12\), and remarkably the results are all identical, namely
 %
 \begin{equation}\begin{split}
 	\d\SEnvLoc(q,p,\d t)
@@ -859,7 +855,7 @@ in \RefEqn{eqn:global entropy production}, the global entropy production can be 
 %
 \begin{equation}
 	\label{eqn:global entropy 0}
-	\forall t. ~ \langle\d\SEnv\rangle(t) = 0
+	\langle\d\SEnv\rangle(t) = 0 ~ \forall t
 \end{equation}
 %
 which is what a system obeying detailed balance in thermal equilibrium should obey. This is in agreement with classical thermodynamics again, and the necessity for the previous calculation also hints at why the expression for \(\d\SEnv\) in \RefEqn{eqn:classical environmental entropy production} is not entirely correct: although it assumes \emph{some} properties equilibrium provides, it is a ``thermodynamic'' quantity in terms of \(q\) and \(p\), while classical thermodynamics only deals with averages in which single appearances of location and momentum are meaningless.

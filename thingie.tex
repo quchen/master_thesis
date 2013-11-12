@@ -77,7 +77,7 @@ A \emph{jumping process} is a system consisting of a discrete number of states t
 An example for a jumping process is a gambler in a casino, the state being how much money he has. Each time he places a bet, he changes his state (loses or wins money).
 %
 \begin{enumerate}
-	\item A realistic gambler can be seen jumping process, and can make his bets dependent on e.g. whether he lost his last game (which requires to know about the current balance and the one before that), or if he is suspicious kind could alter the winning probabilities in his favour. Note that the concept of ``winning streaks'' also falls into this category, as ``having'' one requires knowledge of the previous games/balances.
+	\item A realistic gambler can be seen as a general jumping process, and can make his bets dependent on e.g. whether he lost his last game (which requires to know about the current balance and the one before that), or if he is suspicious kind could alter the winning probabilities in his favour. Note that the concept of ``winning streaks'' also falls into this category, as ``having'' one requires knowledge of the previous games/balances.
 	\item A Markovian gambler would decide how much to bet based solely on how much money he currently has. He would base none of his decisions on his knowledge about previous games.
 \end{enumerate}
 
@@ -126,9 +126,9 @@ In a typical system, many such paths can be taken when starting from an initial 
 
 
 
-A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Since later calculations will require ratios of rates it is required that in case of a nonzero jumping rate, the reverse jump also has a nonzero entry. Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and such trajectories are what this chapter is about.
+A Markov process on a set of \(N\) states is characterized by a (possibly time-dependent) transition matrix \(w_{c\to c'}\), whose entries are the rates at which the system jumps from one configuration \(c\) to another one \(c'\). Since later calculations will require ratios of rates it is required that in case of a nonzero jumping rate, the reverse jump also has a nonzero entry. Letting this system run for a certain amount of time will result in such a stochastic trajectory \(\gamma\) through the state space, and these trajectories are what this chapter is about.
 
-Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering intermediate \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions \cite{seifert-review},
+Given such a process, the probability of a path \(p[\{c_{i,\tau_i}\}|c_0]\), containing a total of \(J\) jumps (and consequently covering \(J+1\) states), can be expressed as a series of ``staying in the same state'' and ``change state'' contributions \cite{seifert-review},
 %
 \begin{equation}
 	\begin{split}
@@ -216,7 +216,7 @@ It will also be necessary to calculate the probability of taking the steps of a 
 \begin{figure}[htbp]
 	\centering
 	\include{figures/knight}
-	\caption[]{Path reversal for randomly moving knight on an infinite chess board. The {\color{red}forward path \(\gamma\)} is take by the knight with probability \(p[{\color{red}\gamma}|{\color{yellow}x_0}]\) of following this path. The {\color{blue}conjugate path \(\gamma^\dagger\)} is that same knight making the same jumps, but in opposite order and direction, which happens with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{yellow}x_0^\dagger}]\).}
+	\caption[]{Path reversal for randomly moving knight on an infinite chess board. The {\color{red}forward path \(\gamma\)} is taken by the knight with probability \(p[{\color{red}\gamma}|{\color{dyellow}x_0}]\). The {\color{blue}conjugate path \(\gamma^\dagger\)} is that same knight making the same jumps, but in opposite order and direction, which happens with probability \(p^\dagger[{\color{blue}\gamma^\dagger}|{\color{dyellow}x_0^\dagger}]\).}
 	\label{fig:knight}
 \end{figure}
 
@@ -271,7 +271,7 @@ where \(J\) is the total number of jumps in \(\gamma\), and \(c_i\) are the conf
 \label{sec:master equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-One way of exploring the properties of a Markov process is to collect statistics via running the same experiment many times. Another approach is starting with the statistics in the first place -- instead of starting with individual processes and measuring their distribution, take the distribution of states and ask how it will evolve. This is what the \emph{Master equation} describes:
+One way of exploring the properties of a Markov process is to collect statistics via running the same experiment many times. Another approach is starting with the statistics in the first place -- instead of beginning with individual processes and measuring their distribution, take the distribution of states and ask how it will evolve. This is what the \emph{Master equation} describes:
 %
 \begin{align}
 	\label{eqn:master}
@@ -282,7 +282,7 @@ One way of exploring the properties of a Markov process is to collect statistics
 		- \sum_{c'} p_c(t)w_{c\to c'}
 \end{align}
 %
-The first term describes the system jumping into a state (probability current \(j\) towards the state \(c\)), while the second one accounts for transitions out of it (current away from \(c\)). A stationary Master equation (\(\dot p \equiv 0\)) is characteristic for systems for which macroscopic quantities are constant, as described below.
+The first term describes the system jumping into a state (probability current \(j\) towards the state \(c\)), while the second one accounts for transitions out of it (current away from \(c\)). A stationary Master equation (\(\dot p \equiv 0\)) is characteristic for systems for which macroscopic quantities are constant, as described next.
 
 
 
@@ -311,7 +311,7 @@ Mathematically, the cancellation of the contributions to macroscopic quantities 
 	\Leftrightarrow p_cw_{c\to c'} &= p_{c'}w_{c'\to c} ~.
 \end{split}\end{equation}
 %
-This formulation leads directly to a stationary Master Equation, which explains how the macroscopic properties of the system are constant. However, it falsely suggests that detailed balance depends on the probability distribution \(p_c\) of the system at a point in time, when in fact this is not so, as can be seen in an alternative formulation.
+This formulation leads directly to a stationary Master equation, which explains how the macroscopic properties of the system are constant. However, it falsely suggests that detailed balance depends on the probability distribution \(p_c\) of the system at a point in time, when in fact this is not so, as can be seen in an alternative formulation.
 
 
 \subsubsection{Second definition}
@@ -341,7 +341,7 @@ This picture, also illustrated in figure~\RefFigure{fig:pathcircle}, makes it ea
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-From now on, all rates will be assumed time-independent,
+From now on all rates will be assumed time-independent,
 \begin{equation}
 	\tdq{}tw_{c\to c'} = 0 ~,
 \end{equation}
@@ -404,8 +404,7 @@ where \(\Cal N\) is a normalization constant to take the addition of \(\chi\) in
 	\label{eqn:weighted normalized}
 	\Cal N = \int\Cal D\gamma \, W[\gamma] \chi_{c_0,c_T} ~.
 \end{align}
-
-
+%
 Applied to the environmental entropy production \(\Delta\SEnv\), this weighted average reads
 %
 \begin{equation}
@@ -416,7 +415,7 @@ Applied to the environmental entropy production \(\Delta\SEnv\), this weighted a
 	&= \frac1{\Cal N} \int\Cal D\gamma \, W[\gamma] \delta(X-\Delta\SEnv[\gamma]) \chi_{c_0,c_T}
 	\end{split}
 \end{equation}
-
+%
 This allows the main result of this chapter to be stated, namely that the quantity \(\tilde P\) satisfies a detailed fluctuation theorem,
 %
 \begin{equation}
@@ -470,7 +469,6 @@ While \RefEqn{eqn:P(SEnv)} provides a statistical summary, an expression relatin
 \end{equation}
 %
 Therefore, for a path with a total of \(J\) jumps (hence containing \(J+1\) intermediate states),
-\TODO{Double-check this for correctness}
 %
 \begin{align*}
 	&\phantom{=}
@@ -528,7 +526,7 @@ Therefore, for a path with a total of \(J\) jumps (hence containing \(J+1\) inte
 as claimed in \RefEqn{eqn:SEnv path functional}. Specialized to time-independent rates, this then reads
 \begin{align}
 	\label{eqn:SEnv path functional constant rates}
-	\Delta\SEnv
+	\Delta\SEnv[\gamma]
 	= \ln\frac{Q[\gamma]}{Q[\gamma^\dagger]} ~.
 \end{align}
 
@@ -725,7 +723,7 @@ This formula provides an insight in the energy fluctuations of a system with con
 \subsection{Numerical tests}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This section describes two numerical simulations to test the theorems previously developed. The first example will pick up right where the previous section ended with a concrete model, while the second one makes relatively little assumptions about the dynamics of a system, providing a more general perspective.
+This section describes two numerical simulations to test the theorems previously developed. The first example will pick up right where the last section ended with a concrete model, while the second one makes relatively little assumptions about the dynamics of a system, providing a more general perspective.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -737,7 +735,7 @@ To demonstrate the result of the last section, consider the following growth mod
 Now consider the simple case of a \(1\)-dimensional ring consisting of \(N\) sites (\(i+N \equiv i\)), subject to the constraint that adjacent sites' heights may only differ by a maximum of one,
 %
 \begin{equation}
-	\forall i.\; |h_i - h_{i+1}| \leq 1 ~.
+	|h_i - h_{i+1}| \leq 1 ~ \forall i ~.
 \end{equation}
 %
 Particles are deposited at rate \(q_1\) and evaporate at rate \(1\) (note that rescaling of the rates corresponds to rescaling of time, therefore evaporation can be set to \(1\) without loss of generality), illustrated in fig.~\RefFigure{fig:growth process schema}.
@@ -767,7 +765,7 @@ where \(\Delta\mu = -(\ln q_2-\ln q_1)\) is what previously was an inverse tempe
 
 Figure~\RefFigure{fig:growth_process_plot} shows how the above average develops in simulations of small systems in a billion trials. Each experiment confirms the fluctuation theorem by clearly converging to \(1\).
 
-Surprisingly, the quench over the phase transition into a nonequilibrium state (\(q_2 > 1\)) shows converging behaviour, which is something the theorem does not suggest, due to the assumption of having an equilibrium on either (far) end of the quenches. This suggests that the theorem could be more powerful than expected, and could e.g. be useful to find out properties of the critical point \(q = 1\) of the phase transition. At this point this remains entirely speculative though, and would be a suitable subject for further investigations.
+Surprisingly, the quench over the phase transition into a nonequilibrium state (\(q_2 > 1\)) shows converging behaviour, which is something the theorem does not predict, due to the assumption of having an equilibrium on either (far) end of the quenches. This suggests that the theorem could be more powerful than expected, and could e.g. be useful to find out properties of the critical point \(q = 1\) of the phase transition. At this point this remains entirely speculative though, and would be a suitable subject for further investigations.
 
 
 
@@ -794,7 +792,7 @@ To test the more general formula \RefEqn{eqn:SEnv fluctuation theorem}, namely
 %
 a less specialized setup is necessary. Here, we will only assume the most basic requirements for this theorem, namely having a Markov process with time-independent rates; more explicitly, there will be no assumptions of equilibirum or asymptotic behaviour.
 
-The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), and therefore a transition matrix \(w_{c\to c'}\) with \(8^2-8 = 56\) nonzero entries (\(\forall c.\;w_{c\to c} = 0\)). Its elements are randomly chosen (strictly) between \(0\) and \(1\) before the experiment (and left fixed throughout each run). In a similar fashion, the initial distribution \(p^\init\) is determined.
+The system consists of a set of states \(c_i\in\Omega\) with \(|\Omega| = 8\), and therefore a transition matrix \(w_{c\to c'}\) with \(8^2-8 = 56\) nonzero entries (\(w_{c\to c} = 0~\forall c\)). Its elements are randomly chosen (strictly) between \(0\) and \(1\) before the experiment (and left fixed throughout each run). In a similar fashion, the initial distribution \(p^\init\) is determined.
 
 A single run now consists of sampling an initial state from \(p^\init\), and letting it evolve in a Monte-Carlo simulation for some time \(T\) (here: \(1\)), corresponding to a certain amount of attempted state transitions (here: \(10^5\)). Each time the system's configuration changes, the generated \(\Delta\SEnv\) is recorded. As an additional consistency check, the overall distriburion of final states was checked against a numerical solution of the Mater equation
 %
@@ -813,7 +811,7 @@ A simulation now consists of a decent amount (\(10^7\)) individual runs, the res
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=30em]{figures/histogram_lin}
-	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{dyellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the {\color{dyellow}yellow} graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
+	\caption[]{Linear histogram of a simulation of the fluctuation theorem for \(\Delta\SEnv\), obtained by binning the results of \(10^7\) individual runs. Shown in {\color{blue}blue} and {\color{red}red} are the actual histogram and that histogram with the symmetry relation \(f(x) = e^xf(-x)\) (corresponding to the fluctuation theorem) applied; the {\color{dyellow}yellow} line is the (absolute) deviation between these two representations. It can be seen that both histograms match well, with only a few barely visible red peaks overshooting, which is visualized by the {\color{dyellow}yellow} graph more clearly. The overlap is especially good in the region around \(\Delta\SEnv = 0\) (most notably \emph{at} \(0\), where two peaks about \(5\cdot10^4\) units high meet), whereas in the large deviation regime towards the edges of the plot show rare events for which the statistics are not as good, but still well within acceptable bounds.}
 	\label{fig:histogram_lin}
 \end{figure}
 
