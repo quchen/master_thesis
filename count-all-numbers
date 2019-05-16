@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# I’m so sorry for this script’s source.
+
+set -euo pipefail
+
+# Long filter to get rid of year numbers, accidential numbers (such as in
+# \frac12), Latex commands etc.
+numbers=$(grep -rE "[0-9]+" * --color=none | grep -Ev "(biblio|include|figures|frac[0-9]{2,}|20(12|13)|[0-9]\.[0-9]|_\{[0-9]{2})|ColorData|grep|crooks|frac\{3\^22|[0-9]em")
+
+# inspect numbers:
+# echo "$numbers" | grep -E "[0-9]+" --color=always
+rawNumbers=$(echo "$numbers" | grep -Eo "[0-9]+" | xargs echo -n)
+
+echo "These are all numbers contained in my thesis."
+{
+python3 <<EOF
+histogram = dict()
+for n in '$rawNumbers'.split():
+    histogram[n] = histogram.get(n,0) + 1
+for n, count in histogram.items():
+    print(f"{n}: {count}")
+EOF
+} | sort -n
